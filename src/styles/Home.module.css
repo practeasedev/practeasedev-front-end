@@ -1,0 +1,45 @@
+.heroSection{
+    padding: 3rem var(--page-sides-padding);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+}
+
+.tagline{
+    margin-bottom:3rem;
+}
+
+.heroSide {
+    text-align: right;
+}
+
+.highLightedText{
+    position: relative;
+}
+
+.highLightedText:before {
+    content: url('../assets/curve-design-element.svg');
+    display: block;
+    position: absolute;
+    width:100%;
+    bottom: -50%;
+    left:0;
+}
+
+.circleDesign{
+    position:absolute;
+    top:0;
+    right:-5%;
+    z-index:-1;
+    width:30%;
+    height:auto;
+}
+
+.triangleDesign{
+    position: absolute;
+    top:40%;
+    left:-5%;
+    z-index:-1;
+    width:30%;
+    height:auto;
+}

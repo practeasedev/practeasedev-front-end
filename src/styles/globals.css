@@ -22,6 +22,7 @@
     --light-color: #FFFFFF;
 
     --base-font-size: 1rem;
+    --page-sides-padding: 10%;
 }
 
 *{
@@ -29,8 +30,12 @@
     padding:0;
 }
 
+body{
+    overflow-x: hidden;
+}
+
 h1{
-    font-size: calc(var(--base-font-size) * 3.75);
+    font-size: calc(var(--base-font-size) * 3.25);
 }
 
 h2{
@@ -66,6 +71,7 @@ button{
     padding:0.5rem 1rem;
     border-radius:0.25rem;
     border:0;
+    cursor: pointer;
 }
 
 .button-with-icon{
@@ -77,4 +83,13 @@ button{
 .button-primary{
     background-color: var(--primary-color);
     color: var(--light-color);
+}
+
+.button-secondary{
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+}
+
+.button-large{
+    font-size: calc(var(--base-font-size) * 1.5)
 }
