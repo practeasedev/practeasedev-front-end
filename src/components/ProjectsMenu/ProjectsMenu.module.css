@@ -1,0 +1,58 @@
+.menuContainer{
+    position: relative;
+    width:max-content;
+}
+
+.horizantalEllipsis {
+    height:0.3rem;
+    width:auto;
+}
+
+
+.menu{
+    position: absolute;
+    z-index:2;
+    background-color: white;
+    box-shadow: var(--box-shadow-light);
+    padding: 1.5rem 2rem; 
+    border-radius: 0.5rem;
+    top: 130%;
+    right:0;
+    display: flex;
+    align-items: flex-start;
+    column-gap: 4rem;
+}
+
+.subMenuHeading{
+    font-size: var(--body-medium);
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom:0.25rem;
+}
+
+.subMenu, .insideMenu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+.insideMenu{
+    margin-top:0.25rem;
+    margin-left: 0.5rem;
+}
+
+.subMenuItem {
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.subMenuCheckbox {
+    font-weight: 500;
+}
+
+.sortAndFilter {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}

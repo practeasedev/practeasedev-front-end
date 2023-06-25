@@ -28,6 +28,9 @@
     --body-medium: calc(var(--base-font-size) * 1.25);
     --body-normal: var(--base-font-size);
     --body-small: calc(var(--base-font-size) * 0.75);
+
+    --box-shadow-light: 0 4px 12px rgba(0,0,0,0.15);
+    --box-shadow-medium: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 *{
@@ -97,6 +100,28 @@ button{
     color: var(--light-color);
 }
 
+.button-secondary-light {
+    background-color: var(--secondary-color-light);
+}
+
 .button-large{
     font-size: calc(var(--base-font-size) * 1.5)
+}
+
+.button-medium {
+    font-size: var(--base-font-size);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    width:max-content;
+}
+
+.checkbox {
+    cursor: pointer;
+}
+.checkbox-label {
+    cursor: pointer;
 }
