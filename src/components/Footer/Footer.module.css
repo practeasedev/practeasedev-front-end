@@ -1,7 +1,7 @@
 .footer{
     padding: 2rem var(--page-sides-padding);
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-between;
     border-top: 0.2rem solid var(--primary-color-light);
 }

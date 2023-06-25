@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Footer:FC<{}> = () => {
     return (
-        <footer className={styles.footer}>
+        <footer className={ styles.footer}>
             <div className={styles.brandCopyright}>
                 <Image src="/logo.svg" alt="practease dev logo" className={styles.logo} width="219" height="31"/>
                 <p className={styles.tagline}> A place to hone your developer skills</p>

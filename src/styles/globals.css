@@ -22,7 +22,7 @@
     --light-color: #FFFFFF;
 
     --base-font-size: 1rem;
-    --page-sides-padding: 10%;
+    --page-sides-padding: 7.5%;
 
     --body-large: calc(var(--base-font-size) * 1.5);
     --body-medium: calc(var(--base-font-size) * 1.25);
@@ -66,7 +66,7 @@ h3 {
 }
 
 .body-small {
-    font-size: calc(var(--base-font-size) * 0.75);
+    font-size: calc(var(--base-font-size) * 0.8);
 }
 
 button, input, textarea,select {
