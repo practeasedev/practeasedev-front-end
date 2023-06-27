@@ -1,0 +1,100 @@
+.projectContainer{
+    padding: 2rem var(--page-sides-padding);
+}
+
+.projectHeader{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.projectTitle {
+    display: flex;
+    align-items: center;
+    column-gap: 1.5rem;
+}
+
+.projectName {
+    font-size: calc(var(--body-large) * 1.25);
+}
+
+.headerRight{
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+.likeCount{
+    font-size: var(--body-large);
+}
+
+.projectDetails{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    margin-top: 1rem;
+    column-gap:2rem;
+}
+
+.projectImage {
+    width:100%;
+    height:auto;
+    border-radius: 0.25rem;
+}
+
+.projectInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap:2rem;
+    padding: 1.5rem 0;
+}
+
+.projectActions{
+    display: flex;
+    align-items: center;
+    column-gap:2rem;
+}
+
+.projectPointers{
+    margin-top:2rem;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    column-gap:1rem;
+}
+
+.pointersContainer{
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow-light);
+    border-radius: 0.5rem;
+}
+
+.pointer:not(:last-of-type){
+    margin-bottom: 0.75rem;
+}
+
+.pointersTitle{
+    display: flex;
+    align-items: center;
+    column-gap:0.5rem;
+    font-size: var(--body-medium);
+    font-weight: 600;
+}
+
+.pointersList{
+    margin-left:1.5rem;
+    margin-top:0.75rem;
+}
+
+.conceptsAndResources {
+    display: flex;
+    flex-direction: column;
+    row-gap:1rem;
+}
+
+.conceptsAndResources > .pointersContainer:nth-of-type(odd) {
+    background-color: var(--primary-color-light-extreme);
+}
+
+.conceptsAndResources > .pointersContainer:nth-of-type(even) {
+    background-color: var(--secondary-color-light-extreme);
+}

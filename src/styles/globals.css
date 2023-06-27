@@ -112,6 +112,22 @@ button{
     font-size: var(--base-font-size);
 }
 
+.button-icon{
+    height:1.5rem;
+    width:auto;
+}
+
+.button-transparent-primary{
+    background-color: transparent;
+    border: 0.15rem solid var(--primary-color);
+    color: var(--primary-color)
+}
+
+.button-transparent-dark{
+    background-color: transparent;
+    border: 0.15rem solid var(--dark-color);
+}
+
 .checkbox-group {
     display: flex;
     align-items: center;
