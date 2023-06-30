@@ -1,0 +1,29 @@
+.pointersContainer{
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow-light);
+    border-radius: 0.5rem;
+}
+
+.pointer:not(:last-of-type){
+    margin-bottom: 0.75rem;
+}
+
+.pointersTitle{
+    display: flex;
+    align-items: center;
+    column-gap:0.5rem;
+    font-size: var(--body-medium);
+    font-weight: 600;
+}
+
+.pointersList{
+    margin-left:1.5rem;
+    margin-top:0.75rem;
+    list-style-type: square;
+}
+
+.conceptsAndResources {
+    display: flex;
+    flex-direction: column;
+    row-gap:1rem;
+}

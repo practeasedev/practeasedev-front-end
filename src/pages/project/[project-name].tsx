@@ -2,6 +2,9 @@ import {FC} from 'react';
 import styles from '@/styles/project.module.css';
 import ProjectLabel from '@/components/ProjectLabel/ProjectLabel';
 import Image from 'next/image';
+import SVG from '@/components/SVG/SVG';
+import Comment from '@/components/Comment/Comment';
+import ProjectPointers from '@/components/ProjectPointers/ProjectPointers';
 
 const Project:FC<{}> = () => {
     return (
@@ -16,7 +19,7 @@ const Project:FC<{}> = () => {
                 </div>
                 <div className={styles.headerRight}>
                     <p className={styles.likeCount}>20</p>
-                    <p>Likes</p>
+                    <SVG iconName='heart' fill='#FF4033' className={styles.heartIcon}/>
                 </div>
             </div>
             <div className={styles.projectDetails}>
@@ -27,51 +30,37 @@ const Project:FC<{}> = () => {
                     </div>
                     <div className={styles.projectActions}>
                         <button className="button button-with-icon button-transparent-primary">
+                            <SVG iconName="download" fill="#0071DA"/>
                             <span>Download Assets</span>
                         </button>
                         <button className='button button-with-icon button-transparent-dark'>
+                            <SVG iconName="figma"/>
                             <span>View Figma</span>
                         </button>
                     </div>
                 </div>
             </div>
             <div className={styles.projectPointers}>
-                <div className={styles.pointersContainer}>
-                    <p className={styles.pointersTitle}>
-                        <span>User Stories</span>
-                    </p>
-                    <ul className={styles.pointersList}>
-                        <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                        <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                        <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                        <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                        <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                        <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>                        
-                    </ul>
-                </div>
+                <ProjectPointers titleIcon="book" title="User Stories" />
                 <div className={styles.conceptsAndResources}>
-                    <div className={styles.pointersContainer}>
-                        <p className={styles.pointersTitle}>
-                            <span>Key Concepts</span>
-                        </p>
-                        <ul className={styles.pointersList}>
-                            <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                            <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                            <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                            <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>                        
-                        </ul>
-                    </div>
-                    <div className={styles.pointersContainer}>
-                        <p className={styles.pointersTitle}>
-                            <span>Resource Links</span>
-                        </p>
-                        <ul className={styles.pointersList}>
-                            <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                            <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                            <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>
-                            <li className={styles.pointer}> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</li>                        
-                        </ul>
-                    </div>
+                    <ProjectPointers titleIcon="bulb" title="Key Concepts" backgroundColor="#FFF8F2"/>
+                    <ProjectPointers titleIcon="page" title="Resources" backgroundColor="#F5FAFF"/>
+                </div>
+            </div>
+            <div className={styles.commentsContainer}>
+                <div className={styles.commentsTitle}>
+                    <SVG iconName='comment' />
+                    <p>Comments</p>
+                </div>
+                <div className={styles.commentInputContainer}>
+                    <textarea placeholder='Your comment here...' className={styles.commentInput}></textarea>
+                    <button className={`${styles.commentBtn} button-primary`}>Comment</button>
+                </div>
+                <div className={styles.comments}>
+                    <Comment />
+                    <Comment />
+                    <Comment />
+                    <Comment />
                 </div>
             </div>
         </main>
