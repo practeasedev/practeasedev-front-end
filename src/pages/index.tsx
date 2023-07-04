@@ -7,9 +7,42 @@ import whyIllustration from '@/assets/why-illustration.svg';
 import howIllustration from '@/assets/how-illustration.svg';
 import downArrow from '@/assets/down-arrow.svg';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { NextRouter, useRouter } from 'next/router';
+import * as api from '@/common/HttpService'
+import { LOGIN_OR_REGISTER } from '@/common/APIPaths';
+import AuthLoader from '@/components/AuthLoader/AuthLoader';
 
 
 export default function Home() {
+  const router:NextRouter = useRouter();
+  const [isAuthLoading, setIsAuthLoading] = useState<boolean>(false);
+
+  const connectWithGithub = async (code:string) => {
+    const body = {
+      code
+    };
+    const connectResult = await api.post({
+      url:LOGIN_OR_REGISTER,
+      body,
+      loadingHandler: setIsAuthLoading,
+      constructUrl:true,
+      authRequired: false
+    });
+
+    if(connectResult) {
+      window.location.replace('/');
+    }
+  }
+
+  useEffect(() => {
+    if(router.isReady) {
+      const { code } = router.query;
+      if (typeof code === "string") {
+        connectWithGithub(code);
+      }
+    }
+  },[router.isReady]);
   
   return (
     <> 
@@ -65,6 +98,7 @@ export default function Home() {
           <Image src={howIllustration} alt="An illustration of a person looking through a process on a board" className={styles.howIllustration} />
         </div>
       </section>
+      { isAuthLoading ? <AuthLoader message="Authorizing using Github. Please wait"/> : null }
     </>
   )
 }

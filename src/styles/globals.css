@@ -20,6 +20,8 @@
 
     --dark-color: #000000;
     --dark-color-medium: #919191;
+    --dark-color-light: #F1F1F1;
+    --dark-color-transparent: rgba(0,0,0,0.5);
     --light-color: #FFFFFF;
 
     --base-font-size: 1rem;
@@ -77,6 +79,12 @@ button, input, textarea,select {
     font-family: inherit;
 }
 
+.page{
+    min-height:90vh;
+}
+
+/* buttons */
+
 button{
     font-weight:500;
     padding:0.5rem 1rem;
@@ -89,6 +97,7 @@ button{
     display: flex;
     align-items: center;
     column-gap: 0.5rem;
+    width:max-content
 }
 
 .button-primary{
@@ -106,7 +115,8 @@ button{
 }
 
 .button-large{
-    font-size: calc(var(--base-font-size) * 1.5)
+    font-size: calc(var(--base-font-size) * 1.25);
+    padding:0.5rem 2rem;
 }
 
 .button-medium {
@@ -129,6 +139,33 @@ button{
     border: 0.15rem solid var(--dark-color);
 }
 
+/* form inputs */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+.input{
+    padding:0.75rem 1rem;
+    background-color: var(--dark-color-light);
+    border-radius: 0.25rem;
+    border:0;
+}
+
+.input-label{
+    font-weight: 600; 
+}
+
+.textarea{
+    resize: none;
+    height:200px;
+    border-radius:0.25rem;
+    border:0;
+    background-color: var(--dark-color-light);
+}
+
 .checkbox-group {
     display: flex;
     align-items: center;
@@ -139,6 +176,7 @@ button{
 .checkbox {
     cursor: pointer;
 }
+
 .checkbox-label {
     cursor: pointer;
 }
