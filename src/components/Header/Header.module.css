@@ -1,14 +1,14 @@
 .header{
-    padding: 1rem  10%;
+    padding: 1rem  var(--page-sides-padding);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 0.1rem solid var(--primary-color);
+    border-bottom: 0.2rem solid var(--primary-color-light);
 }
 
 .navigation{
     display: flex;
-    column-gap:2rem;
+    column-gap:4rem;
 }
 
 .navLink{
@@ -19,4 +19,42 @@
 .logo{
     height:1.5rem;
     width:auto;
+}
+
+.loginLink{
+    text-decoration: none;
+}
+
+.userMenuContainer{
+    position: relative;
+}
+
+.userName{
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.userMenu{
+    background-color: var(--light-color);
+    list-style: none;
+    box-shadow: var(--box-shadow-light);
+    border-radius: 0.25rem;
+    margin-top:1rem;
+    position: absolute;
+    width:100%;
+    padding:0.2rem;
+}
+
+.menuOption{
+    font-weight: 500;
+    cursor: pointer;
+    padding:0.5rem 1rem;
+}
+
+.menuOption:hover{
+    background-color: var(--primary-color-light);
 }

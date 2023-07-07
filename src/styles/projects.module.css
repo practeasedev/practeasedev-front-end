@@ -1,0 +1,20 @@
+.projectsContainer{
+    padding: 2rem var(--page-sides-padding);
+}
+
+.projectsHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom:1.5rem;
+}
+
+.projectsCategory{
+    font-size: calc(var(--body-large) * 1.25);
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:2rem;
+}

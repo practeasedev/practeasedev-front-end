@@ -1,0 +1,39 @@
+.footer{
+    padding: 2rem var(--page-sides-padding);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-top: 0.2rem solid var(--primary-color-light);
+    bottom:100%;
+}
+
+.logo{
+    height:1.5rem;
+    width:auto;
+}
+
+.tagline{
+    font-size: var(--body-small);
+}
+
+.copyright{
+    margin-top:0.5rem;
+}
+
+.linkGroupHeading{
+    font-size: var(--body-medium);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.links{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    row-gap:0.25rem;
+}
+
+.footerlink{
+    text-decoration: none;
+    color: black;
+}

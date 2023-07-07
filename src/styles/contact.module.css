@@ -1,0 +1,52 @@
+.contactContainer{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    padding:5rem var(--page-sides-padding);
+    column-gap:2rem;
+}
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contactTitle{
+    font-size: calc(var(--base-font-size) * 2);
+}
+
+.contactSubTitle{
+    font-size: calc(var(--base-font-size) * 1.25);
+    font-weight:500;
+    margin-top:1rem;
+}
+
+.mailAddress{
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    font-weight:500;
+    margin-top:1rem;
+}
+
+.contactIllustration{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.mailBox{
+    width:40%;
+    height:auto;
+}
+
+.curvyArrow{
+    width:40%;
+    height:auto;
+}
+
+.contactForm{
+    display: flex;
+    flex-direction: column;
+    row-gap:1.5rem;
+}
