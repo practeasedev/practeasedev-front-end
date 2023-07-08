@@ -27,11 +27,12 @@ interface IDeleteProps extends IAPIProps {
 export const get = async ({url, loadingHandler, authRequired = true, constructUrl=true} : IGetProps ) => {
     loadingHandler?.(true);
     try {
+        const accessToken = Cookies.get('accessToken')
         const apiUrl = constructUrl ? `${BASE_URL}${url}` : url;
         const apiGetResult = await fetch(apiUrl, {
             method: 'GET',
             credentials: 'include',
-            headers: {...(authRequired? {Authorization: `Bearer `}: null)}
+            headers: {...(authRequired? {Authorization: `Bearer ${accessToken}`}: null)}
         });    
 
         const apiResponse = await apiGetResult.json();

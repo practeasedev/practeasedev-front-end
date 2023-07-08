@@ -5,18 +5,27 @@ import ProjectLabel from '../ProjectLabel/ProjectLabel';
 import circleDesign from '@/assets/circle-design-element.svg';
 import triangleDesign from '@/assets/triangle-design-element.svg';
 
-const ProjectCard:FC<{}> = () => {
+interface IProjectCardProps {
+    name: string
+    description: string
+    difficultyLevel: "beginner" | "intermediate" | "advanced" 
+    image: string
+}
+
+const ProjectCard:FC<IProjectCardProps> = (props) => {
+    const {name, description, difficultyLevel, image} = props;
+
     return (
         <div className={styles.projectCardOuterContainer}>
             <div className={styles.projectCardInnerContainer}>
-                <Image src="https://images.unsplash.com/photo-1426024120108-99cc76989c71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1174&q=80" alt="An image of the project" width="1000" height="1000" className={styles.projectImage}/>
+                <Image src={image} alt="An image of the project" width="1000" height="1000" className={styles.projectImage}/>
                 <div className={styles.projectCardContent}>
                     <div className={styles.projectCardHead}>
-                        <p className={styles.projectName}>Grid</p>
-                        <ProjectLabel type="beginner" size="normal"/>
+                        <p className={styles.projectName}>{name}</p>
+                        <ProjectLabel type={difficultyLevel} size="normal"/>
                     </div>
                     <div className={styles.projectCardDesc}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur.
+                       {description}
                     </div>
                 </div>
             </div>

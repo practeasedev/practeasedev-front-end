@@ -6,6 +6,8 @@ import SVG from '@/components/SVG/SVG';
 import Comment from '@/components/Comment/Comment';
 import ProjectPointers from '@/components/ProjectPointers/ProjectPointers';
 
+
+
 const Project:FC<{}> = () => {
     return (
         <main className={styles.projectContainer}>

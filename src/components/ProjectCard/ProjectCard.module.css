@@ -47,6 +47,7 @@
 }
 
 .projectName{
+    text-transform: capitalize;
     font-size: var(--body-large);
     font-weight: 600;
 }
