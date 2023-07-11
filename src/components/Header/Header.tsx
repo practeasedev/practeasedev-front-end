@@ -58,7 +58,7 @@ const Header: FC<{}> = () => {
                     ) : null }
                 </div>
             ): (
-                <Link href={`${GITHUB_AUTHORIZE}?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`} className={styles.loginLink}>
+                <Link href={`${GITHUB_AUTHORIZE}?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&  scope=user:email`} className={styles.loginLink}>
                     <button className='button-with-icon button-normal button-primary'>
                         <Image src={githubWhite} alt="github logo in white" width="24" height="24"/>
                         <span>Connect with Github</span>

@@ -1,11 +1,15 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import styles from '@/styles/contact.module.css';
 import SVG from '@/components/SVG/SVG';
 import mailBox from '@/assets/mailbox.svg';
 import curvyArrow from '@/assets/curvy-arrow.svg';
 import Image from 'next/image';
+import { useForm } from '@/common/CustomHooks';
+import { contactFormFields } from '@/common/Constants';
 
 const Contact:FC<{}> = () => {
+    const {values, errors, setFormField, validateForm} = useForm(contactFormFields);
+
     return (
         <section className={styles.contactContainer}>
             <div className={styles.contactInfo}>
@@ -31,17 +35,20 @@ const Contact:FC<{}> = () => {
             <form className={styles.contactForm}>
                 <div className="input-group">
                     <label htmlFor="name" className="input-label">Name</label>
-                    <input className="input" id="name" name="name" />
+                    <input className="input" id="name" name="name" value={values.name} onChange={(event: ChangeEvent<HTMLInputElement>) => setFormField(event, "email")} />
+                    {errors.name ? <p className='form-field-error'>{errors.name}</p> : null}
                 </div>
                 <div className="input-group">
                     <label htmlFor="name" className="input-label">Email</label>
-                    <input className="input" id="name" name="name" />
+                    <input className="input" id="email" name="email" value={values.email}/>
+                    {errors.email ? <p className='form-field-error'>{errors.email}</p> : null}
                 </div>
                 <div className="input-group">
                     <label htmlFor="name" className="input-label">Message</label>
-                    <textarea className='textarea'></textarea>
+                    <textarea className='textarea' id="message" name="message" value={values.message}></textarea>
+                    {errors.message ? <p className='form-field-error'>{errors.message}</p> : null}
                 </div>
-                <button className="button-with-icon button-secondary button-medium">
+                <button className="button-with-icon button-secondary button-medium" onClick={() => {validateForm()}}>
                     <SVG iconName="send" fill="#FFFFFF"/>
                     <span>Send Message</span>
                 </button>
