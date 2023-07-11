@@ -43,6 +43,7 @@ export const get = async ({url, loadingHandler, authRequired = true, constructUr
         toast.error('Something went wrong', {
             duration: 2000,
         });
+        return false;
     }
 }
 

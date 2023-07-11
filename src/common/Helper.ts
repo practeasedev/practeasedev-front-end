@@ -1,6 +1,7 @@
 import { access } from 'fs';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
+import { FormField } from './Types';
 
 export const checkIfLoggedIn = () => {
     const accessToken = Cookies.get('accessToken');
