@@ -1,10 +1,19 @@
-import {FC} from 'react';
-import styles from '@/components/Loader/Loader.module.css';
+import { FC } from "react";
+import styles from "@/components/Loader/Loader.module.css";
 
-const Loader:FC<{}> = () => {
-    return (
-        <p className={styles.loader} />
-    )
+interface ILoaderProps {
+  loadingText?: string;
 }
 
-export default Loader
+const Loader: FC<ILoaderProps> = ({ loadingText }) => {
+  return (
+    <div className={styles["loader-backdrop"]}>
+      <div className={styles.loader}>
+        <p className={styles.spinner} />
+        {loadingText ? <p>{loadingText}</p> : null}
+      </div>
+    </div>
+  );
+};
+
+export default Loader;

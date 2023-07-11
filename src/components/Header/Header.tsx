@@ -39,7 +39,7 @@ const Header: FC<{}> = () => {
             <Image src="/logo.svg" alt="practease dev logo" width="219" height="31" className={styles.logo}/>
             <nav className={styles.navigation}>
                 <Link href="/" className={styles.navLink}>Home</Link>
-                <Link href={`/projects/${CATEGORIES.ALL}`} className={styles.navLink}>Projects</Link>
+                <Link href={`/projects`} className={styles.navLink}>Projects</Link>
                 <Link href="/blog" className={styles.navLink}>Blog</Link>
                 <Link href="/contact" className={styles.navLink}>Contact</Link>
             </nav>
