@@ -7,7 +7,7 @@ import triangleDesign from "@/assets/triangle-design-element.svg";
 import { useRouter } from "next/router";
 
 interface IProjectCardProps {
-  id: string;
+  slug: string;
   name: string;
   description: string;
   difficultyLevel: "beginner" | "intermediate" | "advanced";
@@ -15,13 +15,11 @@ interface IProjectCardProps {
 }
 
 const ProjectCard: FC<IProjectCardProps> = (props) => {
-  const { id, name, description, difficultyLevel, image } = props;
-  console.log(name);
+  const { slug, name, description, difficultyLevel, image } = props;
   const router = useRouter();
 
   const navigateToProject = () => {
-    console.log(id);
-    router.push(`/projects/${id}`);
+    router.push(`/projects/${slug}`);
   };
 
   return (

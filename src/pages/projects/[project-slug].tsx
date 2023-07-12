@@ -9,9 +9,15 @@ import { useRouter } from "next/router";
 import Loader from "@/components/Loader/Loader";
 import * as API from "@/common/HttpService";
 import { GET_ALL_PROJECTS } from "@/common/APIPaths";
+import { IProjectDetails } from "@/common/Types";
+import { formatProjectDetails } from "@/common/Helper";
+import { toast } from "react-hot-toast";
 
 const Project: FC<{}> = () => {
   const router = useRouter();
+  const [projectDetails, setProjectDetails] = useState<IProjectDetails>(() =>
+    formatProjectDetails({})
+  );
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -19,14 +25,27 @@ const Project: FC<{}> = () => {
   }, [router.isReady]);
 
   const getProjectDetails = async () => {
-    const projectId = router.query["project-id"];
-    const projectDetails = await API.get({
-      url: `${GET_ALL_PROJECTS}/${projectId}`,
+    const projectSlug = router.query["project-slug"];
+    const { data, success, message } = await API.get({
+      url: `${GET_ALL_PROJECTS}/${projectSlug}`,
       loadingHandler: setLoading,
     });
-
+    if (success) setProjectDetails(formatProjectDetails(data));
+    else toast.success(message, { duration: 2000 });
     setLoading(false);
   };
+
+  const {
+    projectName,
+    projectDescription,
+    projectCategory,
+    difficultyLevel,
+    projectImage,
+    likes,
+    keyConcepts,
+    userStories,
+    resourceLinks,
+  } = projectDetails;
 
   return (
     <div>
@@ -36,14 +55,16 @@ const Project: FC<{}> = () => {
         <main className={styles.projectContainer}>
           <div className={styles.projectHeader}>
             <div className={styles.headerLeft}>
-              <span className={styles.projectCategory}>Components /</span>
+              <span
+                className={styles.projectCategory}
+              >{`${projectCategory} /`}</span>
               <div className={styles.projectTitle}>
-                <h1 className={styles.projectName}>Image Gallery</h1>
-                <ProjectLabel type="beginner" size="normal" />
+                <h1 className={styles.projectName}>{projectName}</h1>
+                <ProjectLabel type={difficultyLevel} size="normal" />
               </div>
             </div>
             <div className={styles.headerRight}>
-              <p className={styles.likeCount}>20</p>
+              <p className={styles.likeCount}>{likes}</p>
               <SVG
                 iconName="heart"
                 fill="#FF4033"
@@ -54,23 +75,13 @@ const Project: FC<{}> = () => {
           <div className={styles.projectDetails}>
             <Image
               className={styles.projectImage}
-              src="https://images.unsplash.com/photo-1500051638674-ff996a0ec29e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=918&q=80"
-              alt="an image of an image gallery page"
+              src={projectImage}
+              alt={`Banner for ${projectName}`}
               width="1920"
               height="1080"
             />
             <div className={styles.projectInfo}>
-              <div className={styles.projectDesc}>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                blanditiis praesentium voluptatum deleniti atque corrupti quos
-                dolores et quas molestias excepturi sint occaecati cupiditate
-                non provident, similique sunt in culpa qui officia deserunt
-                mollitia animi, id est laborum et dolorum fuga. Et harum quidem
-                rerum facilis est et expedita distinctio. Nam libero tempore,
-                cum soluta nobis est eligendi optio cumque nihil impedit quo
-                minus id quod maxime placeat facere possimus, omnis voluptas
-                assumenda est, omnis dolor repellendus.
-              </div>
+              <div className={styles.projectDesc}>{projectDescription}</div>
               <div className={styles.projectActions}>
                 <button className="button button-with-icon button-transparent-primary">
                   <SVG iconName="download" fill="#0071DA" />

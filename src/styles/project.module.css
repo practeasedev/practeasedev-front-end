@@ -15,6 +15,7 @@
 }
 
 .projectName {
+    text-transform: capitalize;
     font-size: calc(var(--body-large) * 1.25);
 }
 
@@ -40,6 +41,7 @@
     width:100%;
     height:auto;
     border-radius: 0.25rem;
+    box-shadow: var(--box-shadow-light);
 }
 
 .projectInfo{
