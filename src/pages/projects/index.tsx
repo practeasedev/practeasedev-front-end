@@ -22,7 +22,6 @@ const Project: FC<{}> = () => {
         })
         .then((res) => {
           if (res.success) {
-            console.log(res.data);
             setProjects(res.data);
           }
         });
@@ -44,6 +43,7 @@ const Project: FC<{}> = () => {
             projects.map(
               ({
                 _id,
+                slug,
                 project_name,
                 project_description,
                 difficulty_level,
@@ -51,7 +51,7 @@ const Project: FC<{}> = () => {
               }) => (
                 <ProjectCard
                   key={_id}
-                  id={_id}
+                  slug={slug}
                   name={project_name}
                   description={project_description}
                   difficultyLevel={difficulty_level}
