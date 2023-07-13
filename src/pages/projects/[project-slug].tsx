@@ -12,13 +12,27 @@ import { GET_ALL_PROJECTS } from "@/common/APIPaths";
 import { IProjectDetails } from "@/common/Types";
 import { formatProjectDetails } from "@/common/Helper";
 import { toast } from "react-hot-toast";
+import CommentsSection from "@/components/CommentsSection/commentsSection";
+
+enum TAB_IDS {
+  USER_STORIES = "USER_STORIES",
+  COMMENTS = "COMMENTS",
+  SOLUTIONS = "SOLUTIONS",
+}
+
+const TABS = [
+  { id: TAB_IDS.USER_STORIES, label: "User Stories" },
+  { id: TAB_IDS.COMMENTS, label: "Comments" },
+  { id: TAB_IDS.SOLUTIONS, label: "Solutions" },
+];
 
 const Project: FC<{}> = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [activeTab, setActiveTab] = useState<TAB_IDS>(TAB_IDS.USER_STORIES);
   const [projectDetails, setProjectDetails] = useState<IProjectDetails>(() =>
     formatProjectDetails({})
   );
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (router.isReady) getProjectDetails();
@@ -33,6 +47,33 @@ const Project: FC<{}> = () => {
     if (success) setProjectDetails(formatProjectDetails(data));
     else toast.success(message, { duration: 2000 });
     setLoading(false);
+  };
+
+  const getTabContents = (tab: TAB_IDS) => {
+    switch (tab) {
+      case TAB_IDS.USER_STORIES:
+        return (
+          <div className={styles.projectPointers}>
+            <ProjectPointers titleIcon="book" title="User Stories" />
+            <div className={styles.conceptsAndResources}>
+              <ProjectPointers
+                titleIcon="bulb"
+                title="Key Concepts"
+                backgroundColor="#FFF8F2"
+              />
+              <ProjectPointers
+                titleIcon="page"
+                title="Resources"
+                backgroundColor="#F5FAFF"
+              />
+            </div>
+          </div>
+        );
+      case TAB_IDS.COMMENTS:
+        return <CommentsSection />;
+      default:
+        <></>;
+    }
   };
 
   const {
@@ -94,42 +135,21 @@ const Project: FC<{}> = () => {
               </div>
             </div>
           </div>
-          <div className={styles.projectPointers}>
-            <ProjectPointers titleIcon="book" title="User Stories" />
-            <div className={styles.conceptsAndResources}>
-              <ProjectPointers
-                titleIcon="bulb"
-                title="Key Concepts"
-                backgroundColor="#FFF8F2"
-              />
-              <ProjectPointers
-                titleIcon="page"
-                title="Resources"
-                backgroundColor="#F5FAFF"
-              />
+          <div className={styles.projectExtraDetails}>
+            <div className={`${styles.tabsContainer}`}>
+              {TABS.map(({ id, label }) => (
+                <div
+                  className={`${styles.tab} ${
+                    activeTab === id ? styles.active : ""
+                  }`}
+                  onClick={() => setActiveTab(id)}
+                >
+                  {label}
+                </div>
+              ))}
             </div>
           </div>
-          <div className={styles.commentsContainer}>
-            <div className={styles.commentsTitle}>
-              <SVG iconName="comment" />
-              <p>Comments</p>
-            </div>
-            <div className={styles.commentInputContainer}>
-              <textarea
-                placeholder="Your comment here..."
-                className={styles.commentInput}
-              ></textarea>
-              <button className={`${styles.commentBtn} button-primary`}>
-                Comments
-              </button>
-            </div>
-            <div className={styles.comments}>
-              <Comment />
-              <Comment />
-              <Comment />
-              <Comment />
-            </div>
-          </div>
+          {getTabContents(activeTab)}
         </main>
       )}
     </div>
