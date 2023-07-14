@@ -1,17 +1,21 @@
 import { CATEGORIES, DIFFICULTY_LEVEL } from "./Constants";
 
 export type TextValidations = {
-  maxLength: number;
-  minLength: number;
-};
+    mandatory?: boolean
+    maxLength?: number
+    minLength?: number
+}
+
+export type EmailValidations = {
+    mandatory?: boolean
+}
 
 export type FormField = {
-  name: string;
-  type: string;
-  intialValue: string | number;
-  htmlFieldType: string;
-  validations?: any;
-};
+    name: string
+    type: string
+    intialValue: string | number
+    validations?: any
+}
 
 export interface IProjectDetails {
   projectId: string;

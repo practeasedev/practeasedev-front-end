@@ -6,29 +6,35 @@ export enum CATEGORIES {
   SINGLE_PAGE = "single-page",
 }
 
+export const contactFormFields:Array<FormField> = [
+    {
+        name: 'name',
+        type: 'text',
+        intialValue: '',
+        validations: {
+            mandatory: true,
+            minLength: 2
+        }
+    },
+    {
+        name: 'email',
+        type: 'email',
+        intialValue: '',
+        validations: {
+            mandatory: true,
+        }
+    },
+    {
+        name: 'message',
+        type: 'text',
+        intialValue: '',
+        validations: {
+            mandatory: true,
+        }
+    }
+];
 export enum DIFFICULTY_LEVEL {
   BEGINNER = "beginner",
   INTERMEDIATE = "intermediate",
   ADVANCED = "advanced",
-}
-
-export const contactFormFields: Array<FormField> = [
-  {
-    name: "name",
-    type: "text",
-    intialValue: "",
-    htmlFieldType: "input",
-  },
-  {
-    name: "email",
-    type: "email",
-    intialValue: "",
-    htmlFieldType: "input",
-  },
-  {
-    name: "message",
-    type: "message",
-    intialValue: "",
-    htmlFieldType: "textarea",
-  },
-];
+};

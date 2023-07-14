@@ -7,3 +7,4 @@ export const GITHUB_AUTHORIZE = "https://github.com/login/oauth/authorize";
 export const LOGIN_OR_REGISTER = `${API_VERSION_1}/auth/register`;
 export const LOGOUT_USER = `${API_VERSION_1}/auth/logout`;
 export const GET_ALL_PROJECTS = `${API_VERSION_1}/projects`;
+export const SEND_CONTACT_EMAIL = `${API_VERSION_1}/mails/send-contact-email`
