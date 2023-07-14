@@ -2,35 +2,50 @@ import { TextValidations } from "./Types";
 
 export const generalTextValidations = (value:string, validations: TextValidations)=> {
     let isValid = true;
-    let error = '';
+    let errorMsg = '';
+
+    if(Object.keys(validations).length === 0) {
+        return [isValid, errorMsg];
+    }
+
+    if(validations.mandatory && !value || !value.trim()) {
+        isValid = false;
+        errorMsg = "This field is mandatory";
+        return [isValid, errorMsg];
+    }
 
     if(validations.maxLength && (value.length > validations.maxLength)) {
         isValid = false;
-        error = `Maxinum of ${validations.maxLength} are allowed`;
-        return [error,isValid]
+        errorMsg = `Maxinum of ${validations.maxLength} are allowed`;
+        return [isValid, errorMsg];
     }
     
-    if(validations.minLength && (value.length < validations.maxLength)) {
+    if(validations.minLength && (value.length < validations.minLength)) {
         isValid = false;
-        error = `Minimum of ${validations.minLength} are needed`;
-        return [error,isValid]
+        errorMsg = `Minimum of ${validations.minLength} characters are needed`;
+        return [isValid, errorMsg];
     }
 
-    return [error,isValid]
+    return [isValid, errorMsg];
 }
 
-export const generaalEmailValidations = (email:string, validations: any) => {
+export const generalEmailValidations = (email:string, validations: any) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     let isValid = true;
-    let error = ''
+    let errorMsg = ''
 
+    if(validations.mandatory && !email || !email.trim()) {
+        isValid = false;
+        errorMsg = "This field is mandatory";
+        return [isValid, errorMsg];
+    }
 
     if (!emailRegex.test(email)) {
         isValid = false;
-        error = 'Please enter a valid email';
-        return [error, isValid]
+        errorMsg = 'Please enter a valid email';
+        return [isValid, errorMsg]
     }
 
-    return [error, isValid]
+    return [isValid, errorMsg]
 
 }

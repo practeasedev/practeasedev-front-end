@@ -50,6 +50,7 @@ export const get = async ({url, loadingHandler, authRequired = true, constructUr
 export const post = async ({url, body, loadingHandler, authRequired = true, constructUrl=true}:IPostProps) => {
     loadingHandler?.(true);
     try {
+        const accessToken = Cookies.get('accessToken')
         const apiUrl = constructUrl ? `${BASE_URL}${url}` : url;
         const apiPostResult = await fetch(apiUrl, {
             method: 'POST',
@@ -57,7 +58,7 @@ export const post = async ({url, body, loadingHandler, authRequired = true, cons
             credentials: 'include',
             headers: {
                 "Content-Type": "application/json",
-                ...(authRequired? {Authorization: `Bearer `}: null)
+                ...(authRequired? {Authorization: `Bearer ${accessToken}`}: null)
             },
         });
 
@@ -77,6 +78,7 @@ export const post = async ({url, body, loadingHandler, authRequired = true, cons
 export const put = async ({url, body, loadingHandler, authRequired = true,  constructUrl=true}:IPutProps) => {
     loadingHandler?.(true);
     try {
+        const accessToken = Cookies.get('accessToken')
         const apiUrl = constructUrl ? `${BASE_URL}${url}` : url;
         const apiPutReslt = await fetch(apiUrl, {
             method: 'POST',
@@ -84,7 +86,7 @@ export const put = async ({url, body, loadingHandler, authRequired = true,  cons
             body,
             headers: {
                 "Content-Type": "application/json",
-                ...(authRequired? {Authorization: `Bearer `}: null)
+                ...(authRequired? {Authorization: `Bearer ${accessToken}`}: null)
             }
         });
 

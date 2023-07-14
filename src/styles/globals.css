@@ -7,6 +7,8 @@
     --secondary-color-light-extreme: #FFF8F2;
     --secondary-color-light: #FFEBD9;
 
+    --error-color: #DC4C64;
+
     --color-coral-red: #FF4033;
 
     --color-bronze: #E9862B;
@@ -158,12 +160,18 @@ button{
     font-weight: 600; 
 }
 
-.textarea{
+.textarea {
+    padding:0.75rem 1rem;
     resize: none;
     height:200px;
     border-radius:0.25rem;
     border:0;
     background-color: var(--dark-color-light);
+}
+
+.form-field-error {
+    color: var(--error-color);
+    font-size: var(--body-small);
 }
 
 .checkbox-group {
@@ -172,6 +180,7 @@ button{
     column-gap: 0.5rem;
     width:max-content;
 }
+
 
 .checkbox {
     cursor: pointer;

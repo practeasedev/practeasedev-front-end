@@ -11,18 +11,25 @@ export const contactFormFields:Array<FormField> = [
         name: 'name',
         type: 'text',
         intialValue: '',
-        htmlFieldType: 'input'
+        validations: {
+            mandatory: true,
+            minLength: 2
+        }
     },
     {
         name: 'email',
         type: 'email',
         intialValue: '',
-        htmlFieldType: 'input',
+        validations: {
+            mandatory: true,
+        }
     },
     {
         name: 'message',
-        type: 'message',
+        type: 'text',
         intialValue: '',
-        htmlFieldType: 'textarea'
+        validations: {
+            mandatory: true,
+        }
     }
 ];
