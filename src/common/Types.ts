@@ -1,3 +1,5 @@
+import { CATEGORIES, DIFFICULTY_LEVEL } from "./Constants";
+
 export type TextValidations = {
     mandatory?: boolean
     maxLength?: number
@@ -13,4 +15,19 @@ export type FormField = {
     type: string
     intialValue: string | number
     validations?: any
+}
+
+export interface IProjectDetails {
+  projectId: string;
+  projectName: string;
+  projectDescription: string;
+  projectImage: string;
+  difficultyLevel: DIFFICULTY_LEVEL;
+  projectCategory: CATEGORIES;
+  projectFigmaLink: string;
+  userStories: string[];
+  downloadLink: string;
+  keyConcepts: string[];
+  resourceLinks: string[];
+  likes: number;
 }

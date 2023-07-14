@@ -1,9 +1,9 @@
 import { FormField } from "./Types";
 
 export enum CATEGORIES {
-    ALL = "all",
-    COMPONENTS = "components",
-    SINGLE_PAGE = "single-page"
+  ALL = "all",
+  COMPONENTS = "components",
+  SINGLE_PAGE = "single-page",
 }
 
 export const contactFormFields:Array<FormField> = [
@@ -33,3 +33,8 @@ export const contactFormFields:Array<FormField> = [
         }
     }
 ];
+export enum DIFFICULTY_LEVEL {
+  BEGINNER = "beginner",
+  INTERMEDIATE = "intermediate",
+  ADVANCED = "advanced",
+};
