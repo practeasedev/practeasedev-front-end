@@ -4,7 +4,16 @@ export const BASE_URL = BASE_URL_DEV;
 
 export const GITHUB_AUTHORIZE = "https://github.com/login/oauth/authorize";
 
+// Auth routes
 export const LOGIN_OR_REGISTER = `${API_VERSION_1}/auth/register`;
 export const LOGOUT_USER = `${API_VERSION_1}/auth/logout`;
+
+// Project routes
 export const GET_ALL_PROJECTS = `${API_VERSION_1}/projects`;
-export const SEND_CONTACT_EMAIL = `${API_VERSION_1}/mails/send-contact-email`
+
+// Mail route
+export const SEND_CONTACT_EMAIL = `${API_VERSION_1}/mails/send-contact-email`;
+
+// Comments routes
+export const GET_COMMENTS = `${API_VERSION_1}/comments/get_comments`;
+export const POST_COMMENT = `${API_VERSION_1}/comments/add_comment`;

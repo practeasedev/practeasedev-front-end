@@ -35,8 +35,15 @@
     align-self: flex-end;
 }
 
+
 .comments {
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
+}
+
+.loadMoreContainer {
+    margin-top: 1rem;
+    text-align: center;
+    text-decoration: underline;
 }

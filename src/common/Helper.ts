@@ -1,18 +1,26 @@
 import { access } from "fs";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
-import { FormField, IProjectDetails } from "./Types";
+import { FormField, IProjectDetails, IUserDetails } from "./Types";
 
 export const checkIfLoggedIn = () => {
   const accessToken = Cookies.get("accessToken");
   return accessToken ? true : false;
 };
 
-export const getLoggedInUserDetails = () => {
+export const getLoggedInUserDetails = (): IUserDetails | null => {
   const accessToken = Cookies.get("accessToken");
-  const decodedToken = accessToken ? jwtDecode(accessToken) : null;
+  const decodedToken = accessToken
+    ? (jwtDecode(accessToken) as IUserDetails)
+    : null;
   return decodedToken;
 };
+
+export const getCookieValue = (key: string): string | undefined =>
+  Cookies.get(key);
+
+export const getFormattedDate = (timeStamp: number): string =>
+  new Date(timeStamp).toLocaleString();
 
 export const formatProjectDetails = (response: any): IProjectDetails => {
   const {

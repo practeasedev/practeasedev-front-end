@@ -17,6 +17,21 @@ export type FormField = {
     validations?: any
 }
 
+export interface IUserDetails {
+  userId: string;
+  avatarUrl: string;
+  userName: string;
+  email: string;
+}
+
+export interface ICommentDetails {
+  _id: string;
+  comment: string;
+  modified_on: number;
+  user_avatar_url: string;
+  user_name: string;
+}
+
 export interface IProjectDetails {
   projectId: string;
   projectName: string;
