@@ -93,6 +93,7 @@ button{
     border-radius:0.25rem;
     border:0;
     cursor: pointer;
+    width:max-content
 }
 
 .button-with-icon{
