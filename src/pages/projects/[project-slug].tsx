@@ -45,7 +45,7 @@ const Project: FC<{}> = () => {
       loadingHandler: setLoading,
     });
     if (success) setProjectDetails(formatProjectDetails(data));
-    else toast.success(message, { duration: 2000 });
+    else toast.error(message, { duration: 2000 });
     setLoading(false);
   };
 
@@ -70,13 +70,14 @@ const Project: FC<{}> = () => {
           </div>
         );
       case TAB_IDS.COMMENTS:
-        return <CommentsSection />;
+        return <CommentsSection projectId={projectId} />;
       default:
         <></>;
     }
   };
 
   const {
+    projectId,
     projectName,
     projectDescription,
     projectCategory,

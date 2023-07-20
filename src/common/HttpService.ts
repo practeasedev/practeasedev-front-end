@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
 import { BASE_URL } from './APIPaths';
 import React from 'react';
-import Cookies from 'js-cookie';
+import { getCookieValue } from './Helper';
 
 interface IAPIProps {
     url: string,
@@ -27,7 +27,7 @@ interface IDeleteProps extends IAPIProps {
 export const get = async ({url, loadingHandler, authRequired = true, constructUrl=true} : IGetProps ) => {
     loadingHandler?.(true);
     try {
-        const accessToken = Cookies.get('accessToken')
+        const accessToken = getCookieValue("accessToken");
         const apiUrl = constructUrl ? `${BASE_URL}${url}` : url;
         const apiGetResult = await fetch(apiUrl, {
             method: 'GET',
@@ -50,7 +50,7 @@ export const get = async ({url, loadingHandler, authRequired = true, constructUr
 export const post = async ({url, body, loadingHandler, authRequired = true, constructUrl=true}:IPostProps) => {
     loadingHandler?.(true);
     try {
-        const accessToken = Cookies.get('accessToken')
+        const accessToken = getCookieValue("accessToken");
         const apiUrl = constructUrl ? `${BASE_URL}${url}` : url;
         const apiPostResult = await fetch(apiUrl, {
             method: 'POST',
@@ -78,7 +78,7 @@ export const post = async ({url, body, loadingHandler, authRequired = true, cons
 export const put = async ({url, body, loadingHandler, authRequired = true,  constructUrl=true}:IPutProps) => {
     loadingHandler?.(true);
     try {
-        const accessToken = Cookies.get('accessToken')
+        const accessToken = getCookieValue("accessToken");
         const apiUrl = constructUrl ? `${BASE_URL}${url}` : url;
         const apiPutReslt = await fetch(apiUrl, {
             method: 'POST',
@@ -106,7 +106,7 @@ export const remove = async ({url, body, loadingHandler, authRequired = true,  c
     loadingHandler?.(true);
     try {
         const apiUrl = constructUrl ? `${BASE_URL}${url}` : url;
-        const accessToken = Cookies.get('accessToken')
+        const accessToken = getCookieValue("accessToken");
         const apiDeleteReslt = await fetch(apiUrl, {
             method: 'DELETE',
             credentials: 'include',

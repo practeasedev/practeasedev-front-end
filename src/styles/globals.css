@@ -96,6 +96,11 @@ button{
     width:max-content
 }
 
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
 .button-with-icon{
     display: flex;
     align-items: center;
