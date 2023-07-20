@@ -17,3 +17,7 @@ export const SEND_CONTACT_EMAIL = `${API_VERSION_1}/mails/send-contact-email`;
 // Comments routes
 export const GET_COMMENTS = `${API_VERSION_1}/comments/get_comments`;
 export const POST_COMMENT = `${API_VERSION_1}/comments/add_comment`;
+
+// Project tracking
+export const GET_PROJECT_STATUS = `${API_VERSION_1}/user_tracking/get`;
+export const POST_PROJECT_STATUS = `${API_VERSION_1}/user_tracking/persist`
