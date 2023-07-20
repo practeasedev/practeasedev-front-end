@@ -2,6 +2,10 @@
     padding: 2rem var(--page-sides-padding);
 }
 
+.projectCategory{
+    text-transform: capitalize;
+}
+
 .projectHeader{
     display: flex;
     align-items: flex-end;
