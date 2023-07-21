@@ -1,4 +1,4 @@
-import { FC, useState, MouseEvent, useEffect, ChangeEvent } from "react";
+import { FC, useState, MouseEvent, useEffect, ChangeEvent, useRef } from "react";
 import styles from "@/components/ProjectsMenu/ProjectsMenu.module.css";
 import Image from "next/image";
 import horizantalEllipsis from "@/assets/horizantal-ellipsis.svg";
@@ -11,12 +11,22 @@ interface ProjectsMenuProps {
 
 const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
     const [displayMenu, setDisplayMenu] = useState<boolean>(false);
-    const [categories, setCategories] = useState<Array<string>>([]);
+
+    //states
+    const [categories, setCategories] = useState<Array<string>>(["components","single-page","multi-page"]);
     const [filters, setFilters] = useState<Array<string>>([]);
-    const [sort, setSort] = useState<string>("");
+    const [sort, setSort] = useState<string>("most-recent");
     const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
     const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
-    const [selectedSort, setSelectedSort] = useState<string>("");
+
+    //refs for the above states
+    const categoriesRef = useRef(categories);
+    const filtersRef = useRef(filters);
+    const sortRef = useRef(sort);
+    const selectedCategoriesRef = useRef(selectedCategories);
+    const selectedFiltersRef = useRef(selectedFilters);
+
+
     const {getProjects} = props;
 
     const toggleMenuDisplay = (event: MouseEvent<HTMLButtonElement>) => {
@@ -31,11 +41,27 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
     const categoryChangeHandler = (event:ChangeEvent<HTMLInputElement>) => {
         const {value, checked} = event.target;
         if(checked) {
-            setCategories((prevcategories) => [...prevcategories, value]);
-            setSelectedCategories((prevCategories) => ([...prevCategories, value]));
+            setCategories((prevcategories) =>{
+                const newCategories =  [...prevcategories, value];
+                categoriesRef.current = newCategories;
+                return newCategories;
+            });
+            setSelectedCategories((prevCategories) => {
+               const newSelectedCategories =  [...prevCategories, value];
+               selectedCategoriesRef.current = newSelectedCategories;
+               return newSelectedCategories;
+            });
         } else {
-            setCategories((prevCategories) =>  (prevCategories.filter((category) => (category !== value))));
-            setSelectedCategories((prevCategories) => (prevCategories.filter((category) => (category !== value))));
+            setCategories((prevCategories) =>  {
+                const newCategories = prevCategories.filter((category) => (category !== value));
+                categoriesRef.current = newCategories;
+                return newCategories;
+            });
+            setSelectedCategories((prevCategories) => {
+                const newSelectedCategories = prevCategories.filter((category) => (category !== value));
+                selectedCategoriesRef.current = newSelectedCategories;
+                return newSelectedCategories;
+            });
         }
     }
 
@@ -53,26 +79,21 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
 
     const sortChangeHandler = (event:ChangeEvent<HTMLInputElement>) => {
         const {value, checked} = event.target
-        if(checked) {
-            setSelectedSort(value);
-            setSort(value);  
-        } 
+        if (checked) {
+            setSort(value);
+            sortRef.current = value;  
+        }
     }
 
     const resetCategoriesAndFilters = () => {
-        console.log(selectedFilters);
-        setFilters((prevFilters) => {
-            console.log(prevFilters);
-            const filters = prevFilters.filter((filter) => {
-                console.log(selectedFilters);
-                return !selectedFilters.includes(filter)
-            })
-            console.log(filters);
-            return filters
-        });
-        setCategories((prevCategories) => ([...prevCategories.filter((category) => (!selectedCategories.includes(category)))]));
-        // setSelectedCategories([]);
-        // setSelectedFilters([]);
+        categoriesRef.current = categoriesRef.current.filter((category) => !selectedCategoriesRef.current.includes(category));
+        filtersRef.current = filtersRef.current.filter((filter) => !selectedFiltersRef.current.includes(filter));
+        setCategories(categoriesRef.current);
+        setFilters(filtersRef.current);
+        selectedCategoriesRef.current = [];
+        selectedFiltersRef.current = [];
+        setSelectedCategories(selectedCategoriesRef.current);
+        setSelectedFilters(selectedFiltersRef.current);
     }
 
      
@@ -80,7 +101,8 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
         event.stopPropagation();
         const body:any ={
             categories:categories,
-            filters:filters
+            filters:filters,
+            sort: sort
         };
         getProjects(body);
         setSelectedCategories([]);
@@ -100,9 +122,6 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
         }
     },[]);
 
-    useEffect(() => {
-        console.log(selectedFilters);
-    }, [selectedFilters])
     return (
         <div className={styles.menuContainer}>
             <button
@@ -127,14 +146,6 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                         <div className={styles.categories}>
                             <p className={styles.subMenuHeading}>Categories</p>
                             <ul className={styles.subMenu}>
-                                <li className={styles.subMenuItem}>
-                                    <Checkbox
-                                        label="All"
-                                        value="all"
-                                        changeHandler={categoryChangeHandler}
-                                        checked={categories.includes('all')} 
-                                    />
-                                </li>
                                 <li className={styles.subMenuItem}>
                                     <Checkbox
                                         label="Components"
@@ -212,20 +223,20 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                                 <ul className={styles.subMenu}>
                                     <li className={styles.subMenuItem}>
                                         <Radio
-                                            label="Most like"
-                                            value="most-liked"
-                                            changeHandler={sortChangeHandler} 
-                                            name="sort-group"
-                                            checked={sort === 'most-liked'}
-                                        />
-                                    </li>
-                                    <li className={styles.subMenuItem}>
-                                    <Radio
                                             label="Most Recent"
                                             value="most-recent"
                                             changeHandler={sortChangeHandler} 
                                             name="sort-group"
                                             checked={sort === 'most-recent'}
+                                        />
+                                    </li>
+                                    <li className={styles.subMenuItem}>
+                                        <Radio
+                                            label="Most liked"
+                                            value="most-liked"
+                                            changeHandler={sortChangeHandler} 
+                                            name="sort-group"
+                                            checked={sort === 'most-liked'}
                                         />
                                     </li>
                                 </ul>

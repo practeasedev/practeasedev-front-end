@@ -195,3 +195,18 @@ button:disabled {
 .checkbox-label {
     cursor: pointer;
 }
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    width:max-content;
+}
+
+.radio {
+    cursor: pointer;
+}
+
+.radio-label {
+    cursor: pointer;
+}

@@ -28,7 +28,11 @@ const Project: FC<{}> = () => {
 
   useEffect(() => {
     if (router.isReady) {
-      getProjects({});
+      getProjects({
+        categories:["components","single-page","multi-page"],
+        filters:[],
+        sort: "most-recent"
+      });
     }
   }, [router.isReady]);
 
