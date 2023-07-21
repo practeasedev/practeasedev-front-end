@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import styles from "@/styles/project.module.css";
 import ProjectLabel from "@/components/ProjectLabel/ProjectLabel";
 import Image from "next/image";
@@ -8,9 +8,13 @@ import ProjectPointers from "@/components/ProjectPointers/ProjectPointers";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader/Loader";
 import * as API from "@/common/HttpService";
-import { GET_ALL_PROJECTS } from "@/common/APIPaths";
+import {
+  GET_ALL_PROJECTS,
+  GET_PROJECT_STATUS,
+  POST_PROJECT_STATUS,
+} from "@/common/APIPaths";
 import { IProjectDetails } from "@/common/Types";
-import { formatProjectDetails } from "@/common/Helper";
+import { checkIfLoggedIn, formatProjectDetails } from "@/common/Helper";
 import { toast } from "react-hot-toast";
 import CommentsSection from "@/components/CommentsSection/commentsSection";
 
@@ -28,8 +32,10 @@ const TABS = [
 
 const Project: FC<{}> = () => {
   const router = useRouter();
+  const isUserLoggedIn = useMemo(()=>checkIfLoggedIn(),[])
   const [loading, setLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<TAB_IDS>(TAB_IDS.USER_STORIES);
+  const [isLiked, setLike] = useState<boolean>(false);
   const [projectDetails, setProjectDetails] = useState<IProjectDetails>(() =>
     formatProjectDetails({})
   );
@@ -44,9 +50,35 @@ const Project: FC<{}> = () => {
       url: `${GET_ALL_PROJECTS}/${projectSlug}`,
       loadingHandler: setLoading,
     });
-    if (success) setProjectDetails(formatProjectDetails(data));
-    else toast.error(message, { duration: 2000 });
+    if (success) {
+      const projectDetails = formatProjectDetails(data);
+      setProjectDetails(projectDetails);
+      if(isUserLoggedIn){
+        const {
+          data: projectStatus,
+          success,
+        } = await API.get({
+          url: `${GET_PROJECT_STATUS}/${projectDetails.projectId}`,
+        });
+        if (success) setLike(projectStatus.is_liked);
+      }
+    } else toast.error(message, { duration: 2000 });
     setLoading(false);
+  };
+
+  const handleLikeClick = async () => {
+    if(!isUserLoggedIn) return;
+    const { data, success } = await API.post({
+      url: `${POST_PROJECT_STATUS}/${projectId}`,
+      body: { isLike: !isLiked },
+    });
+    if (success) {
+      setLike(data.is_liked);
+      setProjectDetails((prevState) => ({
+        ...prevState,
+        likes: isLiked ? prevState.likes - 1 : prevState.likes + 1,
+      }));
+    } else toast.error("Please try again", { duration: 2000 });
   };
 
   const getTabContents = (tab: TAB_IDS) => {
@@ -107,11 +139,13 @@ const Project: FC<{}> = () => {
             </div>
             <div className={styles.headerRight}>
               <p className={styles.likeCount}>{likes}</p>
-              <SVG
-                iconName="heart"
-                fill="#FF4033"
-                className={styles.heartIcon}
-              />
+              <div onClick={handleLikeClick} title={isUserLoggedIn? "": "Please log in to like"}>
+                <SVG
+                  iconName={isLiked ? "heart" : "no-fill-heart"}
+                  fill={isLiked ? "#FF4033" : ""}
+                  className={`${isUserLoggedIn? styles.heartIcon: ""}`}
+                />
+              </div>
             </div>
           </div>
           <div className={styles.projectDetails}>
