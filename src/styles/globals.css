@@ -93,6 +93,7 @@ button{
     border-radius:0.25rem;
     border:0;
     cursor: pointer;
+    width:max-content
 }
 
 button:disabled {
@@ -192,5 +193,20 @@ button:disabled {
 }
 
 .checkbox-label {
+    cursor: pointer;
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    width:max-content;
+}
+
+.radio {
+    cursor: pointer;
+}
+
+.radio-label {
     cursor: pointer;
 }

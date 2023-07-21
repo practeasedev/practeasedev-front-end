@@ -27,7 +27,7 @@ enum TAB_IDS {
 const TABS = [
   { id: TAB_IDS.USER_STORIES, label: "User Stories" },
   { id: TAB_IDS.COMMENTS, label: "Comments" },
-  { id: TAB_IDS.SOLUTIONS, label: "Solutions" },
+  // { id: TAB_IDS.SOLUTIONS, label: "Solutions" },
 ];
 
 const Project: FC<{}> = () => {

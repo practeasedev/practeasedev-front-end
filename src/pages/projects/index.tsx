@@ -6,32 +6,41 @@ import * as api from "@/common/HttpService";
 import { GET_ALL_PROJECTS } from "@/common/APIPaths";
 import Loader from "@/components/Loader/Loader";
 import { NextRouter, useRouter } from "next/router";
-import { CATEGORIES } from "@/common/Constants";
 
 const Project: FC<{}> = () => {
   const router: NextRouter = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [projects, setProjects] = useState<Array<any>>([]);
+
+  const getProjects = (body: any) => {
+    api
+      .post({
+        url: `${GET_ALL_PROJECTS}`,
+        loadingHandler: setIsLoading,
+        body: body,
+      })
+      .then((res) => {
+        if (res.success) {
+          setProjects(res.data);
+        }
+      });
+  }
+
   useEffect(() => {
     if (router.isReady) {
-      api
-        .post({
-          url: `${GET_ALL_PROJECTS}`,
-          loadingHandler: setIsLoading,
-          body: {},
-        })
-        .then((res) => {
-          if (res.success) {
-            setProjects(res.data);
-          }
-        });
+      getProjects({
+        categories:["components","single-page","multi-page"],
+        filters:[],
+        sort: "most-recent"
+      });
     }
   }, [router.isReady]);
+
   return (
     <main className={styles.projectsContainer}>
       <div className={styles.projectsHeader}>
         <h1 className={styles.projectsCategory}>Components</h1>
-        <ProjectsMenu />
+        <ProjectsMenu getProjects={getProjects}/>
       </div>
       {isLoading ? (
         <Loader loadingText="Loading Projects" />

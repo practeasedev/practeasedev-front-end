@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, FormEventHandler } from "react";
+import { ChangeEvent, FC, FormEvent } from "react";
 import styles from "@/styles/contact.module.css";
 import SVG from "@/components/SVG/SVG";
 import mailBox from "@/assets/mailbox.svg";
