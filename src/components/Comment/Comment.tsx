@@ -3,6 +3,8 @@ import styles from "@/components/Comment/Comment.module.css";
 import Image from "next/image";
 import { ICommentDetails } from "@/common/Types";
 import { getFormattedDate } from "@/common/Helper";
+import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
+import { useInView } from "react-intersection-observer";
 
 interface IComment {
   commentDetails: ICommentDetails;
@@ -10,8 +12,10 @@ interface IComment {
 
 const Comment: FC<IComment> = ({ commentDetails }: IComment) => {
   const { user_name, user_avatar_url, comment, modified_on } = commentDetails;
+
+  const [commentRef, commentInView] = useInView(INTERSECTION_OBSERVER_OPTIONS)
   return (
-    <div className={styles.commentContainer}>
+    <div className={`${styles.commentContainer} ${commentInView ? 'fadeInFromTop' : ''}`} ref={commentRef}>
       <div className={styles.userInfo}>
         <Image
           width="50"

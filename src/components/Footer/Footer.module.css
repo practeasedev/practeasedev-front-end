@@ -18,6 +18,7 @@
 
 .copyright{
     margin-top:0.5rem;
+    font-size: var(--body-medium);
 }
 
 .linkGroupHeading{
@@ -28,6 +29,7 @@
 
 .links{
     list-style: none;
+    font-size: var(--body-medium);
     display: flex;
     flex-direction: column;
     row-gap:0.25rem;
@@ -36,4 +38,17 @@
 .footerlink{
     text-decoration: none;
     color: black;
+}
+
+@media (max-width:630px) {
+    .footer {
+        flex-direction: column;
+        row-gap:1.25rem;
+        justify-content:unset;
+    }
+
+    .logo{
+        height:1.25rem;
+        width:auto;
+    }
 }

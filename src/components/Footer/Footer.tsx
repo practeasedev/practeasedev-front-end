@@ -2,10 +2,14 @@ import { FC } from 'react';
 import Image from 'next/image';
 import styles from '@/components/Footer/Footer.module.css';
 import Link from 'next/link';
+import { useInView } from 'react-intersection-observer';
+import { INTERSECTION_OBSERVER_OPTIONS } from '@/common/Constants';
 
 const Footer:FC<{}> = () => {
+    const [footerRef, footerInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+
     return (
-        <footer className={ styles.footer}>
+        <footer className={`${styles.footer} ${footerInView ? 'fadeIn' : ''}`} ref={footerRef}>
             <div className={styles.brandCopyright}>
                 <Image src="/logo.svg" alt="practease dev logo" className={styles.logo} width="219" height="31"/>
                 <p className={styles.tagline}> A place to hone your developer skills</p>

@@ -5,13 +5,15 @@ import mailBox from "@/assets/mailbox.svg";
 import curvyArrow from "@/assets/curvy-arrow.svg";
 import Image from "next/image";
 import { useForm } from "@/common/CustomHooks";
-import { contactFormFields } from "@/common/Constants";
+import { INTERSECTION_OBSERVER_OPTIONS, contactFormFields } from "@/common/Constants";
 import * as api from "@/common/HttpService";
 import { SEND_CONTACT_EMAIL } from "@/common/APIPaths";
+import { useInView } from "react-intersection-observer";
 
 const Contact: FC<{}> = () => {
-    const { values, errors, setFormField, validateForm } =
-        useForm(contactFormFields);
+    const { values, errors, setFormField, validateForm } = useForm(contactFormFields);
+    const [contactFormRef, contactFormInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+    const [contactInfoRef, contactInfoInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
 
     const submitForm = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -28,7 +30,7 @@ const Contact: FC<{}> = () => {
 
     return (
         <section className={styles.contactContainer}>
-            <div className={styles.contactInfo}>
+            <div className={`${styles.contactInfo} ${contactInfoInView ? 'fadeInFromLeft' : ''}`} ref={contactInfoRef}>
                 <div className={styles.contactText}>
                     <h1 className={styles.contactTitle}>
                         Have any suggestion? or Facing any problem with our
@@ -60,7 +62,7 @@ const Contact: FC<{}> = () => {
                     />
                 </div>
             </div>
-            <form className={styles.contactForm} onSubmit={submitForm}>
+            <form className={`${styles.contactForm} ${contactFormInView ? 'fadeInFromRight' : ''}`} onSubmit={submitForm} ref={contactFormRef}>
                 <div className="input-group">
                     <label htmlFor="name" className="input-label">
                         Name

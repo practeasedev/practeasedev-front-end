@@ -36,6 +36,8 @@
 
     --box-shadow-light: 0 4px 12px rgba(0,0,0,0.15);
     --box-shadow-medium: 0 4px 15px rgba(0,0,0,0.3);
+
+    --animation-duration: 0.75s;
 }
 
 *{
@@ -45,6 +47,7 @@
 
 body{
     overflow-x: hidden;
+    width:100%;
 }
 
 h1{
@@ -209,4 +212,102 @@ button:disabled {
 
 .radio-label {
     cursor: pointer;
+}
+
+.fadeInFromLeft {
+    animation: fadeInFromLeft var(--animation-duration) ease-in-out;
+}
+
+.fadeInFromRight {
+    animation: fadeInFromRight var(--animation-duration) ease-in-out;
+}
+
+.fadeInFromTop {
+    animation: fadeInFromTop var(--animation-duration) ease-in-out;
+}
+
+.fadeIn {
+    animation: fadeIn var(--animation-duration) ease-in-out;
+}
+
+
+/* animations */
+
+@keyframes fadeIn {
+    from {
+        opacity:0;
+    }
+    to{
+        opacity: 1; 
+    }
+}
+
+@keyframes fadeInFromLeft {
+    from {
+        opacity:0;
+        transform: translateX(-100px);
+    }
+    to{
+        opacity: 1;   
+        transform: translateX(0px);   
+    }
+}
+
+@keyframes fadeInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to{
+        opacity: 1;   
+        transform: translateX(0px);   
+    }
+}
+
+@keyframes fadeInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+    to{
+        opacity: 1;   
+        transform: translateY(0px);   
+    }
+}
+
+
+@media (max-width: 1300px) {
+    :root {
+        --base-font-size: 0.9rem;
+    }
+}
+
+@media (max-width:1100px) {  
+    :root {
+        --base-font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 975px) {
+    :root {
+        --base-font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 800px) {
+    :root {
+        --base-font-size: 0.6rem;
+    }
+}
+
+@media (max-width:650px) {
+    :root {
+        --base-font-size: 0.7rem;
+    }
+}
+
+@media (max-width:400px) {
+    :root {
+        --base-font-size: 0.55rem;
+    }
 }

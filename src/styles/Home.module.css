@@ -20,11 +20,17 @@
 }
 
 .highLightedText:before {
-    content: url('../assets/curve-design-element.svg');
+    content:'';
+    background-image: url('../assets/curve-design-element.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     display: block;
     position: absolute;
     width:100%;
+    height:1rem;
     bottom: -50%;
+    overflow: hidden;
     left:0;
 }
 
@@ -138,4 +144,32 @@
 .arrow:nth-of-type(2){
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg) ;
+}
+
+/* big tablet design */
+@media (max-width:750px) {
+    .heroIllustration{
+        display: none;
+    }
+
+    .heroSection {
+        display: block;
+        text-align: center;
+    }
+}
+
+@media (max-width:650px) {
+    .whyContent, .howContent{
+        display: flex;
+        flex-direction: column;
+        row-gap:1rem;
+    }
+
+    .whyIllustration, .howIllustration {
+        width:70%;
+    }
+
+    .howContent {
+        flex-direction: column-reverse;
+    }
 }

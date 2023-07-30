@@ -6,11 +6,16 @@ import * as api from "@/common/HttpService";
 import { GET_ALL_PROJECTS } from "@/common/APIPaths";
 import Loader from "@/components/Loader/Loader";
 import { NextRouter, useRouter } from "next/router";
+import { useInView } from "react-intersection-observer";
+import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 
 const Project: FC<{}> = () => {
   const router: NextRouter = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [projects, setProjects] = useState<Array<any>>([]);
+
+  // animations ref
+  const [projectsHeaderRef, projectsHeaderInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
 
   const getProjects = (body: any) => {
     api
@@ -38,7 +43,7 @@ const Project: FC<{}> = () => {
 
   return (
     <main className={styles.projectsContainer}>
-      <div className={styles.projectsHeader}>
+      <div className={`${styles.projectsHeader} ${projectsHeaderInView ? 'fadeIn' : ''}`} ref={projectsHeaderRef}>
         <h1 className={styles.projectsCategory}>Components</h1>
         <ProjectsMenu getProjects={getProjects}/>
       </div>
@@ -57,7 +62,7 @@ const Project: FC<{}> = () => {
                 project_description,
                 difficulty_level,
                 project_image,
-              }) => (
+              }, index) => (
                 <ProjectCard
                   key={_id}
                   slug={slug}

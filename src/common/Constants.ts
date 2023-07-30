@@ -33,8 +33,19 @@ export const contactFormFields:Array<FormField> = [
         }
     }
 ];
+
 export enum DIFFICULTY_LEVEL {
   BEGINNER = "beginner",
   INTERMEDIATE = "intermediate",
   ADVANCED = "advanced",
+};
+
+export const INTERSECTION_OBSERVER_OPTIONS = {
+    root: null,
+    threshold:0.05,
+    triggerOnce:true,
+};
+
+export const TOAST_SETTINGS = {
+    duration: 2000
 };

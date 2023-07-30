@@ -3,7 +3,6 @@ import styles from "@/styles/project.module.css";
 import ProjectLabel from "@/components/ProjectLabel/ProjectLabel";
 import Image from "next/image";
 import SVG from "@/components/SVG/SVG";
-import Comment from "@/components/Comment/Comment";
 import ProjectPointers from "@/components/ProjectPointers/ProjectPointers";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader/Loader";
@@ -17,6 +16,8 @@ import { IProjectDetails } from "@/common/Types";
 import { checkIfLoggedIn, formatProjectDetails } from "@/common/Helper";
 import { toast } from "react-hot-toast";
 import CommentsSection from "@/components/CommentsSection/commentsSection";
+import { useInView } from "react-intersection-observer";
+import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 
 enum TAB_IDS {
   USER_STORIES = "USER_STORIES",
@@ -39,6 +40,13 @@ const Project: FC<{}> = () => {
   const [projectDetails, setProjectDetails] = useState<IProjectDetails>(() =>
     formatProjectDetails({})
   );
+
+  // animation refs
+  const [projectHeaderRef, projectHeaderInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+  const [projectImageRef, projectImageInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+  const [projectInfoRef, projectInfoInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+  const [projectExtraDetailsRef, projectExtraDetailsInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+  const [projectPointersRef, projectPointersInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
 
   useEffect(() => {
     if (router.isReady) getProjectDetails();
@@ -85,7 +93,7 @@ const Project: FC<{}> = () => {
     switch (tab) {
       case TAB_IDS.USER_STORIES:
         return (
-          <div className={styles.projectPointers}>
+          <div className={`${styles.projectPointers} ${projectPointersInView ? 'fadeIn' : ''}`} ref={projectPointersRef}>
             <ProjectPointers titleIcon="book" title="User Stories" />
             <div className={styles.conceptsAndResources}>
               <ProjectPointers
@@ -127,7 +135,7 @@ const Project: FC<{}> = () => {
         <Loader />
       ) : (
         <main className={styles.projectContainer}>
-          <div className={styles.projectHeader}>
+          <div className={`${styles.projectHeader} ${projectHeaderInView ? 'fadeIn' : ''}`} ref={projectHeaderRef}>
             <div className={styles.headerLeft}>
               <span
                 className={styles.projectCategory}
@@ -139,10 +147,10 @@ const Project: FC<{}> = () => {
             </div>
             <div className={styles.headerRight}>
               <p className={styles.likeCount}>{likes}</p>
-              <div onClick={handleLikeClick} title={isUserLoggedIn? "": "Please log in to like"}>
+              <div onClick={handleLikeClick} title={isUserLoggedIn? "": "Please login to like"} className={styles.heartContainer}>
                 <SVG
                   iconName={isLiked ? "heart" : "no-fill-heart"}
-                  fill={isLiked ? "#FF4033" : ""}
+                  fill='#FF4033'
                   className={`${isUserLoggedIn? styles.heartIcon: ""}`}
                 />
               </div>
@@ -150,16 +158,17 @@ const Project: FC<{}> = () => {
           </div>
           <div className={styles.projectDetails}>
             <Image
-              className={styles.projectImage}
+              className={`${styles.projectImage} ${projectImageInView ? 'fadeInFromLeft' : ''}`}
               src={projectImage}
               alt={`Banner for ${projectName}`}
               width="1920"
               height="1080"
+              ref={projectImageRef}
             />
-            <div className={styles.projectInfo}>
+            <div className={`${styles.projectInfo} ${projectInfoInView ? 'fadeInFromRight' : ''}`} ref={projectInfoRef}>
               <div className={styles.projectDesc}>{projectDescription}</div>
               <div className={styles.projectActions}>
-                <button className="button button-with-icon button-transparent-primary">
+                <button title={isUserLoggedIn ? "" : "Please login to download assets"} className="button button-with-icon button-transparent-primary">
                   <SVG iconName="download" fill="#0071DA" />
                   <span>Download Assets</span>
                 </button>
@@ -170,7 +179,7 @@ const Project: FC<{}> = () => {
               </div>
             </div>
           </div>
-          <div className={styles.projectExtraDetails}>
+          <div className={`${styles.projectExtraDetails} ${projectExtraDetailsInView ? 'fadeIn' : ''}`} ref={projectExtraDetailsRef}>
             <div className={`${styles.tabsContainer}`}>
               {TABS.map(({ id, label }) => (
                 <div

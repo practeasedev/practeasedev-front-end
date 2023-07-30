@@ -7,7 +7,8 @@ import { checkIfLoggedIn } from "@/common/Helper";
 import { GET_COMMENTS, POST_COMMENT } from "@/common/APIPaths";
 import { toast } from "react-hot-toast";
 import { ICommentDetails } from "@/common/Types";
-import { off } from "process";
+import { useInView } from "react-intersection-observer";
+import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 
 const CommentsSection = ({ projectId }: { projectId: string }) => {
   const isUserLoggedIn = checkIfLoggedIn();
@@ -15,6 +16,10 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
   const [commentText, setCommentText] = useState<string>("");
   const [comments, setComments] = useState<ICommentDetails[]>([]);
   const [showLoadMore, setShowLoadMore] = useState<boolean>(false);
+
+  // animations Ref
+  const [commentInputRef, commentInputInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+  const [commentTitleRef, commentTitleInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
 
   useEffect(() => {
     getComments();
@@ -55,11 +60,11 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
 
   return (
     <div className={styles.commentsContainer}>
-      <div className={styles.commentsTitle}>
+      <div className={`${styles.commentsTitle} ${commentInputInView ? 'fadeIn' : ''}`} ref={commentTitleRef}>
         <SVG iconName="comment" />
         <p>Comments</p>
       </div>
-      <div className={styles.commentInputContainer}>
+      <div className={`${styles.commentInputContainer} ${commentInputInView ? 'fadeIn' : ''}`} ref={commentInputRef}>
         <textarea
           placeholder="Your comment here..."
           value={commentText}

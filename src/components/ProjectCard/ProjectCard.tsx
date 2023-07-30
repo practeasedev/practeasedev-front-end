@@ -5,6 +5,8 @@ import ProjectLabel from "../ProjectLabel/ProjectLabel";
 import circleDesign from "@/assets/circle-design-element.svg";
 import triangleDesign from "@/assets/triangle-design-element.svg";
 import { useRouter } from "next/router";
+import { useInView } from "react-intersection-observer";
+import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 
 interface IProjectCardProps {
   slug: string;
@@ -18,14 +20,17 @@ const ProjectCard: FC<IProjectCardProps> = (props) => {
   const { slug, name, description, difficultyLevel, image } = props;
   const router = useRouter();
 
+  const [projectCardRef, projectCardInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+
   const navigateToProject = () => {
     router.push(`/projects/${slug}`);
   };
 
   return (
     <div
-      className={styles.projectCardOuterContainer}
+      className={`${styles.projectCardOuterContainer} ${projectCardInView ? 'fadeInFromTop' : ''}`}
       onClick={navigateToProject}
+      ref={projectCardRef}
     >
       <div className={styles.projectCardInnerContainer}>
         <Image
