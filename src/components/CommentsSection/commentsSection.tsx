@@ -72,7 +72,7 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
           onChange={(e) => setCommentText(e.target.value)}
         ></textarea>
         <button
-          className={`button-primary ${styles.commentBtn}`}
+          className={`button-primary ${styles.commentBtn} button-medium`}
           onClick={postComment}
           title={isUserLoggedIn ? "" : "Please login to comment"}
           disabled={!isUserLoggedIn}

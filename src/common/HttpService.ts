@@ -28,8 +28,7 @@ interface IDeleteProps extends IAPIProps {
 const handleAPIStatuses = (apiResult: any, apiResponse:any) => {
     switch(apiResult.status) {
         case 200:
-            toast.success(apiResponse.message, TOAST_SETTINGS);
-            break;
+            return;
         case 400:
         case 500:
             toast.error(apiResponse.message, TOAST_SETTINGS);
@@ -39,6 +38,10 @@ const handleAPIStatuses = (apiResult: any, apiResponse:any) => {
             toast.error(apiResponse.message, TOAST_SETTINGS);
             remove({
                 url: LOGOUT_USER
+            }).then((res) => {
+                if(res.success) {
+                    window.location.href="/";
+                }
             })
             break;
         default:

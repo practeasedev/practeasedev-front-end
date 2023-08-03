@@ -1,0 +1,50 @@
+.sideMenuContainer{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background-color: var(--dark-color-transparent);
+    display: flex;
+    justify-content: flex-end;
+    animation-duration:0.25s !important;
+    z-index:10;
+}
+
+.sideMenu {
+    height:100%;
+    background-color: var(--light-color);
+    width:300px;
+    padding: 2rem;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    animation-duration:0.25s !important;
+}
+
+.sideNav{
+    margin-top:2rem;
+    list-style-type:none;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+
+.sideNavLink {
+    font-size:1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--dark-color);
+}
+
+.closeIcon{
+    position: absolute;
+    top:1.5%;
+    right: 5%;
+    cursor: pointer;
+    stroke: black;
+    stroke-width: 1rem;
+    width:1.75rem;
+    height:auto;
+}

@@ -142,6 +142,15 @@
 }
 
 @media (max-width: 800px) {
+
+    .likeCount {
+        font-size: var(--body-large);
+    }
+
+    .heartIcon{
+        height:1.25rem;
+        width:auto;
+    }
     .projectPointers{
         display: flex;
         flex-direction: column;

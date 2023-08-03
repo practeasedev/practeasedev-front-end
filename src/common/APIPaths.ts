@@ -1,6 +1,7 @@
 const API_VERSION_1 = "/api/v1";
 export const BASE_URL_DEV = "http://localhost:5000";
-export const BASE_URL = BASE_URL_DEV;
+export const BASE_URL_PREPROD = "https://chocolate-cougar-sock.cyclic.cloud";
+export const BASE_URL = BASE_URL_PREPROD;
 
 export const GITHUB_AUTHORIZE = "https://github.com/login/oauth/authorize";
 

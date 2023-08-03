@@ -9,12 +9,14 @@ import SVG from "../SVG/SVG";
 import * as api from "@/common/HttpService";
 import AuthLoader from "../AuthLoader/AuthLoader";
 import { NextRouter, useRouter } from "next/router";
+import SideMenu from "../SideMenu/SideMenu";
 
 const Header: FC<{}> = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userDetails, setUserDetails] = useState<any>(null);
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
   const [isAuthLoading, setIsAuthLoading] = useState<boolean>(false);
+  const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
   const router:NextRouter = useRouter();
   const { pathname } = router;
 
@@ -108,17 +110,27 @@ const Header: FC<{}> = () => {
         {isAuthLoading ? <AuthLoader message="Logging out. Please wait" /> : null}
       </header>
       <header className={styles.mobileHeader}>
-        <Link href="/">
-          <Image
-            src="/logo.svg"
-            alt="practease dev logo"
-            width="219"
-            height="31"
-            className={styles.mobileLogo}
-          />
-        </Link>
-        <SVG iconName="menu-open" width="36" height="36"/>
-      </header>
+          <Link href="/">
+            <Image
+              src="/logo.svg"
+              alt="practease dev logo"
+              width="219"
+              height="31"
+              className={styles.mobileLogo}
+            />
+          </Link>
+          <p onClick={() => { setShowSideMenu(true); }}>
+            <SVG iconName="menu-open" width="36" height="36" className={styles.menuOpenIcon}/>
+          </p>
+          {showSideMenu ? (
+            <SideMenu
+              closeHandler={() => { setShowSideMenu(false); }}
+            />
+          ) : null}
+          
+        </header>
+      
+      
     </>
   );
 };

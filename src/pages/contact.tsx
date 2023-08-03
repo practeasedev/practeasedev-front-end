@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "@/styles/contact.module.css";
 import SVG from "@/components/SVG/SVG";
 import mailBox from "@/assets/mailbox.svg";
@@ -9,11 +9,13 @@ import { INTERSECTION_OBSERVER_OPTIONS, contactFormFields } from "@/common/Const
 import * as api from "@/common/HttpService";
 import { SEND_CONTACT_EMAIL } from "@/common/APIPaths";
 import { useInView } from "react-intersection-observer";
+import { toast } from "react-hot-toast";
 
 const Contact: FC<{}> = () => {
     const { values, errors, setFormField, validateForm } = useForm(contactFormFields);
     const [contactFormRef, contactFormInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
     const [contactInfoRef, contactInfoInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+    const [sendingMail, setSendingMail] = useState<boolean>(false);
 
     const submitForm = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -24,6 +26,11 @@ const Contact: FC<{}> = () => {
             api.post({
                 url: SEND_CONTACT_EMAIL,
                 body: values,
+                loadingHandler: setSendingMail
+            }).then((res) => {
+                if(res.status) {
+                    toast.success('Successfully sent mail');
+                }
             });
         }
     };
@@ -117,9 +124,16 @@ const Contact: FC<{}> = () => {
                 <button
                     className="button-with-icon button-secondary button-medium"
                     type="submit"
+                    disabled={sendingMail}
                 >
-                    <SVG iconName="send" fill="#FFFFFF" />
-                    <span>Send Message</span>
+                    {sendingMail ? (
+                        <p className={styles.sendingText}>Sending ...</p>
+                    ) : (
+                        <>
+                            <SVG iconName="send" fill="#FFFFFF" />
+                            <span>Send Message</span>
+                        </>
+                    )}
                 </button>
             </form>
         </section>

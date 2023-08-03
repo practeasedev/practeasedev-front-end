@@ -96,7 +96,8 @@ button{
     border-radius:0.25rem;
     border:0;
     cursor: pointer;
-    width:max-content
+    width:max-content;
+    font-size:var(--body-normal);
 }
 
 button:disabled {
@@ -291,6 +292,23 @@ button:disabled {
 @media (max-width: 975px) {
     :root {
         --base-font-size: 0.7rem;
+    }
+
+    button {
+        font-size: var(--body-medium);
+    }
+
+    .button-large{
+        font-size:var(--body-large);
+    }
+
+    .button-medium{
+        font-size:var(--body-medium);
+    }
+
+    .button-icon{
+        height:1.25rem;
+        width:auto;
     }
 }
 
