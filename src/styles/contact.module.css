@@ -36,7 +36,7 @@
 }
 
 .mailBox{
-    width:40%;
+    width:55%;
     height:auto;
 }
 
@@ -49,4 +49,18 @@
     display: flex;
     flex-direction: column;
     row-gap:1.5rem;
+}
+
+@media (max-width:1000px) {
+    .contactContainer {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1.5rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .contactIllustration {
+        display: none;
+    }
 }

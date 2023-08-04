@@ -25,3 +25,10 @@
     padding: 0.25rem 0.5rem;
     border-radius:0.25rem;
 }
+
+
+@media (max-width:800px) {
+    .normalLabel {
+        font-size: calc(var(--body-normal) * 0.9)
+    }
+}

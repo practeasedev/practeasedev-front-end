@@ -28,3 +28,24 @@
     grid-template-columns: repeat(3,1fr);
     gap:2rem;
 }
+
+.noProjects{
+    text-align: center;
+    font-weight:600;
+    margin-top:2rem;
+}
+
+@media (max-width:1250px) {
+    .projects {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media (max-width:600px) {
+    .projects {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        row-gap: 1rem;
+    }
+} 

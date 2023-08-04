@@ -29,6 +29,12 @@
     column-gap: 0.5rem;
 }
 
+.heartContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .likeCount{
     font-size: var(--body-medium);
     font-weight: 500;
@@ -87,10 +93,6 @@
     transform-origin: center;
 }
 
-/* .active {
-    border-bottom: 5px solid var(--secondary-color);
-} */
-
 .projectActions{
     display: flex;
     align-items: center;
@@ -102,6 +104,12 @@
     display: grid;
     grid-template-columns: repeat(2,1fr);
     column-gap:1rem;
+}
+
+.conceptsAndResources {
+    display: flex;
+    flex-direction: column;
+    row-gap:1.25rem;
 }
 
 .conceptsAndResources > .pointersContainer:nth-of-type(odd) {
@@ -122,5 +130,30 @@
     }
     100% {
         width:100%;
+    }
+}
+
+@media (max-width:1000px) {
+    .projectDetails {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1.25rem;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .likeCount {
+        font-size: var(--body-large);
+    }
+
+    .heartIcon{
+        height:1.25rem;
+        width:auto;
+    }
+    .projectPointers{
+        display: flex;
+        flex-direction: column;
+        row-gap: 1.25rem;
     }
 }

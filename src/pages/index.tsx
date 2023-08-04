@@ -12,11 +12,17 @@ import { NextRouter, useRouter } from 'next/router';
 import * as api from '@/common/HttpService'
 import { LOGIN_OR_REGISTER } from '@/common/APIPaths';
 import AuthLoader from '@/components/AuthLoader/AuthLoader';
+import { useInView } from 'react-intersection-observer';
+import { INTERSECTION_OBSERVER_OPTIONS } from '@/common/Constants';
 
 
 export default function Home() {
   const router:NextRouter = useRouter();
   const [isAuthLoading, setIsAuthLoading] = useState<boolean>(false);
+
+  // animation refs
+  const [whySectionRef, whySectionInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+  const [howSectionRef, howSectionInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
 
   const connectWithGithub = async (code:string) => {
     const body = {
@@ -50,7 +56,7 @@ export default function Home() {
         <title>Practease Dev - A place to hone your developer skills</title>
       </Head>
       <section className={styles.heroSection}>
-          <div className={styles.heromain}>
+          <div className={`${styles.heroMain} fadeInFromLeft`}>
             <h1 className={styles.tagline}>
               A Place to hone your <br />
               <span className={styles.highLightedText}>developer skills</span>
@@ -59,11 +65,11 @@ export default function Home() {
               Get Coding
             </button>
           </div>
-          <Image src={heroIllustration} alt="A human typing in keyboard of a laptop on his lap while sitting on a chair" className={styles.heroIllustration}/>
+          <Image src={heroIllustration} alt="A human typing in keyboard of a laptop on his lap while sitting on a chair" className={`${styles.heroIllustration} fadeInFromRight`}/>
           <Image src={circleDesign} alt="A circle with light blue and light orange gradient"  className={styles.circleDesign}/>
           <Image src={triangleDesign} alt="A triangle with light blue and light orange gradient" className={styles.triangleDesign} />
       </section>
-      <section className={styles.whySection}>
+      <section className={`${styles.whySection} ${whySectionInView ? 'fadeIn' : ''}`} ref={whySectionRef}>
         <h2 className={styles.whyTitle}>Why use this platform?</h2>
         <div className={styles.whyContent}>
           <Image src={whyIllustration} alt="A illustration of a girl and a boy with a big question mark" className={styles.whyIllustration}/>
@@ -73,7 +79,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className={styles.howSection}>
+      <section className={`${styles.howSection} ${howSectionInView ? 'fadeIn' : ''}`} ref={howSectionRef}>
         <h2 className={styles.howTitle}>How to use this platform?</h2>
         <div className={styles.howContent}>
           <div className={styles.howSteps}>

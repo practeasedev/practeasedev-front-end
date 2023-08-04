@@ -47,3 +47,9 @@
     text-align: center;
     text-decoration: underline;
 }
+
+@media (max-width: 800px) {
+    .commentsContainer{
+        width:100%;
+    }
+}
