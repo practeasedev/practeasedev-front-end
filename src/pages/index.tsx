@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '@/styles/home.module.css';
+import styles from '@/styles/Home.module.css';
 import heroIllustration from '@/assets/hero-illustration.svg'
 import circleDesign from '@/assets/circle-design-element.svg';
 import triangleDesign from '@/assets/triangle-design-element.svg';
