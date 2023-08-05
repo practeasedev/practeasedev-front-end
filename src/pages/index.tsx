@@ -37,7 +37,7 @@ export default function Home() {
     });
 
     if(connectResult) {
-      window.location.replace('/');
+      window.location.reload();
     }
   }
 
