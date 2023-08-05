@@ -37,7 +37,7 @@ export default function Home() {
     });
 
     if(connectResult) {
-      router.push('/');
+      window.location.replace('/');
     }
   }
 
