@@ -32,7 +32,7 @@ const Header: FC<{}> = () => {
 
   useEffect(() => {
     setIsLoggedIn(checkIfLoggedIn());
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (isLoggedIn) {
