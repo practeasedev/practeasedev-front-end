@@ -125,6 +125,7 @@ const Header: FC<{}> = () => {
           {showSideMenu ? (
             <SideMenu
               closeHandler={() => { setShowSideMenu(false); }}
+              logoutUser={logoutUser}
             />
           ) : null}
           

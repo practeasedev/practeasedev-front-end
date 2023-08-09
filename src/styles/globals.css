@@ -45,7 +45,13 @@
     padding:0;
 }
 
+html{
+    width:100vw;
+    overflow-x: hidden;
+}
+
 body{
+    position: relative;
     overflow-x: hidden;
     width:100%;
 }
