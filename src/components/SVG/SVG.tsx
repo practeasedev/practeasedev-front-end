@@ -224,6 +224,32 @@ const SVG: FC<ISVGProps> = (props) => {
                     <path d="M480-438 270-228q-9 9-21 9t-21-9q-9-9-9-21t9-21l210-210-210-210q-9-9-9-21t9-21q9-9 21-9t21 9l210 210 210-210q9-9 21-9t21 9q9 9 9 21t-9 21L522-480l210 210q9 9 9 21t-9 21q-9 9-21 9t-21-9L480-438Z" />
                 </svg>
             );
+        case "logout":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height={height || DEFAULT_DIMENSION}
+                    viewBox="0 -960 960 960"
+                    width={width || DEFAULT_DIMENSION}
+                    fill={fill || DEFAULT_COLOR}
+                    className={className || ""}
+                >
+                    <path d="M180-120q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h299v60H180v600h299v60H180Zm486-185-43-43 102-102H360v-60h363L621-612l43-43 176 176-174 174Z" />
+                </svg>
+            );
+        case "chevron-right":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height={height || DEFAULT_DIMENSION}
+                    viewBox="0 -960 960 960"
+                    width={width || DEFAULT_DIMENSION}
+                    fill={fill || DEFAULT_COLOR}
+                    className={className || ""}
+                >
+                    <path d="M530-481 332-679l43-43 241 241-241 241-43-43 198-198Z" />
+                </svg>
+            );
         default:
             return null;
     }

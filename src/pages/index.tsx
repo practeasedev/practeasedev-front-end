@@ -14,6 +14,7 @@ import { LOGIN_OR_REGISTER } from '@/common/APIPaths';
 import AuthLoader from '@/components/AuthLoader/AuthLoader';
 import { useInView } from 'react-intersection-observer';
 import { INTERSECTION_OBSERVER_OPTIONS } from '@/common/Constants';
+import Link from 'next/link';
 
 
 export default function Home() {
@@ -61,9 +62,11 @@ export default function Home() {
               A Place to hone your <br />
               <span className={styles.highLightedText}>developer skills</span>
             </h1>
-            <button className="button-large button-secondary">
-              Get Coding
-            </button>
+            <Link href="/projects" className={styles.getCodingLink}>
+              <button className="button-large button-secondary">
+                Get Coding
+              </button>
+            </Link>
           </div>
           <Image src={heroIllustration} alt="A human typing in keyboard of a laptop on his lap while sitting on a chair" className={`${styles.heroIllustration} fadeInFromRight`}/>
           <Image src={circleDesign} alt="A circle with light blue and light orange gradient"  className={styles.circleDesign}/>

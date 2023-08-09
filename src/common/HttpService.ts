@@ -59,7 +59,6 @@ export const get = async ({url, loadingHandler, authRequired = true, constructUr
             credentials: 'include',
             headers: {...(authRequired? {Authorization: `Bearer ${accessToken}`}: null)}
         });    
-        console.log(apiGetResult);
         const apiResponse = await apiGetResult.json();
         handleAPIStatuses(apiGetResult, apiResponse);
         
