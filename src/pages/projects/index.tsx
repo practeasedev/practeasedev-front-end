@@ -44,7 +44,7 @@ const Project: FC<{}> = () => {
   return (
     <main className={styles.projectsContainer}>
       <div className={`${styles.projectsHeader} ${projectsHeaderInView ? 'fadeIn' : ''}`} ref={projectsHeaderRef}>
-        <h1 className={styles.projectsCategory}>Components</h1>
+        <h1 className={styles.projectsCategory}>Projects</h1>
         <ProjectsMenu getProjects={getProjects}/>
       </div>
       {isLoading ? (

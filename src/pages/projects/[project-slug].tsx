@@ -168,11 +168,11 @@ const Project: FC<{}> = () => {
             <div className={`${styles.projectInfo} ${projectInfoInView ? 'fadeInFromRight' : ''}`} ref={projectInfoRef}>
               <div className={styles.projectDesc}>{projectDescription}</div>
               <div className={styles.projectActions}>
-                <button title={isUserLoggedIn ? "" : "Please login to download assets"} className="button button-with-icon button-medium button-transparent-primary">
+                <button title={isUserLoggedIn ? "" : "Please login to download assets"} className="button button-with-icon button-transparent button-border-primary button-border-medium">
                   <SVG iconName="download" fill="#0071DA" />
                   <span>Download Assets</span>
                 </button>
-                <button className="button button-with-icon button-transparent-dark">
+                <button className="button button-with-icon button-transparent button-border-dark button-border-medium">
                   <SVG iconName="figma" />
                   <span>View Figma</span>
                 </button>

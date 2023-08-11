@@ -84,18 +84,6 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
             sortRef.current = value;  
         }
     }
-
-    const resetCategoriesAndFilters = () => {
-        categoriesRef.current = categoriesRef.current.filter((category) => !selectedCategoriesRef.current.includes(category));
-        filtersRef.current = filtersRef.current.filter((filter) => !selectedFiltersRef.current.includes(filter));
-        setCategories(categoriesRef.current);
-        setFilters(filtersRef.current);
-        selectedCategoriesRef.current = [];
-        selectedFiltersRef.current = [];
-        setSelectedCategories(selectedCategoriesRef.current);
-        setSelectedFilters(selectedFiltersRef.current);
-    }
-
      
     const applyCategoriesAndFilters = (event:MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
@@ -108,6 +96,17 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
         setSelectedCategories([]);
         setSelectedFilters([]);
         setDisplayMenu(false); 
+    }
+
+    const resetCategoriesAndFilters = () => {
+        categoriesRef.current = categoriesRef.current.filter((category) => !selectedCategoriesRef.current.includes(category));
+        filtersRef.current = filtersRef.current.filter((filter) => !selectedFiltersRef.current.includes(filter));
+        setCategories(categoriesRef.current);
+        setFilters(filtersRef.current);
+        selectedCategoriesRef.current = [];
+        selectedFiltersRef.current = [];
+        setSelectedCategories(selectedCategoriesRef.current);
+        setSelectedFilters(selectedFiltersRef.current);
     }
 
     const outsideClickHandler = () => {
@@ -243,7 +242,10 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                             </div>
                         </div>
                     </div>
-                    <button className="button button-primary" onClick={(event) => {applyCategoriesAndFilters(event)}}>Apply</button>
+                    <div className={styles.projectMenuActions}>
+                        <button className="button button-transparent button-border-dark button-border-thin" onClick={() => { outsideClickHandler(); }}>Cancel</button>
+                        <button className="button button-primary" onClick={(event) => { applyCategoriesAndFilters(event); }}>Apply</button>
+                    </div>
                 </div>
             ) : null}
         </div>
