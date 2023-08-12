@@ -19,9 +19,8 @@ const Footer:FC<{}> = () => {
                 <p className={styles.linkGroupHeading}>Quick links</p>
                 <ul className={styles.links}>
                     <li><Link href="/" className={styles.footerlink}>Home</Link></li>
-                    <li><Link href="/" className={styles.footerlink}>Projects</Link></li>
-                    <li><Link href="/" className={styles.footerlink}>Blog</Link></li>
-                    <li><Link href="/" className={styles.footerlink}>Contact</Link></li>
+                    <li><Link href="/projects" className={styles.footerlink}>Projects</Link></li>
+                    <li><Link href="/contact" className={styles.footerlink}>Contact</Link></li>
                 </ul>
             </div>
             <div className={styles.importantLinks}>

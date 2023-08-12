@@ -146,15 +146,36 @@ button:disabled {
     width:auto;
 }
 
-.button-transparent-primary{
+.button-transparent{
     background-color: transparent;
-    border: 0.15rem solid var(--primary-color);
-    color: var(--primary-color)
 }
 
-.button-transparent-dark{
-    background-color: transparent;
-    border: 0.15rem solid var(--dark-color);
+.button-border-primary {
+    color: var(--primary-color);
+    border-style: solid;
+    border-color: var(--primary-color)
+}
+
+.button-border-dark{
+    color: var(--dark-color);
+    border-style: solid;
+    border-color: var(--dark-color)
+}
+
+.button-border-thick {
+    border-width: 0.2rem;
+}
+
+.button-border-medium{
+    border-width: 0.15rem;
+}
+
+.button-border-normal{
+    border-width: 0.125rem;
+}
+
+.button-border-thin{
+    border-width: 0.1rem;
 }
 
 /* form inputs */
@@ -204,6 +225,7 @@ button:disabled {
 
 .checkbox-label {
     cursor: pointer;
+    font-size: var(--body-medium);
 }
 
 .radio-group {
@@ -219,6 +241,7 @@ button:disabled {
 
 .radio-label {
     cursor: pointer;
+    font-size: var(--body-medium);
 }
 
 .fadeInFromLeft {
