@@ -1,7 +1,6 @@
-import { access } from "fs";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
-import { FormField, IProjectDetails, IUserDetails } from "./Types";
+import { IProjectDetails, IUserDetails } from "./Types";
 
 export const checkIfLoggedIn = () => {
   const accessToken = Cookies.get("accessToken");
@@ -19,6 +18,16 @@ export const getLoggedInUserDetails = (): IUserDetails | null => {
 export const getCookieValue = (key: string): string | undefined =>
   Cookies.get(key);
 
+export const setCookieValue = (key: string, value: string) => {
+  Cookies.set(key, value, {
+    expires: 0.2
+  })
+}
+
+export const removeCookie = (key: string) => {
+  Cookies.remove(key);
+}
+
 export const getFormattedDate = (timeStamp: number): string =>
   new Date(timeStamp).toLocaleString();
 
@@ -35,6 +44,7 @@ export const formatProjectDetails = (response: any): IProjectDetails => {
     download_link,
     key_concepts,
     resource_links,
+    slug,
     likes,
   } = response || {};
   return {
@@ -49,6 +59,7 @@ export const formatProjectDetails = (response: any): IProjectDetails => {
     downloadLink: download_link || "",
     keyConcepts: key_concepts || [],
     resourceLinks: resource_links || [],
+    slug: slug || '',
     likes: likes || 0,
   };
 };

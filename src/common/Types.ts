@@ -45,4 +45,5 @@ export interface IProjectDetails {
   keyConcepts: string[];
   resourceLinks: string[];
   likes: number;
+  slug: string;
 }

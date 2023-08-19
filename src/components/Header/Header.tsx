@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react";
 import styles from "@/components/Header/Header.module.css";
 import githubWhite from "@/assets/github-white.svg";
 import { GITHUB_AUTHORIZE, LOGOUT_USER } from "@/common/APIPaths";
-import { checkIfLoggedIn, getLoggedInUserDetails } from "@/common/Helper";
+import { checkIfLoggedIn, getLoggedInUserDetails, removeCookie } from "@/common/Helper";
 import SVG from "../SVG/SVG";
 import * as api from "@/common/HttpService";
 import AuthLoader from "../AuthLoader/AuthLoader";
@@ -21,13 +21,8 @@ const Header: FC<{}> = () => {
   const { pathname } = router;
 
   const logoutUser = () => {
-    api
-      .remove({ url: LOGOUT_USER, loadingHandler: setIsAuthLoading })
-      .then((res) => {
-        if (res.success) {
-          window.location.reload();
-        }
-      });
+    removeCookie('accessToken');
+    window.location.reload();
   };
 
   useEffect(() => {
