@@ -15,6 +15,7 @@ import AuthLoader from '@/components/AuthLoader/AuthLoader';
 import { useInView } from 'react-intersection-observer';
 import { INTERSECTION_OBSERVER_OPTIONS } from '@/common/Constants';
 import Link from 'next/link';
+import { setCookieValue } from '@/common/Helper';
 
 
 export default function Home() {
@@ -35,9 +36,10 @@ export default function Home() {
       loadingHandler: setIsAuthLoading,
       constructUrl:true,
       authRequired: false
-    });
+    })
 
     if(connectResult) {
+      setCookieValue('accessToken', connectResult.data);
       router.push('/');
     }
   }

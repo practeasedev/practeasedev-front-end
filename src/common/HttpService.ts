@@ -11,7 +11,9 @@ interface IAPIProps {
     constructUrl?: boolean
 }
 
-interface IGetProps extends IAPIProps {};
+interface IGetProps extends IAPIProps {
+    isDownload?: boolean
+};
 
 interface IPostProps extends IAPIProps {
     body: any
@@ -32,7 +34,6 @@ const handleAPIStatuses = (apiResult: any, apiResponse:any) => {
         case 400:
         case 500:
             toast.error(apiResponse.message, TOAST_SETTINGS);
-            toast.error(apiResponse.message, TOAST_SETTINGS);
             break;
         case 401:
             toast.error(apiResponse.message, TOAST_SETTINGS);
@@ -49,7 +50,7 @@ const handleAPIStatuses = (apiResult: any, apiResponse:any) => {
     }
 }
 
-export const get = async ({url, loadingHandler, authRequired = true, constructUrl=true} : IGetProps ) => {
+export const get = async ({url, loadingHandler, authRequired = true, constructUrl=true, isDownload=false} : IGetProps ) => {
     loadingHandler?.(true);
     try {
         const accessToken = getCookieValue("accessToken");
@@ -58,8 +59,15 @@ export const get = async ({url, loadingHandler, authRequired = true, constructUr
             method: 'GET',
             credentials: 'include',
             headers: {...(authRequired? {Authorization: `Bearer ${accessToken}`}: null)}
-        });    
-        const apiResponse = await apiGetResult.json();
+        }); 
+
+        let apiResponse:any
+
+        if (isDownload) {
+            apiResponse = apiGetResult.ok  ? await apiGetResult.blob() : apiGetResult.json();   
+        } else {
+            apiResponse = await apiGetResult.json();
+        }
         handleAPIStatuses(apiGetResult, apiResponse);
         
         loadingHandler?.(false);
@@ -123,7 +131,8 @@ export const put = async ({url, body, loadingHandler, authRequired = true,  cons
         loadingHandler?.(false);
         toast.error('Something went wrong', {
             duration: 2000,
-        })
+        });
+        return false;
     }
 }
 
@@ -153,6 +162,7 @@ export const remove = async ({url, body, loadingHandler, authRequired = true,  c
         toast.error('Something went wrong', {
             duration: 2000,
         })
+        return false;
     }
 }
 

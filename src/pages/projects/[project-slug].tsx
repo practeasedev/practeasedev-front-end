@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Loader from "@/components/Loader/Loader";
 import * as API from "@/common/HttpService";
 import {
+  DOWNLOAD_PROJECT,
   GET_ALL_PROJECTS,
   GET_PROJECT_STATUS,
   POST_PROJECT_STATUS,
@@ -116,6 +117,23 @@ const Project: FC<{}> = () => {
     }
   };
 
+  const downloadAssets = () => {
+    API.get({
+      url: `${DOWNLOAD_PROJECT}/${slug}`,
+      isDownload:true
+    }).then((res) => {
+      if(res) {
+        const url = URL.createObjectURL(res);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${slug}.zip`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    })
+  }
+
   const {
     projectId,
     projectName,
@@ -127,6 +145,7 @@ const Project: FC<{}> = () => {
     keyConcepts,
     userStories,
     resourceLinks,
+    slug,
   } = projectDetails;
 
   return (
@@ -168,7 +187,7 @@ const Project: FC<{}> = () => {
             <div className={`${styles.projectInfo} ${projectInfoInView ? 'fadeInFromRight' : ''}`} ref={projectInfoRef}>
               <div className={styles.projectDesc}>{projectDescription}</div>
               <div className={styles.projectActions}>
-                <button title={isUserLoggedIn ? "" : "Please login to download assets"} className="button button-with-icon button-transparent button-border-primary button-border-medium">
+                <button title={isUserLoggedIn ? "" : "Please login to download assets"} className="button button-with-icon button-transparent button-border-primary button-border-medium" onClick={() => downloadAssets()}>
                   <SVG iconName="download" fill="#0071DA" />
                   <span>Download Assets</span>
                 </button>
