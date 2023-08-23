@@ -32,9 +32,16 @@ const TABS = [
   // { id: TAB_IDS.SOLUTIONS, label: "Solutions" },
 ];
 
+interface IGetTabContents {
+  tab: TAB_IDS;
+  keyConcepts: string[];
+  userStories: string[];
+  resourceLinks: string[];
+}
+
 const Project: FC<{}> = () => {
   const router = useRouter();
-  const isUserLoggedIn = useMemo(()=>checkIfLoggedIn(),[])
+  const isUserLoggedIn = useMemo(() => checkIfLoggedIn(), []);
   const [loading, setLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<TAB_IDS>(TAB_IDS.USER_STORIES);
   const [isLiked, setLike] = useState<boolean>(false);
@@ -43,11 +50,21 @@ const Project: FC<{}> = () => {
   );
 
   // animation refs
-  const [projectHeaderRef, projectHeaderInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
-  const [projectImageRef, projectImageInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
-  const [projectInfoRef, projectInfoInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
-  const [projectExtraDetailsRef, projectExtraDetailsInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
-  const [projectPointersRef, projectPointersInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+  const [projectHeaderRef, projectHeaderInView] = useInView(
+    INTERSECTION_OBSERVER_OPTIONS
+  );
+  const [projectImageRef, projectImageInView] = useInView(
+    INTERSECTION_OBSERVER_OPTIONS
+  );
+  const [projectInfoRef, projectInfoInView] = useInView(
+    INTERSECTION_OBSERVER_OPTIONS
+  );
+  const [projectExtraDetailsRef, projectExtraDetailsInView] = useInView(
+    INTERSECTION_OBSERVER_OPTIONS
+  );
+  const [projectPointersRef, projectPointersInView] = useInView(
+    INTERSECTION_OBSERVER_OPTIONS
+  );
 
   useEffect(() => {
     if (router.isReady) getProjectDetails();
@@ -62,11 +79,8 @@ const Project: FC<{}> = () => {
     if (success) {
       const projectDetails = formatProjectDetails(data);
       setProjectDetails(projectDetails);
-      if(isUserLoggedIn){
-        const {
-          data: projectStatus,
-          success,
-        } = await API.get({
+      if (isUserLoggedIn) {
+        const { data: projectStatus, success } = await API.get({
           url: `${GET_PROJECT_STATUS}/${projectDetails.projectId}`,
         });
         if (success) setLike(projectStatus.is_liked);
@@ -76,7 +90,7 @@ const Project: FC<{}> = () => {
   };
 
   const handleLikeClick = async () => {
-    if(!isUserLoggedIn) return;
+    if (!isUserLoggedIn) return;
     const { data, success } = await API.post({
       url: `${POST_PROJECT_STATUS}/${projectId}`,
       body: { isLike: !isLiked },
@@ -90,23 +104,35 @@ const Project: FC<{}> = () => {
     } else toast.error("Please try again", { duration: 2000 });
   };
 
-  const getTabContents = (tab: TAB_IDS) => {
+  const getTabContents = ({
+    tab,
+    keyConcepts,
+    userStories,
+    resourceLinks,
+  }: IGetTabContents) => {
     switch (tab) {
       case TAB_IDS.USER_STORIES:
         return (
-          <div className={`${styles.projectPointers} ${projectPointersInView ? 'fadeIn' : ''}`} ref={projectPointersRef}>
-            <ProjectPointers titleIcon="book" title="User Stories" />
+          <div
+            className={`${styles.projectPointers} ${
+              projectPointersInView ? "fadeIn" : ""
+            }`}
+            ref={projectPointersRef}
+          >
+            <ProjectPointers titleIcon="book" title="User Stories" pointers={userStories} />
             <div className={styles.conceptsAndResources}>
               <ProjectPointers
                 titleIcon="bulb"
                 title="Key Concepts"
                 backgroundColor="#FFF8F2"
+                pointers={keyConcepts}
               />
-              <ProjectPointers
+              {/* <ProjectPointers
                 titleIcon="page"
                 title="Resources"
                 backgroundColor="#F5FAFF"
-              />
+                pointers={resourceLinks}
+              /> */}
             </div>
           </div>
         );
@@ -120,19 +146,19 @@ const Project: FC<{}> = () => {
   const downloadAssets = () => {
     API.get({
       url: `${DOWNLOAD_PROJECT}/${slug}`,
-      isDownload:true
+      isDownload: true,
     }).then((res) => {
-      if(res) {
+      if (res) {
         const url = URL.createObjectURL(res);
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = url;
-        link.setAttribute('download', `${slug}.zip`);
+        link.setAttribute("download", `${slug}.zip`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
       }
-    })
-  }
+    });
+  };
 
   const {
     projectId,
@@ -148,13 +174,25 @@ const Project: FC<{}> = () => {
     slug,
   } = projectDetails;
 
+  const tabContents = useMemo(()=>getTabContents({
+    tab: activeTab,
+    keyConcepts,
+    userStories,
+    resourceLinks,
+  }),[keyConcepts, userStories, resourceLinks])
+
   return (
     <div>
       {loading ? (
         <Loader />
       ) : (
         <main className={styles.projectContainer}>
-          <div className={`${styles.projectHeader} ${projectHeaderInView ? 'fadeIn' : ''}`} ref={projectHeaderRef}>
+          <div
+            className={`${styles.projectHeader} ${
+              projectHeaderInView ? "fadeIn" : ""
+            }`}
+            ref={projectHeaderRef}
+          >
             <div className={styles.headerLeft}>
               <span
                 className={styles.projectCategory}
@@ -166,28 +204,45 @@ const Project: FC<{}> = () => {
             </div>
             <div className={styles.headerRight}>
               <p className={styles.likeCount}>{likes}</p>
-              <div onClick={handleLikeClick} title={isUserLoggedIn? "": "Please login to like"} className={styles.heartContainer}>
+              <div
+                onClick={handleLikeClick}
+                title={isUserLoggedIn ? "" : "Please login to like"}
+                className={styles.heartContainer}
+              >
                 <SVG
                   iconName={isLiked ? "heart" : "no-fill-heart"}
-                  fill='#FF4033'
-                  className={`${isUserLoggedIn? styles.heartIcon: ""}`}
+                  fill="#FF4033"
+                  className={`${isUserLoggedIn ? styles.heartIcon : ""}`}
                 />
               </div>
             </div>
           </div>
           <div className={styles.projectDetails}>
             <Image
-              className={`${styles.projectImage} ${projectImageInView ? 'fadeInFromLeft' : ''}`}
+              className={`${styles.projectImage} ${
+                projectImageInView ? "fadeInFromLeft" : ""
+              }`}
               src={projectImage}
               alt={`Banner for ${projectName}`}
               width="1920"
               height="1080"
               ref={projectImageRef}
             />
-            <div className={`${styles.projectInfo} ${projectInfoInView ? 'fadeInFromRight' : ''}`} ref={projectInfoRef}>
+            <div
+              className={`${styles.projectInfo} ${
+                projectInfoInView ? "fadeInFromRight" : ""
+              }`}
+              ref={projectInfoRef}
+            >
               <div className={styles.projectDesc}>{projectDescription}</div>
               <div className={styles.projectActions}>
-                <button title={isUserLoggedIn ? "" : "Please login to download assets"} className="button button-with-icon button-transparent button-border-primary button-border-medium" onClick={() => downloadAssets()}>
+                <button
+                  title={
+                    isUserLoggedIn ? "" : "Please login to download assets"
+                  }
+                  className="button button-with-icon button-transparent button-border-primary button-border-medium"
+                  onClick={() => downloadAssets()}
+                >
                   <SVG iconName="download" fill="#0071DA" />
                   <span>Download Assets</span>
                 </button>
@@ -198,7 +253,12 @@ const Project: FC<{}> = () => {
               </div>
             </div>
           </div>
-          <div className={`${styles.projectExtraDetails} ${projectExtraDetailsInView ? 'fadeIn' : ''}`} ref={projectExtraDetailsRef}>
+          <div
+            className={`${styles.projectExtraDetails} ${
+              projectExtraDetailsInView ? "fadeIn" : ""
+            }`}
+            ref={projectExtraDetailsRef}
+          >
             <div className={`${styles.tabsContainer}`}>
               {TABS.map(({ id, label }) => (
                 <div
@@ -212,7 +272,7 @@ const Project: FC<{}> = () => {
               ))}
             </div>
           </div>
-          {getTabContents(activeTab)}
+          {tabContents}
         </main>
       )}
     </div>
