@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Comment from "../Comment/Comment";
 import SVG from "../SVG/SVG";
-import styles from "./commentsSection.module.css";
+import styles from "./CommentsSection.module.css";
 import * as API from "@/common/HttpService";
 import { checkIfLoggedIn } from "@/common/Helper";
 import { GET_COMMENTS, POST_COMMENT } from "@/common/APIPaths";
