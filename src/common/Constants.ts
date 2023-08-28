@@ -49,3 +49,5 @@ export const INTERSECTION_OBSERVER_OPTIONS = {
 export const TOAST_SETTINGS = {
     duration: 2000
 };
+
+export const JWT_TOKEN_COOKIE_NAME = 'accessToken'

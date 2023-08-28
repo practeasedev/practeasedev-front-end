@@ -19,6 +19,7 @@ import { toast } from "react-hot-toast";
 import CommentsSection from "@/components/CommentsSection/commentsSection";
 import { useInView } from "react-intersection-observer";
 import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
+import Link from "next/link";
 
 enum TAB_IDS {
   USER_STORIES = "USER_STORIES",
@@ -171,6 +172,7 @@ const Project: FC<{}> = () => {
     keyConcepts,
     userStories,
     resourceLinks,
+    projectFigmaLink,
     slug,
   } = projectDetails;
 
@@ -246,10 +248,12 @@ const Project: FC<{}> = () => {
                   <SVG iconName="download" fill="#0071DA" />
                   <span>Download Assets</span>
                 </button>
-                <button className="button button-with-icon button-transparent button-border-dark button-border-medium">
-                  <SVG iconName="figma" />
-                  <span>View Figma</span>
-                </button>
+                <Link href={projectFigmaLink} target="_blank" className={styles.figmaLink}>
+                  <button className="button button-with-icon button-transparent button-border-dark button-border-medium">
+                    <SVG iconName="figma" />
+                    <span>View Figma</span>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
