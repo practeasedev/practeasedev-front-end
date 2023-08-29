@@ -181,7 +181,7 @@ const Project: FC<{}> = () => {
     keyConcepts,
     userStories,
     resourceLinks,
-  }),[keyConcepts, userStories, resourceLinks])
+  }),[keyConcepts, userStories, resourceLinks, activeTab])
 
   return (
     <div>
