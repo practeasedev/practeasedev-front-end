@@ -6,10 +6,10 @@ import githubWhite from "@/assets/github-white.svg";
 import { GITHUB_AUTHORIZE, LOGOUT_USER } from "@/common/APIPaths";
 import { checkIfLoggedIn, getLoggedInUserDetails, removeCookie } from "@/common/Helper";
 import SVG from "../SVG/SVG";
-import * as api from "@/common/HttpService";
 import AuthLoader from "../AuthLoader/AuthLoader";
 import { NextRouter, useRouter } from "next/router";
 import SideMenu from "../SideMenu/SideMenu";
+import { JWT_TOKEN_COOKIE_NAME } from "@/common/Constants";
 
 const Header: FC<{}> = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -21,7 +21,7 @@ const Header: FC<{}> = () => {
   const { pathname } = router;
 
   const logoutUser = () => {
-    removeCookie('accessToken');
+    removeCookie(JWT_TOKEN_COOKIE_NAME);
     window.location.reload();
   };
 

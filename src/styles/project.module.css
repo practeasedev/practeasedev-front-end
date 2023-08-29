@@ -54,6 +54,10 @@
     box-shadow: var(--box-shadow-light);
 }
 
+.figmaLink{
+    text-decoration: none;
+}
+
 .projectInfo{
     display: flex;
     flex-direction: column;

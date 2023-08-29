@@ -1,14 +1,15 @@
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { IProjectDetails, IUserDetails } from "./Types";
+import { JWT_TOKEN_COOKIE_NAME } from "./Constants";
 
 export const checkIfLoggedIn = () => {
-  const accessToken = Cookies.get("accessToken");
+  const accessToken = Cookies.get(JWT_TOKEN_COOKIE_NAME);
   return accessToken ? true : false;
 };
 
 export const getLoggedInUserDetails = (): IUserDetails | null => {
-  const accessToken = Cookies.get("accessToken");
+  const accessToken = Cookies.get(JWT_TOKEN_COOKIE_NAME);
   const decodedToken = accessToken
     ? (jwtDecode(accessToken) as IUserDetails)
     : null;

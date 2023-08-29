@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '@/styles/Home.module.css';
+import styles from '@/styles/home.module.css';
 import heroIllustration from '@/assets/hero-illustration.svg'
 import circleDesign from '@/assets/circle-design-element.svg';
 import triangleDesign from '@/assets/triangle-design-element.svg';
@@ -13,7 +13,7 @@ import * as api from '@/common/HttpService'
 import { LOGIN_OR_REGISTER } from '@/common/APIPaths';
 import AuthLoader from '@/components/AuthLoader/AuthLoader';
 import { useInView } from 'react-intersection-observer';
-import { INTERSECTION_OBSERVER_OPTIONS } from '@/common/Constants';
+import { INTERSECTION_OBSERVER_OPTIONS, JWT_TOKEN_COOKIE_NAME } from '@/common/Constants';
 import Link from 'next/link';
 import { setCookieValue } from '@/common/Helper';
 
@@ -39,7 +39,7 @@ export default function Home() {
     })
 
     if(connectResult) {
-      setCookieValue('accessToken', connectResult.data);
+      setCookieValue(JWT_TOKEN_COOKIE_NAME, connectResult.data);
       router.push('/');
     }
   }
