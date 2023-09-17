@@ -1,6 +1,7 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useState, useEffect } from "react"
 import { FormField } from "./Types";
 import { generalEmailValidations, generalTextValidations } from "./FormValidations";
+import { Router } from "next/router";
 
 export const useForm = (formFields:Array<FormField>, customValidations?:(values: any, setErrors:React.Dispatch<React.SetStateAction<any>>) => boolean) => {
 
@@ -59,3 +60,27 @@ export const useForm = (formFields:Array<FormField>, customValidations?:(values:
     
     return {values, errors, setFormField, validateForm}
 }
+
+export const  usePageLoading = () => {
+    const [isPageLoading, setIsPageLoading] = useState(false);
+  
+    useEffect(() => {
+      const routeEventStart = () => {
+        setIsPageLoading(true);
+      };
+      const routeEventEnd = () => {
+        setIsPageLoading(false);
+      };
+  
+      Router.events.on('routeChangeStart', routeEventStart);
+      Router.events.on('routeChangeComplete', routeEventEnd);
+      Router.events.on('routeChangeError', routeEventEnd);
+      return () => {
+        Router.events.off('routeChangeStart', routeEventStart);
+        Router.events.off('routeChangeComplete', routeEventEnd);
+        Router.events.off('routeChangeError', routeEventEnd);
+      };
+    }, []);
+  
+    return { isPageLoading };
+  };

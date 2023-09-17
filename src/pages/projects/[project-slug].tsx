@@ -20,6 +20,7 @@ import CommentsSection from "@/components/CommentsSection/commentsSection";
 import { useInView } from "react-intersection-observer";
 import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 import Link from "next/link";
+import { GetServerSideProps } from "next";
 
 enum TAB_IDS {
   USER_STORIES = "USER_STORIES",
@@ -40,7 +41,19 @@ interface IGetTabContents {
   resourceLinks: string[];
 }
 
-const Project: FC<{}> = () => {
+interface Props {
+  data: any,
+  success: boolean,
+  message: string
+}
+
+interface ProjectProps {
+  data: any,
+  success: boolean,
+  message: string
+}
+
+const Project: FC<ProjectProps> = (props) => {
   const router = useRouter();
   const isUserLoggedIn = useMemo(() => checkIfLoggedIn(), []);
   const [loading, setLoading] = useState<boolean>(true);
@@ -49,6 +62,7 @@ const Project: FC<{}> = () => {
   const [projectDetails, setProjectDetails] = useState<IProjectDetails>(() =>
     formatProjectDetails({})
   );
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   // animation refs
   const [projectHeaderRef, projectHeaderInView] = useInView(
@@ -66,29 +80,6 @@ const Project: FC<{}> = () => {
   const [projectPointersRef, projectPointersInView] = useInView(
     INTERSECTION_OBSERVER_OPTIONS
   );
-
-  useEffect(() => {
-    if (router.isReady) getProjectDetails();
-  }, [router.isReady]);
-
-  const getProjectDetails = async () => {
-    const projectSlug = router.query["project-slug"];
-    const { data, success, message } = await API.get({
-      url: `${GET_ALL_PROJECTS}/${projectSlug}`,
-      loadingHandler: setLoading,
-    });
-    if (success) {
-      const projectDetails = formatProjectDetails(data);
-      setProjectDetails(projectDetails);
-      if (isUserLoggedIn) {
-        const { data: projectStatus, success } = await API.get({
-          url: `${GET_PROJECT_STATUS}/${projectDetails.projectId}`,
-        });
-        if (success) setLike(projectStatus.is_liked);
-      }
-    } else toast.error(message, { duration: 2000 });
-    setLoading(false);
-  };
 
   const handleLikeClick = async () => {
     if (!isUserLoggedIn) return;
@@ -174,7 +165,7 @@ const Project: FC<{}> = () => {
     resourceLinks,
     projectFigmaLink,
     slug,
-  } = projectDetails;
+  } = props.data;
 
   const tabContents = useMemo(()=>getTabContents({
     tab: activeTab,
@@ -184,103 +175,126 @@ const Project: FC<{}> = () => {
   }),[keyConcepts, userStories, resourceLinks])
 
   return (
-    <div>
-      {loading ? (
-        <Loader />
-      ) : (
-        <main className={styles.projectContainer}>
-          <div
-            className={`${styles.projectHeader} ${
-              projectHeaderInView ? "fadeIn" : ""
-            }`}
-            ref={projectHeaderRef}
-          >
-            <div className={styles.headerLeft}>
-              <span
-                className={styles.projectCategory}
-              >{`${projectCategory} /`}</span>
-              <div className={styles.projectTitle}>
-                <h1 className={styles.projectName}>{projectName}</h1>
-                <ProjectLabel type={difficultyLevel} size="normal" />
-              </div>
-            </div>
-            <div className={styles.headerRight}>
-              <p className={styles.likeCount}>{likes}</p>
-              <div
-                onClick={handleLikeClick}
-                title={isUserLoggedIn ? "" : "Please login to like"}
-                className={styles.heartContainer}
-              >
-                <SVG
-                  iconName={isLiked ? "heart" : "no-fill-heart"}
-                  fill="#FF4033"
-                  className={`${isUserLoggedIn ? styles.heartIcon : ""}`}
-                />
-              </div>
-            </div>
+    <div className={styles.projectContainer}>
+      <div
+        className={`${styles.projectHeader} ${
+          projectHeaderInView ? "fadeIn" : ""
+        }`}
+        ref={projectHeaderRef}
+      >
+        <div className={styles.headerLeft}>
+          <span
+            className={styles.projectCategory}
+          >{`${projectCategory} /`}</span>
+          <div className={styles.projectTitle}>
+            <h1 className={styles.projectName}>{projectName}</h1>
+            <ProjectLabel type={difficultyLevel} size="normal" />
           </div>
-          <div className={styles.projectDetails}>
-            <Image
-              className={`${styles.projectImage} ${
-                projectImageInView ? "fadeInFromLeft" : ""
-              }`}
-              src={projectImage}
-              alt={`Banner for ${projectName}`}
-              width="1920"
-              height="1080"
-              ref={projectImageRef}
+        </div>
+        <div className={styles.headerRight}>
+          <p className={styles.likeCount}>{likes}</p>
+          <div
+            onClick={handleLikeClick}
+            title={(isUserLoggedIn && isMounted) ? "" : "Please login to like"}
+            className={styles.heartContainer}
+          >
+            <SVG
+              iconName={(isLiked && isMounted) ? "heart" : "no-fill-heart"}
+              fill="#FF4033"
+              className={`${(isUserLoggedIn && isMounted) ? styles.heartIcon : ""}`}
             />
-            <div
-              className={`${styles.projectInfo} ${
-                projectInfoInView ? "fadeInFromRight" : ""
-              }`}
-              ref={projectInfoRef}
+          </div>
+        </div>
+      </div>
+      <div className={styles.projectDetails}>
+        <Image
+          className={`${styles.projectImage} ${
+            projectImageInView ? "fadeInFromLeft" : ""
+          }`}
+          src={projectImage}
+          alt={`Banner for ${projectName}`}
+          width="1920"
+          height="1080"
+          ref={projectImageRef}
+        />
+        <div
+          className={`${styles.projectInfo} ${
+            projectInfoInView ? "fadeInFromRight" : ""
+          }`}
+          ref={projectInfoRef}
+        >
+          <div className={styles.projectDesc}>{projectDescription}</div>
+          <div className={styles.projectActions}>
+            <button
+              title={
+                isUserLoggedIn ? "" : "Please login to download assets"
+              }
+              className="button button-with-icon button-transparent button-border-primary button-border-medium"
+              onClick={() => downloadAssets()}
             >
-              <div className={styles.projectDesc}>{projectDescription}</div>
-              <div className={styles.projectActions}>
-                <button
-                  title={
-                    isUserLoggedIn ? "" : "Please login to download assets"
-                  }
-                  className="button button-with-icon button-transparent button-border-primary button-border-medium"
-                  onClick={() => downloadAssets()}
-                >
-                  <SVG iconName="download" fill="#0071DA" />
-                  <span>Download Assets</span>
-                </button>
-                <Link href={projectFigmaLink} target="_blank" className={styles.figmaLink}>
-                  <button className="button button-with-icon button-transparent button-border-dark button-border-medium">
-                    <SVG iconName="figma" />
-                    <span>View Figma</span>
-                  </button>
-                </Link>
-              </div>
-            </div>
+              <SVG iconName="download" fill="#0071DA" />
+              <span>Download Assets</span>
+            </button>
+            <Link href={projectFigmaLink} target="_blank" className={styles.figmaLink}>
+              <button className="button button-with-icon button-transparent button-border-dark button-border-medium">
+                <SVG iconName="figma" />
+                <span>View Figma</span>
+              </button>
+            </Link>
           </div>
-          <div
-            className={`${styles.projectExtraDetails} ${
-              projectExtraDetailsInView ? "fadeIn" : ""
-            }`}
-            ref={projectExtraDetailsRef}
-          >
-            <div className={`${styles.tabsContainer}`}>
-              {TABS.map(({ id, label }) => (
-                <div
-                  className={`${styles.tab} ${
-                    activeTab === id ? styles.active : ""
-                  }`}
-                  onClick={() => setActiveTab(id)}
-                >
-                  {label}
-                </div>
-              ))}
+        </div>
+      </div>
+      <div
+        className={`${styles.projectExtraDetails} ${
+          projectExtraDetailsInView ? "fadeIn" : ""
+        }`}
+        ref={projectExtraDetailsRef}
+      >
+        <div className={`${styles.tabsContainer}`}>
+          {TABS.map(({ id, label }) => (
+            <div
+              className={`${styles.tab} ${
+                activeTab === id ? styles.active : ""
+              }`}
+              onClick={() => setActiveTab(id)}
+              key={id}
+            >
+              {label}
             </div>
-          </div>
-          {tabContents}
-        </main>
-      )}
+          ))}
+        </div>
+      </div>
+      {tabContents}
     </div>
   );
 };
+
+export const getServerSideProps:GetServerSideProps<Props> = async (context) => {
+  const projectSlug:string = (context.params && context.params ['project-slug'])? context.params['project-slug']  as string : '';
+
+  if(!projectSlug) {
+    return {
+      notFound: true
+    }
+  }
+
+  const { data, success, message } = await API.get({
+    url: `${GET_ALL_PROJECTS}/${projectSlug}`,
+  });
+
+  if(success && Object.keys(data).length === 0) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {
+      data: formatProjectDetails(data),
+      success: success,
+      message: message
+    }
+  }
+} 
 
 export default Project;

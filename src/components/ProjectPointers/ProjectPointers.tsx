@@ -25,8 +25,8 @@ const ProjectPointers: FC<IProjectPointers> = (props) => {
         <span>{title}</span>
       </p>
       <ul className={styles.pointersList}>
-        {pointers?.map((point) => (
-          <li className={styles.pointer}>{point}</li>
+        {pointers?.map((point, index) => (
+          <li className={styles.pointer} key={`${title}${index}`}>{point}</li>
         ))}
       </ul>
     </div>
