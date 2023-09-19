@@ -8,9 +8,22 @@ import Loader from "@/components/Loader/Loader";
 import { NextRouter, useRouter } from "next/router";
 import { useInView } from "react-intersection-observer";
 import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
+import { GetServerSideProps } from "next";
 
-const Project: FC<{}> = () => {
-  const router: NextRouter = useRouter();
+interface Props {
+  data: any,
+  success: boolean,
+  message: string
+}
+
+interface ProjectsProps {
+  data: any,
+  success: boolean,
+  message: string
+}
+
+const Project: FC<ProjectsProps> = (props) => {
+  const {data, success} = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [projects, setProjects] = useState<Array<any>>([]);
 
@@ -32,14 +45,10 @@ const Project: FC<{}> = () => {
   }
 
   useEffect(() => {
-    if (router.isReady) {
-      getProjects({
-        categories:["components","single-page","multi-page"],
-        filters:[],
-        sort: "most-recent"
-      });
+    if(success) {
+      setProjects(data);
     }
-  }, [router.isReady]);
+  }, []);
 
   return (
     <main className={styles.projectsContainer}>
@@ -79,5 +88,25 @@ const Project: FC<{}> = () => {
     </main>
   );
 };
+
+
+export const getServerSideProps:GetServerSideProps<Props> = async (context) => {
+  const { data, success, message } = await api.post({
+    url: `${GET_ALL_PROJECTS}`,
+    body: {
+      categories:["components","single-page","multi-page"],
+      filters:[],
+      sort: "most-recent"
+    }
+  });
+
+  return {
+    props: {
+      data: data,
+      success: success,
+      message: message,
+    }
+  }
+}
 
 export default Project;
