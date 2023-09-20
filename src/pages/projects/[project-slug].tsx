@@ -119,12 +119,13 @@ const Project: FC<ProjectProps> = (props) => {
                 backgroundColor="#FFF8F2"
                 pointers={keyConcepts}
               />
-              {/* <ProjectPointers
+              <ProjectPointers
                 titleIcon="page"
                 title="Resources"
                 backgroundColor="#F5FAFF"
                 pointers={resourceLinks}
-              /> */}
+                isLinks={true}
+              />
             </div>
           </div>
         );
