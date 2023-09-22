@@ -1,18 +1,35 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import styles from "@/components/ProjectPointers/ProjectPointers.module.css";
 import SVG from "../SVG/SVG";
+
+interface ILinkItem{
+  title: string;
+  link: string;
+}
 
 interface IProjectPointers {
   titleIcon?: string;
   backgroundColor?: string;
   title: string;
-  pointers: string[];
+  pointers: string[] | ILinkItem[];
+  isLinks?: boolean;
 }
 
 const DEFUALT_BACKGROUND_COLOR = "#FFFFFF";
 
 const ProjectPointers: FC<IProjectPointers> = (props) => {
-  const { titleIcon, backgroundColor, title, pointers } = props;
+  const {
+    titleIcon,
+    backgroundColor,
+    title,
+    pointers,
+    isLinks = false,
+  } = props;
+
+  const getLinkItem = ({title, link}: ILinkItem): ReactNode => (
+    <a target="_blank" href={link}>{title}</a>
+  )
+
   return (
     <div
       className={styles.pointersContainer}
@@ -26,7 +43,9 @@ const ProjectPointers: FC<IProjectPointers> = (props) => {
       </p>
       <ul className={styles.pointersList}>
         {pointers?.map((point, index) => (
-          <li className={styles.pointer} key={`${title}${index}`}>{point}</li>
+          <li className={styles.pointer} key={`${title}${index}`}>
+            {isLinks ? getLinkItem(point as ILinkItem) : String(point)}
+          </li>
         ))}
       </ul>
     </div>
