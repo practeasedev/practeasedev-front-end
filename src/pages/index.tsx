@@ -57,6 +57,8 @@ export default function Home() {
     <> 
       <Head>
         <title>Practease Dev - A place to hone your developer skills</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="practeasedev,practeasedev home,practeasedev projects,improve developer skills,practice web development,practice projects for web development" />
       </Head>
       <section className={styles.heroSection}>
           <div className={`${styles.heroMain} fadeInFromLeft`}>

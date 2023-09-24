@@ -21,6 +21,7 @@ import { useInView } from "react-intersection-observer";
 import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 
 enum TAB_IDS {
   USER_STORIES = "USER_STORIES",
@@ -175,97 +176,105 @@ const Project: FC<ProjectProps> = (props) => {
   }),[keyConcepts, userStories, resourceLinks])
 
   return (
-    <div className={styles.projectContainer}>
-      <div
-        className={`${styles.projectHeader} ${
-          projectHeaderInView ? "fadeIn" : ""
-        }`}
-        ref={projectHeaderRef}
-      >
-        <div className={styles.headerLeft}>
-          <span
-            className={styles.projectCategory}
-          >{`${projectCategory} /`}</span>
-          <div className={styles.projectTitle}>
-            <h1 className={styles.projectName}>{projectName}</h1>
-            <ProjectLabel type={difficultyLevel} size="normal" />
-          </div>
-        </div>
-        <div className={styles.headerRight}>
-          <p className={styles.likeCount}>{likes}</p>
-          <div
-            onClick={handleLikeClick}
-            title={(isUserLoggedIn && isMounted) ? "" : "Please login to like"}
-            className={styles.heartContainer}
-          >
-            <SVG
-              iconName={(isLiked && isMounted) ? "heart" : "no-fill-heart"}
-              fill="#FF4033"
-              className={`${(isUserLoggedIn && isMounted) ? styles.heartIcon : ""}`}
-            />
-          </div>
-        </div>
-      </div>
-      <div className={styles.projectDetails}>
-        <Image
-          className={`${styles.projectImage} ${
-            projectImageInView ? "fadeInFromLeft" : ""
-          }`}
-          src={projectImage}
-          alt={`Banner for ${projectName}`}
-          width="1920"
-          height="1080"
-          ref={projectImageRef}
-        />
+    <>
+      <Head>
+        <title>{projectName}</title>
+        <meta name="description" content={`${projectDescription}`} />
+        <meta name="keywords" content={`practice project for web development,${projectName}`} />
+      </Head>
+      <div className={styles.projectContainer}>
         <div
-          className={`${styles.projectInfo} ${
-            projectInfoInView ? "fadeInFromRight" : ""
+          className={`${styles.projectHeader} ${
+            projectHeaderInView ? "fadeIn" : ""
           }`}
-          ref={projectInfoRef}
+          ref={projectHeaderRef}
         >
-          <div className={styles.projectDesc}>{projectDescription}</div>
-          <div className={styles.projectActions}>
-            <button
-              title={
-                isUserLoggedIn ? "" : "Please login to download assets"
-              }
-              className="button button-with-icon button-transparent button-border-primary button-border-medium"
-              onClick={() => downloadAssets()}
+          <div className={styles.headerLeft}>
+            <span
+              className={styles.projectCategory}
+            >{`${projectCategory} /`}</span>
+            <div className={styles.projectTitle}>
+              <h1 className={styles.projectName}>{projectName}</h1>
+              <ProjectLabel type={difficultyLevel} size="normal" />
+            </div>
+          </div>
+          <div className={styles.headerRight}>
+            <p className={styles.likeCount}>{likes}</p>
+            <div
+              onClick={handleLikeClick}
+              title={(isUserLoggedIn && isMounted) ? "" : "Please login to like"}
+              className={styles.heartContainer}
             >
-              <SVG iconName="download" fill="#0071DA" />
-              <span>Download Assets</span>
-            </button>
-            <Link href={projectFigmaLink} target="_blank" className={styles.figmaLink}>
-              <button className="button button-with-icon button-transparent button-border-dark button-border-medium">
-                <SVG iconName="figma" />
-                <span>View Figma</span>
-              </button>
-            </Link>
+              <SVG
+                iconName={(isLiked && isMounted) ? "heart" : "no-fill-heart"}
+                fill="#FF4033"
+                className={`${(isUserLoggedIn && isMounted) ? styles.heartIcon : ""}`}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        className={`${styles.projectExtraDetails} ${
-          projectExtraDetailsInView ? "fadeIn" : ""
-        }`}
-        ref={projectExtraDetailsRef}
-      >
-        <div className={`${styles.tabsContainer}`}>
-          {TABS.map(({ id, label }) => (
-            <div
-              className={`${styles.tab} ${
-                activeTab === id ? styles.active : ""
-              }`}
-              onClick={() => setActiveTab(id)}
-              key={id}
-            >
-              {label}
+        <div className={styles.projectDetails}>
+          <Image
+            className={`${styles.projectImage} ${
+              projectImageInView ? "fadeInFromLeft" : ""
+            }`}
+            src={projectImage}
+            alt={`Banner for ${projectName}`}
+            width="1920"
+            height="1080"
+            ref={projectImageRef}
+          />
+          <div
+            className={`${styles.projectInfo} ${
+              projectInfoInView ? "fadeInFromRight" : ""
+            }`}
+            ref={projectInfoRef}
+          >
+            <div className={styles.projectDesc}>{projectDescription}</div>
+            <div className={styles.projectActions}>
+              <button
+                title={
+                  isUserLoggedIn ? "" : "Please login to download assets"
+                }
+                className="button button-with-icon button-transparent button-border-primary button-border-medium"
+                onClick={() => downloadAssets()}
+              >
+                <SVG iconName="download" fill="#0071DA" />
+                <span>Download Assets</span>
+              </button>
+              <Link href={projectFigmaLink} target="_blank" className={styles.figmaLink}>
+                <button className="button button-with-icon button-transparent button-border-dark button-border-medium">
+                  <SVG iconName="figma" />
+                  <span>View Figma</span>
+                </button>
+              </Link>
             </div>
-          ))}
+          </div>
         </div>
+        <div
+          className={`${styles.projectExtraDetails} ${
+            projectExtraDetailsInView ? "fadeIn" : ""
+          }`}
+          ref={projectExtraDetailsRef}
+        >
+          <div className={`${styles.tabsContainer}`}>
+            {TABS.map(({ id, label }) => (
+              <div
+                className={`${styles.tab} ${
+                  activeTab === id ? styles.active : ""
+                }`}
+                onClick={() => setActiveTab(id)}
+                key={id}
+              >
+                {label}
+              </div>
+            ))}
+          </div>
+        </div>
+        {tabContents}
       </div>
-      {tabContents}
-    </div>
+    </>
+    
   );
 };
 

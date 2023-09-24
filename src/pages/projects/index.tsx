@@ -9,6 +9,7 @@ import { NextRouter, useRouter } from "next/router";
 import { useInView } from "react-intersection-observer";
 import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 
 interface Props {
   data: any,
@@ -51,41 +52,48 @@ const Project: FC<ProjectsProps> = (props) => {
   }, []);
 
   return (
-    <main className={styles.projectsContainer}>
-      <div className={`${styles.projectsHeader} ${projectsHeaderInView ? 'fadeIn' : ''}`} ref={projectsHeaderRef}>
-        <h1 className={styles.projectsCategory}>Projects</h1>
-        <ProjectsMenu getProjects={getProjects}/>
-      </div>
-      {isLoading ? (
-        <Loader loadingText="Loading Projects" />
-      ) : (
-        <div className={styles.projects}>
-          {projects.length === 0 ? (
-            <p className={styles.noProjects}>No projects exists</p>
-          ) : (
-            projects.map(
-              ({
-                _id,
-                slug,
-                project_name,
-                project_description,
-                difficulty_level,
-                project_image,
-              }, index) => (
-                <ProjectCard
-                  key={_id}
-                  slug={slug}
-                  name={project_name}
-                  description={project_description}
-                  difficultyLevel={difficulty_level}
-                  image={project_image}
-                />
-              )
-            )
-          )}
+    <>
+      <Head>
+        <title>Projects</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="practice projects for web development,web development projects,practease dev,practeasedev projects" />
+      </Head>
+      <main className={styles.projectsContainer}>
+        <div className={`${styles.projectsHeader} ${projectsHeaderInView ? 'fadeIn' : ''}`} ref={projectsHeaderRef}>
+          <h1 className={styles.projectsCategory}>Projects</h1>
+          <ProjectsMenu getProjects={getProjects}/>
         </div>
-      )}
-    </main>
+        {isLoading ? (
+          <Loader loadingText="Loading Projects" />
+        ) : (
+          <div className={styles.projects}>
+            {projects.length === 0 ? (
+              <p className={styles.noProjects}>No projects exists</p>
+            ) : (
+              projects.map(
+                ({
+                  _id,
+                  slug,
+                  project_name,
+                  project_description,
+                  difficulty_level,
+                  project_image,
+                }, index) => (
+                  <ProjectCard
+                    key={_id}
+                    slug={slug}
+                    name={project_name}
+                    description={project_description}
+                    difficultyLevel={difficulty_level}
+                    image={project_image}
+                  />
+                )
+              )
+            )}
+          </div>
+        )}
+      </main>
+    </>
   );
 };
 
