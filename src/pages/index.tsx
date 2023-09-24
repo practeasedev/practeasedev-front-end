@@ -56,17 +56,19 @@ export default function Home() {
   return (
     <> 
       <Head>
-        <title>Practease Dev - A place to hone your developer skills</title>
+        <title>Practease Dev - A place to hone your web development skills</title>
+        <meta name="description" content="Practice doesn't make perfect; perfect practice makes perfect.The soul purpose of PracteaseDev is to make Perfect Practice easy for Developers. Skip the hassle of hunting resources and looking for standard designs and completely focus on development skills. This is an easy to use platform which has variety of handpicked projects for all levels of developer, so you can start with the very basic components and progressively develop to a stage of developing real-world web apps." />
+        <meta name="keywords" content="practeasedev,practeasedev home,practeasedev projects,improve developer skills,practice web development,practice projects for web development" />
       </Head>
       <section className={styles.heroSection}>
           <div className={`${styles.heroMain} fadeInFromLeft`}>
             <h1 className={styles.tagline}>
               A Place to hone your <br />
-              <span className={styles.highLightedText}>developer skills</span>
+              <span className={styles.highLightedText}>web development skills</span>
             </h1>
             <Link href="/projects" className={styles.getCodingLink}>
               <button className="button-large button-secondary">
-                Get Coding
+                Get set Code!
               </button>
             </Link>
           </div>
@@ -79,8 +81,8 @@ export default function Home() {
         <div className={styles.whyContent}>
           <Image src={whyIllustration} alt="A illustration of a girl and a boy with a big question mark" className={styles.whyIllustration}/>
           <div className={styles.whyText}>
-            <p>PracticeDev is a platform that helps you practice developement skills without worrying about design and architecture. It helps you to learn progressively by increasing the difficulty of the projects little by little.</p>
-            <p>PracticeDev is a platform that helps you practice developement skills without worrying about design and architecture</p>
+            <p>"Practice doesn't make perfect; perfect practice makes perfect."</p>
+            <p>The soul purpose of PracteaseDev is to make Perfect Practice easy for Developers. Skip the hassle of hunting resources and looking for standard designs and completely focus on development skills. This is an easy to use platform which has variety of handpicked projects for all levels of developer, so you can start with the very basic components and progressively develop to a stage of developing real-world web apps.</p>
           </div>
         </div>
       </section>
@@ -90,20 +92,20 @@ export default function Home() {
           <div className={styles.howSteps}>
             <div className={styles.step}>
               <p className={styles.stepNo}>01</p>
-              <p className={styles.stepTitle}>Select a domain</p>
-              <p className={styles.stepDesc}>Select a domain in which you want to improve in .If you are a beginner start with HTML | CSS | JS domain</p>
+              <p className={styles.stepTitle}>Pick a challenge</p>
+              <p className={styles.stepDesc}>Choose a challenge that best matches your level from the available <a href="/projects">projects</a>. For your convenience we have attached a "Project difficulty level" tag which will help you choose the right project.</p>
             </div>
             <Image src={downArrow} alt="A light orange down arrow" className={styles.arrow}/>
             <div className={styles.step}>
               <p className={styles.stepNo}>02</p>
-              <p className={styles.stepTitle}>Choose a practice project</p>
-              <p className={styles.stepDesc}>Choose a practice project based on your current level in that domain and download the files for the project</p>
+              <p className={styles.stepTitle}>Work on the project</p>
+              <p className={styles.stepDesc}> Read through the user stories, download the project files, refer the attached figma design and get started with the challenge! In order to make your job easier we have provided links to all useful resources for every project, do refer them when stuck.</p>
             </div>
             <Image src={downArrow} alt="A light orange down arrow" className={styles.arrow}/>
             <div className={styles.step}>
               <p className={styles.stepNo}>03</p>
-              <p className={styles.stepTitle}>Complete the practice project</p>
-              <p className={styles.stepDesc}>Complete the selected pratice project and submit the link of your github repository so that others can view your code</p>
+              <p className={styles.stepTitle}>Share your work</p>
+              <p className={styles.stepDesc}> Now that you have completed your project, share your solution! This will let the rest of the community to review your code as well as assist them to code the solutions.</p>
             </div>
           </div>
           <Image src={howIllustration} alt="An illustration of a person looking through a process on a board" className={styles.howIllustration} />

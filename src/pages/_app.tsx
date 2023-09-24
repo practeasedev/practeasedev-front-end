@@ -6,6 +6,7 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import {Poppins} from 'next/font/google'
+import Head from 'next/head';
 
 const poppins = Poppins (
   {
@@ -22,17 +23,24 @@ const Toaster = dynamic(() => import('react-hot-toast').then((module) => module.
 export default function App({ Component, pageProps }: AppProps) {
   const { isPageLoading } = usePageLoading();
   return (
-    <main className={poppins.className}>
-      <div className="page">
-        <Header/>
-        {isPageLoading ? (
-          <Loader />
-        ) : (
-          <Component {...pageProps} />
-        )}
-        <Toaster />
-      </div>
-      <Footer />
-    </main>
+    <>
+      <Head>
+        <meta name="application-name" content="Practeasedev" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      </Head>
+      <main className={poppins.className}>
+        <div className="page">
+          <Header/>
+          {isPageLoading ? (
+            <Loader />
+          ) : (
+            <Component {...pageProps} />
+          )}
+          <Toaster />
+        </div>
+        <Footer />
+      </main>
+    </>
+   
   )
 }
