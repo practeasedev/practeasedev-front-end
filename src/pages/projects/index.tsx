@@ -12,24 +12,26 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 
 interface Props {
-  data: any,
-  success: boolean,
-  message: string
+  data: any;
+  success: boolean;
+  message: string;
 }
 
 interface ProjectsProps {
-  data: any,
-  success: boolean,
-  message: string
+  data: any;
+  success: boolean;
+  message: string;
 }
 
 const Project: FC<ProjectsProps> = (props) => {
-  const {data, success} = props;
+  const { data, success } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [projects, setProjects] = useState<Array<any>>([]);
 
   // animations ref
-  const [projectsHeaderRef, projectsHeaderInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
+  const [projectsHeaderRef, projectsHeaderInView] = useInView(
+    INTERSECTION_OBSERVER_OPTIONS
+  );
 
   const getProjects = (body: any) => {
     api
@@ -43,10 +45,10 @@ const Project: FC<ProjectsProps> = (props) => {
           setProjects(res.data);
         }
       });
-  }
+  };
 
   useEffect(() => {
-    if(success) {
+    if (success) {
       setProjects(data);
     }
   }, []);
@@ -55,13 +57,24 @@ const Project: FC<ProjectsProps> = (props) => {
     <>
       <Head>
         <title>Projects</title>
-        <meta name="description" content="" />
-        <meta name="keywords" content="practice projects for web development,web development projects,practease dev,practeasedev projects" />
+        <meta
+          name="description"
+          content="Here is a list of handpicked web dev projects which will help you reiterate through all the essential concepts in webdevelopment."
+        />
+        <meta
+          name="keywords"
+          content="practice projects for web development,web development projects,practease dev,practeasedev projects"
+        />
       </Head>
       <main className={styles.projectsContainer}>
-        <div className={`${styles.projectsHeader} ${projectsHeaderInView ? 'fadeIn' : ''}`} ref={projectsHeaderRef}>
+        <div
+          className={`${styles.projectsHeader} ${
+            projectsHeaderInView ? "fadeIn" : ""
+          }`}
+          ref={projectsHeaderRef}
+        >
           <h1 className={styles.projectsCategory}>Projects</h1>
-          <ProjectsMenu getProjects={getProjects}/>
+          <ProjectsMenu getProjects={getProjects} />
         </div>
         {isLoading ? (
           <Loader loadingText="Loading Projects" />
@@ -71,14 +84,17 @@ const Project: FC<ProjectsProps> = (props) => {
               <p className={styles.noProjects}>No projects exists</p>
             ) : (
               projects.map(
-                ({
-                  _id,
-                  slug,
-                  project_name,
-                  project_description,
-                  difficulty_level,
-                  project_image,
-                }, index) => (
+                (
+                  {
+                    _id,
+                    slug,
+                    project_name,
+                    project_description,
+                    difficulty_level,
+                    project_image,
+                  },
+                  index
+                ) => (
                   <ProjectCard
                     key={_id}
                     slug={slug}
@@ -97,15 +113,16 @@ const Project: FC<ProjectsProps> = (props) => {
   );
 };
 
-
-export const getServerSideProps:GetServerSideProps<Props> = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
   const { data, success, message } = await api.post({
     url: `${GET_ALL_PROJECTS}`,
     body: {
-      categories:["components","single-page","multi-page"],
-      filters:[],
-      sort: "most-recent"
-    }
+      categories: ["components", "single-page", "multi-page"],
+      filters: [],
+      sort: "most-recent",
+    },
   });
 
   return {
@@ -113,8 +130,8 @@ export const getServerSideProps:GetServerSideProps<Props> = async (context) => {
       data: data,
       success: success,
       message: message,
-    }
-  }
-}
+    },
+  };
+};
 
 export default Project;

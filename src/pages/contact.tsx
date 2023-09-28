@@ -40,7 +40,7 @@ const Contact: FC<{}> = () => {
         <>
             <Head>
                 <title>Contact</title>
-                <meta name="description" content="" />
+                <meta name="description" content="Suggestions? Concerns? Queries? Please write to us and we will be more than happy to hear from you. - Practeasedev" />
                 <meta name="keywords" content="practeasedev contact, contact us" />
             </Head>
             <section className={styles.contactContainer}>
