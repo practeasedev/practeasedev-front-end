@@ -221,10 +221,6 @@ button:disabled {
     background-color: var(--dark-color-light);
 }
 
-a {
-    color: var(--secondary-color)
-}
-
 .form-field-error {
     color: var(--error-color);
     font-size: var(--body-small);
