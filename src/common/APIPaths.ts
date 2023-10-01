@@ -21,7 +21,11 @@ export const POST_COMMENT = `${API_VERSION_1}/comments/add_comment`;
 
 // Project tracking
 export const GET_PROJECT_STATUS = `${API_VERSION_1}/user_tracking/get`;
-export const POST_PROJECT_STATUS = `${API_VERSION_1}/user_tracking/persist`
+export const POST_PROJECT_STATUS = `${API_VERSION_1}/user_tracking/persist`;
 
 //Download routes
-export const DOWNLOAD_PROJECT = `${API_VERSION_1}/download`
+export const DOWNLOAD_PROJECT = `${API_VERSION_1}/download`;
+
+//Solution routes
+export const GET_SOLUTIONS = `${API_VERSION_1}/solutions/get`;
+export const POST_SOLUTION = `${API_VERSION_1}/solutions/submit_solution`;

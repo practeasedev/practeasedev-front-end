@@ -5,7 +5,7 @@ import mailBox from "@/assets/mailbox.svg";
 import curvyArrow from "@/assets/curvy-arrow.svg";
 import Image from "next/image";
 import { useForm } from "@/common/CustomHooks";
-import { INTERSECTION_OBSERVER_OPTIONS, contactFormFields } from "@/common/Constants";
+import { INTERSECTION_OBSERVER_OPTIONS, CONTACT_FORM_FIELDS } from "@/common/Constants";
 import * as api from "@/common/HttpService";
 import { SEND_CONTACT_EMAIL } from "@/common/APIPaths";
 import { useInView } from "react-intersection-observer";
@@ -13,7 +13,7 @@ import { toast } from "react-hot-toast";
 import Head from "next/head";
 
 const Contact: FC<{}> = () => {
-    const { values, errors, setFormField, validateForm } = useForm(contactFormFields);
+    const { values, errors, setFormField, validateForm } = useForm(CONTACT_FORM_FIELDS);
     const [contactFormRef, contactFormInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
     const [contactInfoRef, contactInfoInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
     const [sendingMail, setSendingMail] = useState<boolean>(false);

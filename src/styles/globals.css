@@ -8,6 +8,10 @@
     --secondary-color-light: #FFEBD9;
 
     --error-color: #DC4C64;
+    --success-color: #14A44D;
+
+    --info-color: #54B4D3;
+    --info-color-light: #edf5f8;
 
     --color-coral-red: #FF4033;
 
@@ -67,6 +71,11 @@ h2{
 
 h3 {
     font-size: calc(var(--base-font-size) * 2.25);
+    font-weight: 600;
+}
+
+h4 {
+    font-size: calc(var(--base-font-size) * 1.75);
     font-weight: 600;
 }
 
@@ -154,6 +163,12 @@ button:disabled {
     color: var(--primary-color);
     border-style: solid;
     border-color: var(--primary-color)
+}
+
+.button-border-secondary {
+    color: var(--secondary-color);
+    border-style: solid;
+    border-color: var(--secondary-color)
 }
 
 .button-border-dark{
