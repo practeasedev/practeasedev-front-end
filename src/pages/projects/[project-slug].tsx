@@ -22,6 +22,7 @@ import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import Solutions from "@/components/Solutions/Solutions";
 
 enum TAB_IDS {
   USER_STORIES = "USER_STORIES",
@@ -32,7 +33,7 @@ enum TAB_IDS {
 const TABS = [
   { id: TAB_IDS.USER_STORIES, label: "User Stories" },
   { id: TAB_IDS.COMMENTS, label: "Comments" },
-  // { id: TAB_IDS.SOLUTIONS, label: "Solutions" },
+  { id: TAB_IDS.SOLUTIONS, label: "Solutions" },
 ];
 
 interface IGetTabContents {
@@ -132,6 +133,8 @@ const Project: FC<ProjectProps> = (props) => {
         );
       case TAB_IDS.COMMENTS:
         return <CommentsSection projectId={projectId} />;
+      case TAB_IDS.SOLUTIONS:
+        return <Solutions projectId={projectId}/>
       default:
         <></>;
     }

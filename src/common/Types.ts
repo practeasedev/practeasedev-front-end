@@ -47,3 +47,13 @@ export interface IProjectDetails {
   likes: number;
   slug: string;
 }
+
+export interface ISolution {
+  avatar_url: string;
+  created_on: number;
+  description: string;
+  github_link: string;
+  userName: string;
+  user_id: string;
+  _id: string ;
+}
