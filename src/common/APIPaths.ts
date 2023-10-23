@@ -1,7 +1,8 @@
 const API_VERSION_1 = "/api/v1";
 export const BASE_URL_DEV = "http://localhost:5000";
 export const BASE_URL_PREPROD = "https://api-dev.practeasedev.com";
-export const BASE_URL = BASE_URL_PREPROD;
+export const BASE_URL_PROD = "https://api.practeasedev.com";
+export const BASE_URL = BASE_URL_PROD;
 
 export const GITHUB_AUTHORIZE = "https://github.com/login/oauth/authorize";
 
