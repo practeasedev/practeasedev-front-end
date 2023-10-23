@@ -1,0 +1,50 @@
+.privacyPolicyContainer{
+    margin: 2rem 0;
+    padding: 0 var(--page-sides-padding);
+    font-size: var(--body-medium);
+    line-height: 2.2rem;
+}
+
+.privacyPolicyContainer  a {
+    color: var(--secondary-color-dark);
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.lastUpdated{
+    margin-top:2rem;
+}
+
+.introPara {
+    margin-top:1rem;
+}
+
+.policyList{
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.75rem;
+    margin-top:2rem;
+    font-weight: 600;
+}
+
+.highlightedText{
+    font-weight: 600;
+}
+
+.sectionTitle{
+    font-weight: 600;
+}
+
+.sectionList{
+    margin-left:1rem;
+    list-style-type: square;
+    margin-top:0.5rem;
+    font-weight: normal;
+}
+
+.sectionSubList{
+    list-style-type: circle;
+    margin: 0.5rem 0 0.5rem 2rem;
+}

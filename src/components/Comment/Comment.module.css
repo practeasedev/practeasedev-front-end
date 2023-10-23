@@ -1,0 +1,33 @@
+.commentContainer{
+    background-color: white;
+    box-shadow: var(--box-shadow-light);
+    padding:1rem;
+    border-radius:0.5rem;
+}
+
+.userInfo{
+    display: flex;
+    align-items: center;
+    column-gap: 1.5rem;
+}
+
+
+.userPic{
+    border-radius: 50%;
+    width:3rem;
+    height:auto;
+    border: 0.15rem solid var(--dark-color);
+}
+
+.userName{
+    font-weight: 600;
+    font-size: var(--body-medium);
+}
+
+.commentDate {
+    color: var(--dark-color-medium); 
+}
+
+.comment {
+    margin-top:0.5rem;
+}
