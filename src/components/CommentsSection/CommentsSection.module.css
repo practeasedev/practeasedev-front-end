@@ -42,10 +42,9 @@
     row-gap: 1rem;
 }
 
-.loadMoreContainer {
-    margin-top: 1rem;
-    text-align: center;
-    text-decoration: underline;
+.loadMoreBtn{
+    display: block;
+    margin: 2rem auto;
 }
 
 @media (max-width: 800px) {

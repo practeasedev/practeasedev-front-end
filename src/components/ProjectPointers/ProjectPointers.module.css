@@ -27,3 +27,11 @@
     flex-direction: column;
     row-gap:1rem;
 }
+
+.resourceLink{
+    text-decoration: none;
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    column-gap:0.5rem;
+}
