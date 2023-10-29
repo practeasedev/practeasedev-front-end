@@ -64,7 +64,7 @@ export default function Home() {
           <div className={`${styles.heroMain} fadeInFromLeft`}>
             <h1 className={styles.tagline}>
               A Place to hone your <br />
-              <span className={styles.highLightedText}>web development skills</span>
+              <span className={styles.highLightedText}>web dev skills</span>
             </h1>
             <Link href="/projects" className={styles.getCodingLink}>
               <button className="button-large button-secondary">
