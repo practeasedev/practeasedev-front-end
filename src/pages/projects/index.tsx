@@ -5,7 +5,6 @@ import { FC, useEffect, useState } from "react";
 import * as api from "@/common/HttpService";
 import { GET_ALL_PROJECTS } from "@/common/APIPaths";
 import Loader from "@/components/Loader/Loader";
-import { NextRouter, useRouter } from "next/router";
 import { useInView } from "react-intersection-observer";
 import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 import { GetServerSideProps } from "next";
@@ -127,9 +126,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
   return {
     props: {
-      data: data,
-      success: success,
-      message: message,
+      data: data || null,
+      success: success || null,
+      message: message || null,
     },
   };
 };
