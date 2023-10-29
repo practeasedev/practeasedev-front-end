@@ -1,0 +1,34 @@
+.label{
+    font-weight: 600;
+    display: inline;
+    text-transform: capitalize;
+}
+
+.beginnerLabel{
+    background-color: var(--color-bronze-light);
+    color: var(--color-bronze);
+}
+
+.intermediateLabel{
+    background-color: var(--color-silver-light);
+    color: var(--color-silver);
+}
+
+.advancedLabel{
+    background-color: var(--color-gold-light);
+    color: var(--color-gold);
+}
+
+
+.normalLabel{
+    font-size: var(--body-small);
+    padding: 0.25rem 0.5rem;
+    border-radius:0.25rem;
+}
+
+
+@media (max-width:800px) {
+    .normalLabel {
+        font-size: calc(var(--body-normal) * 0.9)
+    }
+}
