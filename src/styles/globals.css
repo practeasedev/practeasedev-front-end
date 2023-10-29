@@ -4,15 +4,8 @@
     --primary-color-light:#DEEDFF; 
 
     --secondary-color: #FD8E27;
-    --secondary-color-dark: #e47610;
     --secondary-color-light-extreme: #FFF8F2;
     --secondary-color-light: #FFEBD9;
-
-    --error-color: #DC4C64;
-    --success-color: #14A44D;
-
-    --info-color: #54B4D3;
-    --info-color-light: #edf5f8;
 
     --color-coral-red: #FF4033;
 
@@ -26,23 +19,9 @@
     --color-gold-light: #FFF9D9;
 
     --dark-color: #000000;
-    --dark-color-medium: #919191;
-    --dark-color-light: #F1F1F1;
-    --dark-color-transparent: rgba(0,0,0,0.5);
     --light-color: #FFFFFF;
 
     --base-font-size: 1rem;
-    --page-sides-padding: 7.5%;
-
-    --body-large: calc(var(--base-font-size) * 1.5);
-    --body-medium: calc(var(--base-font-size) * 1.25);
-    --body-normal: var(--base-font-size);
-    --body-small: calc(var(--base-font-size) * 0.75);
-
-    --box-shadow-light: 0 4px 12px rgba(0,0,0,0.15);
-    --box-shadow-medium: 0 4px 15px rgba(0,0,0,0.3);
-
-    --animation-duration: 0.75s;
 }
 
 *{
@@ -50,34 +29,16 @@
     padding:0;
 }
 
-html{
-    width:100vw;
-    overflow-x: hidden;
-}
-
-body{
-    position: relative;
-    overflow-x: hidden;
-    width:100%;
-}
-
 h1{
-    font-size: calc(var(--base-font-size) * 3.25);
+    font-size: calc(var(--base-font-size) * 3.75);
 }
 
 h2{
-    font-size: calc(var(--base-font-size) * 2.5);
-    font-weight: 600;
+    font-size: calc(var(--base-font-size) * 3);
 }
 
 h3 {
     font-size: calc(var(--base-font-size) * 2.25);
-    font-weight: 600;
-}
-
-h4 {
-    font-size: calc(var(--base-font-size) * 1.75);
-    font-weight: 600;
 }
 
 .body-large{
@@ -93,284 +54,27 @@ h4 {
 }
 
 .body-small {
-    font-size: calc(var(--base-font-size) * 0.8);
+    font-size: calc(var(--base-font-size) * 0.75);
 }
 
 button, input, textarea,select {
     font-family: inherit;
 }
 
-.page{
-    min-height:90vh;
-}
-
-/* buttons */
-
 button{
     font-weight:500;
     padding:0.5rem 1rem;
     border-radius:0.25rem;
     border:0;
-    cursor: pointer;
-    width:max-content;
-    font-size:var(--body-normal);
-}
-
-button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
 }
 
 .button-with-icon{
     display: flex;
     align-items: center;
     column-gap: 0.5rem;
-    width:max-content
 }
 
 .button-primary{
     background-color: var(--primary-color);
     color: var(--light-color);
-}
-
-.button-secondary{
-    background-color: var(--secondary-color);
-    color: var(--light-color);
-}
-
-.button-secondary-light {
-    background-color: var(--secondary-color-light);
-}
-
-.button-large{
-    font-size: calc(var(--base-font-size) * 1.25);
-    padding:0.5rem 2rem;
-}
-
-.button-medium {
-    font-size: var(--base-font-size);
-}
-
-.button-icon{
-    height:1.5rem;
-    width:auto;
-}
-
-.button-transparent{
-    background-color: transparent;
-}
-
-.button-border-primary {
-    color: var(--primary-color);
-    border-style: solid;
-    border-color: var(--primary-color)
-}
-
-.button-border-secondary {
-    color: var(--secondary-color);
-    border-style: solid;
-    border-color: var(--secondary-color)
-}
-
-.button-border-dark{
-    color: var(--dark-color);
-    border-style: solid;
-    border-color: var(--dark-color)
-}
-
-.button-border-thick {
-    border-width: 0.2rem;
-}
-
-.button-border-medium{
-    border-width: 0.15rem;
-}
-
-.button-border-normal{
-    border-width: 0.125rem;
-}
-
-.button-border-thin{
-    border-width: 0.1rem;
-}
-
-/* form inputs */
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
-}
-
-.input{
-    padding:0.75rem 1rem;
-    background-color: var(--dark-color-light);
-    border-radius: 0.25rem;
-    border:0;
-}
-
-.input-label{
-    font-weight: 600; 
-}
-
-.textarea {
-    padding:0.75rem 1rem;
-    resize: none;
-    height:200px;
-    border-radius:0.25rem;
-    border:0;
-    background-color: var(--dark-color-light);
-}
-
-.form-field-error {
-    color: var(--error-color);
-    font-size: var(--body-small);
-}
-
-.checkbox-group {
-    display: flex;
-    align-items: center;
-    column-gap: 0.5rem;
-    width:max-content;
-}
-
-
-.checkbox {
-    cursor: pointer;
-}
-
-.checkbox-label {
-    cursor: pointer;
-    font-size: var(--body-medium);
-}
-
-.radio-group {
-    display: flex;
-    align-items: center;
-    column-gap: 0.5rem;
-    width:max-content;
-}
-
-.radio {
-    cursor: pointer;
-}
-
-.radio-label {
-    cursor: pointer;
-    font-size: var(--body-medium);
-}
-
-.fadeInFromLeft {
-    animation: fadeInFromLeft var(--animation-duration) ease-in-out;
-}
-
-.fadeInFromRight {
-    animation: fadeInFromRight var(--animation-duration) ease-in-out;
-}
-
-.fadeInFromTop {
-    animation: fadeInFromTop var(--animation-duration) ease-in-out;
-}
-
-.fadeIn {
-    animation: fadeIn var(--animation-duration) ease-in-out;
-}
-
-
-/* animations */
-
-@keyframes fadeIn {
-    from {
-        opacity:0;
-    }
-    to{
-        opacity: 1; 
-    }
-}
-
-@keyframes fadeInFromLeft {
-    from {
-        opacity:0;
-        transform: translateX(-100px);
-    }
-    to{
-        opacity: 1;   
-        transform: translateX(0px);   
-    }
-}
-
-@keyframes fadeInFromRight {
-    from {
-        opacity: 0;
-        transform: translateX(100px);
-    }
-    to{
-        opacity: 1;   
-        transform: translateX(0px);   
-    }
-}
-
-@keyframes fadeInFromTop {
-    from {
-        opacity: 0;
-        transform: translateY(-25px);
-    }
-    to{
-        opacity: 1;   
-        transform: translateY(0px);   
-    }
-}
-
-
-@media (max-width: 1300px) {
-    :root {
-        --base-font-size: 0.9rem;
-    }
-}
-
-@media (max-width:1100px) {  
-    :root {
-        --base-font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 975px) {
-    :root {
-        --base-font-size: 0.7rem;
-    }
-
-    button {
-        font-size: var(--body-medium);
-    }
-
-    .button-large{
-        font-size:var(--body-large);
-    }
-
-    .button-medium{
-        font-size:var(--body-medium);
-    }
-
-    .button-icon{
-        height:1.25rem;
-        width:auto;
-    }
-}
-
-@media (max-width: 800px) {
-    :root {
-        --base-font-size: 0.6rem;
-    }
-}
-
-@media (max-width:650px) {
-    :root {
-        --base-font-size: 0.7rem;
-    }
-}
-
-@media (max-width:400px) {
-    :root {
-        --base-font-size: 0.55rem;
-    }
 }
