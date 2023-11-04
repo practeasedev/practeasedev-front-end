@@ -227,6 +227,8 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                                             changeHandler={sortChangeHandler} 
                                             name="sort-group"
                                             checked={sort === 'most-recent'}
+                                            labelSize="medium"
+                                            radioButtonSize="normal"
                                         />
                                     </li>
                                     <li className={styles.subMenuItem}>
@@ -236,6 +238,8 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                                             changeHandler={sortChangeHandler} 
                                             name="sort-group"
                                             checked={sort === 'most-liked'}
+                                            labelSize="medium"
+                                            radioButtonSize="normal"
                                         />
                                     </li>
                                 </ul>

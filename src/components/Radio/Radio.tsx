@@ -6,16 +6,18 @@ interface IRadioProps {
     checked:boolean
     label: string
     name: string
+    labelSize: 'small' | 'normal' | 'medium' | 'large'
+    radioButtonSize: 'small' | 'normal' | 'medium' | 'large'
 }
 
 const Radio:FC<IRadioProps> = (props) => {
-    const {value, changeHandler, checked, label, name} = props
+    const {value, changeHandler, checked, label, name, radioButtonSize, labelSize} = props
     return (
         <div className="radio-group">
             <input
                 type="radio"
                 id={value}
-                className="radio"
+                className={`radio-${radioButtonSize}`}
                 value={value}
                 onChange={changeHandler}
                 checked={checked || false}
@@ -23,7 +25,7 @@ const Radio:FC<IRadioProps> = (props) => {
             />
             <label
                 htmlFor={value}
-                className="radio-label"
+                className={`radio-label-${labelSize}`}
             >
                 {label}
             </label>

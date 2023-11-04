@@ -52,7 +52,7 @@
     border-radius: 0.25rem;
     margin-top:0.5rem;
     position: absolute;
-    width:100%;
+    width:max-content;
     padding:0.2rem;
     z-index:2;
 
@@ -85,6 +85,11 @@
 .menuOpenIcon{
     cursor: pointer;
 }
+
+.dangerOption {
+    color: var(--error-color);
+}
+
 @media (max-width: 1100px) {
     .header{
         display: none;
