@@ -83,17 +83,14 @@ const Project: FC<ProjectsProps> = (props) => {
               <p className={styles.noProjects}>No projects exists</p>
             ) : (
               projects.map(
-                (
-                  {
-                    _id,
-                    slug,
-                    project_name,
-                    project_description,
-                    difficulty_level,
-                    project_image,
-                  },
-                  index
-                ) => (
+                ({
+                  _id,
+                  slug,
+                  project_name,
+                  project_description,
+                  difficulty_level,
+                  project_image,
+                }) => (
                   <ProjectCard
                     key={_id}
                     slug={slug}

@@ -36,6 +36,10 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
     if (offset > 0 && data.length === 0) {
       toast.success("No more comments to load", { duration: 2000 });
       setShowLoadMore(false);
+    }else if(data.length < 5){
+      setShowLoadMore(false);
+    }else{
+      setShowLoadMore(true);
     }
     setComments((commentsArray) => [...commentsArray, ...data]);
   };
