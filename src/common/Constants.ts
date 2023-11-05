@@ -73,3 +73,26 @@ export const TOAST_SETTINGS = {
 export const JWT_TOKEN_COOKIE_NAME = 'accessToken';
 
 export const SOLUTION_PAGE_SIZE = 5;
+
+export const REASONS_FOR_ACCOUNT_DELETE = [
+    {
+        label: 'No longer use the website',
+        value: 'no longer use the website'
+    },
+    {
+        label: 'Privacy and Security Concerns',
+        value: 'privacy and security concerns',
+    },
+    {
+        label: 'Found a better alternative',
+        value: 'found better alternative',
+    },
+    {
+        label: 'Account created by mistake',
+        value: 'account created by mistake',
+    },
+    {
+        label: 'Other',
+        value: 'other' 
+    }
+];

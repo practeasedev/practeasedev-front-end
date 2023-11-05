@@ -3,13 +3,15 @@ import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import styles from "@/components/Header/Header.module.css";
 import githubWhite from "@/assets/github-white.svg";
-import { GITHUB_AUTHORIZE, LOGOUT_USER } from "@/common/APIPaths";
+import { DELETE_USER, GITHUB_AUTHORIZE, LOGOUT_USER } from "@/common/APIPaths";
 import { checkIfLoggedIn, getLoggedInUserDetails, removeCookie } from "@/common/Helper";
 import SVG from "../SVG/SVG";
 import AuthLoader from "../AuthLoader/AuthLoader";
 import { NextRouter, useRouter } from "next/router";
 import SideMenu from "../SideMenu/SideMenu";
 import { JWT_TOKEN_COOKIE_NAME } from "@/common/Constants";
+import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
+import * as API from '@/common/HttpService';
 
 const Header: FC<{}> = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -17,7 +19,9 @@ const Header: FC<{}> = () => {
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
   const [isAuthLoading, setIsAuthLoading] = useState<boolean>(false);
   const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState<boolean>(false);
   const router:NextRouter = useRouter();
+  const [isDeletingUser, setIsDeletingUser] = useState<boolean>(false);
   const { pathname } = router;
 
   const logoutUser = () => {
@@ -34,6 +38,21 @@ const Header: FC<{}> = () => {
       setUserDetails(getLoggedInUserDetails());
     }
   }, [isLoggedIn]);
+
+  const deleteUserAccount = async(reason:string) => {
+    API.remove({
+      url: DELETE_USER,
+      body: {
+        reason
+      },
+      loadingHandler: setIsDeletingUser,
+    }).then((res) => {
+      if(res.success) {
+        setShowConfirmationPopup(false);
+        logoutUser();
+      }
+    });
+  }
 
   return (
     <>
@@ -83,6 +102,14 @@ const Header: FC<{}> = () => {
                 >
                   Logout
                 </li>
+                <li
+                  className={`${styles.menuOption} ${styles.dangerOption}`}
+                  onClick={() => {
+                    setShowConfirmationPopup(true);
+                  }}
+                >
+                  Delete Account
+                </li>
               </ul>
             ) : null}
           </div>
@@ -125,8 +152,16 @@ const Header: FC<{}> = () => {
           ) : null}
           
         </header>
-      
-      
+        {showConfirmationPopup ? (
+          <ConfirmationPopup
+            yesButtonHandler={deleteUserAccount}
+            yesButtonName="Yes, I am"
+            noButtonName="No, I am not"
+            closePopupHandler={() => { setShowConfirmationPopup(false) }}
+            message="Are you sure you to delete your account?.(Please note your data will not be wiped off completely from our database but we will display any content you generated in the website)"
+            loading={isDeletingUser}
+          />
+        ) : null} 
     </>
   );
 };

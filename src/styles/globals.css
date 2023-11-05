@@ -138,6 +138,11 @@ button:disabled {
     color: var(--light-color);
 }
 
+.button-danger {
+    background-color: var(--error-color);
+    color: var(--light-color);
+}
+
 .button-secondary-light {
     background-color: var(--secondary-color-light);
 }
@@ -251,14 +256,54 @@ button:disabled {
     width:max-content;
 }
 
-.radio {
+.radio-small {
     cursor: pointer;
+    width: var(--body-small);
+    height: var(--body-small);
 }
 
-.radio-label {
+.radio-normal {
+    cursor: pointer;
+    width: var(--body-normal);
+    height: var(--body-normal);
+}
+
+.radio-medium {
+    cursor: pointer;
+    width: var(--body-medium);
+    height: var(--body-medium);
+}
+
+.radio-large {
+    cursor: pointer;
+    width: var(--body-large);
+    height: var(--body-large);
+}
+
+
+.radio-label-small {
+    cursor: pointer;
+    font-size: var(--body-small);
+}
+
+
+.radio-label-normal {
+    cursor: pointer;
+    font-size: var(--body-normal);
+}
+
+.radio-label-medium {
     cursor: pointer;
     font-size: var(--body-medium);
 }
+
+.radio-label-large {
+    cursor: pointer;
+    font-size: var(--body-large);
+}
+
+
+/* animations */
 
 .fadeInFromLeft {
     animation: fadeInFromLeft var(--animation-duration) ease-in-out;
@@ -275,9 +320,6 @@ button:disabled {
 .fadeIn {
     animation: fadeIn var(--animation-duration) ease-in-out;
 }
-
-
-/* animations */
 
 @keyframes fadeIn {
     from {

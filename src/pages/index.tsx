@@ -38,10 +38,11 @@ export default function Home() {
       authRequired: false
     })
 
-    if(connectResult) {
+    if(connectResult && connectResult.success) {
       setCookieValue(JWT_TOKEN_COOKIE_NAME, connectResult.data);
-      router.push('/');
     }
+
+    router.push('/');
   }
 
   useEffect(() => {
