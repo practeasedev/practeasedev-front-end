@@ -156,7 +156,7 @@ const Header: FC<{}> = () => {
           <ConfirmationPopup
             yesButtonHandler={deleteUserAccount}
             yesButtonName="Yes, I am"
-            noButtonName="No, I am not"
+            noButtonName="Cancel"
             closePopupHandler={() => { setShowConfirmationPopup(false) }}
             message="Are you sure you to delete your account?.(Please note your data will not be wiped off completely from our database but we will display any content you generated in the website)"
             loading={isDeletingUser}

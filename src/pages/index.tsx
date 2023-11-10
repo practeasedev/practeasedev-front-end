@@ -9,18 +9,23 @@ import downArrow from '@/assets/down-arrow.svg';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { NextRouter, useRouter } from 'next/router';
-import * as api from '@/common/HttpService'
-import { LOGIN_OR_REGISTER } from '@/common/APIPaths';
+import { post } from '@/common/HttpService'
+import { GITHUB_AUTHORIZE, LOGIN_OR_REGISTER, RESTORE_USER_ACCOUNT } from '@/common/APIPaths';
 import AuthLoader from '@/components/AuthLoader/AuthLoader';
 import { useInView } from 'react-intersection-observer';
 import { INTERSECTION_OBSERVER_OPTIONS, JWT_TOKEN_COOKIE_NAME } from '@/common/Constants';
 import Link from 'next/link';
 import { setCookieValue } from '@/common/Helper';
+import ConfirmationPopup from '@/components/ConfirmationPopup/ConfirmationPopup';
+import ConfirmationPopupV2 from '@/components/ConfirmationPopupV2/ConfirmationPopupV2';
 
 
 export default function Home() {
   const router:NextRouter = useRouter();
   const [isAuthLoading, setIsAuthLoading] = useState<boolean>(false);
+  const [isRestoreInProgress, setRestoreInProgress] = useState<boolean>(false);
+  const [promptRestore, setPromptRestore] = useState<boolean>(false);
+  const [userEmail, setUserEmail] = useState<string>("") //This is for restore account
 
   // animation refs
   const [whySectionRef, whySectionInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
@@ -30,7 +35,7 @@ export default function Home() {
     const body = {
       code
     };
-    const connectResult = await api.post({
+    const {success, data} = await post({
       url:LOGIN_OR_REGISTER,
       body,
       loadingHandler: setIsAuthLoading,
@@ -38,11 +43,33 @@ export default function Home() {
       authRequired: false
     })
 
-    if(connectResult && connectResult.success) {
-      setCookieValue(JWT_TOKEN_COOKIE_NAME, connectResult.data);
+    if(success) {
+      const { isAccountDeleted, userAccessToken, email } = data;
+      if(!isAccountDeleted){
+        setCookieValue(JWT_TOKEN_COOKIE_NAME, userAccessToken);
+        router.push('/');
+      }
+      else {
+        setUserEmail(email);
+        setPromptRestore(true);
+      }
     }
 
     router.push('/');
+  }
+
+  const restoreUserAccount = async() => {
+    const payload = { userEmail }
+    const { success } = await post({
+      url: RESTORE_USER_ACCOUNT,
+      body: payload,
+      loadingHandler: setRestoreInProgress,
+      constructUrl: true,
+      authRequired: false,
+    });
+    setPromptRestore(false);
+
+    if(success) window.location.href = `${GITHUB_AUTHORIZE}?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=user:email`;
   }
 
   useEffect(() => {
@@ -69,7 +96,7 @@ export default function Home() {
             </h1>
             <Link href="/projects" className={styles.getCodingLink}>
               <button className="button-large button-secondary">
-                Get set Code!
+                Get set Practease!
               </button>
             </Link>
           </div>
@@ -113,6 +140,16 @@ export default function Home() {
         </div>
       </section>
       { isAuthLoading ? <AuthLoader message="Authorizing using Github. Please wait"/> : null }
+      { promptRestore
+        ? <ConfirmationPopupV2
+            heading="Restore Account"
+            yesButtonHandler={restoreUserAccount}
+            yesButtonName="Restore!"
+            closePopupHandler={() => setPromptRestore(false)}
+            body="The Account linked to this github account seems to be deleted. Do you want to restore your account?"
+            loading={isRestoreInProgress}
+          /> 
+        : null}
     </>
   )
 }
