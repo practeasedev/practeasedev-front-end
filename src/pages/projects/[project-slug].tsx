@@ -64,7 +64,6 @@ const Project: FC<ProjectProps> = (props) => {
   const [projectDetails, setProjectDetails] = useState<IProjectDetails>(() =>
     formatProjectDetails({})
   );
-  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   // animation refs
   const [projectHeaderRef, projectHeaderInView] = useInView(
@@ -206,13 +205,13 @@ const Project: FC<ProjectProps> = (props) => {
             <p className={styles.likeCount}>{likes}</p>
             <div
               onClick={handleLikeClick}
-              title={(isUserLoggedIn && isMounted) ? "" : "Please login to like"}
+              title={isUserLoggedIn ? "" : "Please login to like"}
               className={styles.heartContainer}
             >
               <SVG
-                iconName={(isLiked && isMounted) ? "heart" : "no-fill-heart"}
+                iconName={isLiked ? "heart" : "no-fill-heart"}
                 fill="#FF4033"
-                className={`${(isUserLoggedIn && isMounted) ? styles.heartIcon : ""}`}
+                className={`${isUserLoggedIn ? styles.heartIcon : ""}`}
               />
             </div>
           </div>
