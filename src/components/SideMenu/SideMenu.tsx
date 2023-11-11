@@ -5,17 +5,17 @@ import githubWhite from '@/assets/github-white.svg';
 import Image from 'next/image';
 import SVG from '../SVG/SVG';
 import {  getLoggedInUserDetails } from '@/common/Helper';
-import { GITHUB_AUTHORIZE } from '@/common/APIPaths';
-import * as api from '@/common/HttpService'
 import { IUserDetails } from '@/common/Types';
+import { GITHUB_AUTHORIZE } from '@/common/APIPaths';
 
 interface SideMenuProps {
     closeHandler: () => void;
     logoutUser: () => void;
+    openConfirmationPopup: () => void;
 }
 
 const SideMenu:FC<SideMenuProps> = (props) => {
-    const { closeHandler, logoutUser } = props;
+    const { closeHandler, logoutUser, openConfirmationPopup } = props;
     const [loggedInUser, setLoggedInUser] = useState<IUserDetails | null>();
 
 
@@ -32,9 +32,15 @@ const SideMenu:FC<SideMenuProps> = (props) => {
                             <p className={styles.userName}>{loggedInUser.userName}</p>
                             <ul className={styles.userLinks}>
                                 <li>
-                                    <p className={styles.logout} onClick={logoutUser}>
-                                        <SVG iconName='logout' className={styles.logoutIcon}/>
+                                    <p className={styles.userLink} onClick={logoutUser}>
+                                        <SVG iconName='logout' height='24' width="24"/>
                                         <span>Logout</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p className={styles.userLink} onClick={() => {openConfirmationPopup()}}>
+                                        <SVG iconName='delete' height='24' width="24" fill='#DC4C64'/>
+                                        <span className={styles.dangerLinkName}>Delete Account</span>
                                     </p>
                                 </li>
                             </ul>

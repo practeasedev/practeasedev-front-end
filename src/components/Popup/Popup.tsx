@@ -13,9 +13,13 @@ const Popup: FC<IPopupProps> = (props) => {
     return (
         <div className={styles.popupOuterContainer}>
             <div className={styles.popupInnerContainer}>
-                {popupHeader}
-                {popupBody}
-                {popupFooter}
+                <div className={styles.popupUpper}>
+                    {popupHeader}
+                    {popupBody}
+                </div>
+                <div className={styles.popupLower}>
+                    {popupFooter}
+                </div>
             </div>
         </div>
     );

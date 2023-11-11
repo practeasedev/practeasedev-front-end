@@ -258,48 +258,48 @@ button:disabled {
 
 .radio-small {
     cursor: pointer;
-    width: var(--body-small);
-    height: var(--body-small);
+    width: 0.8rem;
+    height: 0.8rem;
 }
 
 .radio-normal {
     cursor: pointer;
-    width: var(--body-normal);
-    height: var(--body-normal);
+    width: 1rem;
+    height: 1rem;
 }
 
 .radio-medium {
     cursor: pointer;
-    width: var(--body-medium);
-    height: var(--body-medium);
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
 .radio-large {
     cursor: pointer;
-    width: var(--body-large);
-    height: var(--body-large);
+    width: 1.5rem;
+    height: 1.5rem
 }
 
 
 .radio-label-small {
     cursor: pointer;
-    font-size: var(--body-small);
+    font-size: 0.8rem;
 }
 
 
 .radio-label-normal {
     cursor: pointer;
-    font-size: var(--body-normal);
+    font-size: 1rem;
 }
 
 .radio-label-medium {
     cursor: pointer;
-    font-size: var(--body-medium);
+    font-size: 1.25rem;
 }
 
 .radio-label-large {
     cursor: pointer;
-    font-size: var(--body-large);
+    font-size: 1.5rem;
 }
 
 
