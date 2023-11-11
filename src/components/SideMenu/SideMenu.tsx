@@ -4,9 +4,10 @@ import Link from 'next/link';
 import githubWhite from '@/assets/github-white.svg';
 import Image from 'next/image';
 import SVG from '../SVG/SVG';
-import { checkIfLoggedIn } from '@/common/Helper';
-import { GITHUB_AUTHORIZE, LOGOUT_USER } from '@/common/APIPaths';
+import {  getLoggedInUserDetails } from '@/common/Helper';
+import { GITHUB_AUTHORIZE } from '@/common/APIPaths';
 import * as api from '@/common/HttpService'
+import { IUserDetails } from '@/common/Types';
 
 interface SideMenuProps {
     closeHandler: () => void;
@@ -15,18 +16,20 @@ interface SideMenuProps {
 
 const SideMenu:FC<SideMenuProps> = (props) => {
     const { closeHandler, logoutUser } = props;
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [loggedInUser, setLoggedInUser] = useState<IUserDetails | null>();
+
 
     useEffect(() => {
-        setIsLoggedIn(checkIfLoggedIn());
+        const loggedInUserDetails = getLoggedInUserDetails();;
+        setLoggedInUser(loggedInUserDetails);
     },[])
     return (
         <div className={`${styles.sideMenuContainer} fadeIn`}>
             <div className={`${styles.sideMenu} fadeInFromRight`}>
                 <div className={styles.userInfo}>
-                    {isLoggedIn ? (
+                    {!!loggedInUser ? (
                         <div className={styles.userDetails}>
-                            <p className={styles.userName}>Bhanu Teja</p>
+                            <p className={styles.userName}>{loggedInUser.userName}</p>
                             <ul className={styles.userLinks}>
                                 <li>
                                     <p className={styles.logout} onClick={logoutUser}>
