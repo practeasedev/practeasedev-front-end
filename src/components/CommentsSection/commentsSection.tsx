@@ -45,6 +45,10 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
   };
 
   const postComment = async () => {
+    if(!isUserLoggedIn){
+      toast.error("Please login to comment", { duration: 2000 });
+      return;
+    }
     if (!commentText) {
       toast.error("Please enter comment to post", { duration: 2000 });
       return;
@@ -79,7 +83,6 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
           className={`button-primary ${styles.commentBtn} button-medium`}
           onClick={postComment}
           title={isUserLoggedIn ? "" : "Please login to comment"}
-          disabled={!isUserLoggedIn}
         >
           Post
         </button>
