@@ -82,8 +82,27 @@ const Project: FC<ProjectProps> = (props) => {
     INTERSECTION_OBSERVER_OPTIONS
   );
 
+  useEffect(()=>{
+    if(props?.data) {
+      const formattedProjectDetails = formatProjectDetails(props.data)
+      setProjectDetails(formattedProjectDetails)
+      if(isUserLoggedIn) getProjectUserTraking(formattedProjectDetails.projectId)
+    }
+  },[props?.data])
+
+  const getProjectUserTraking = async(projectId: string) => {
+    const { data: projectStatus, success, message } = await API.get({
+      url: `${GET_PROJECT_STATUS}/${projectId}`,
+    });
+    if (success) setLike(projectStatus.is_liked);
+    else toast.error(message, { duration: 2000 });
+  }
+
   const handleLikeClick = async () => {
-    if (!isUserLoggedIn) return;
+    if (!isUserLoggedIn) {
+      toast.error("Please login to like", { duration: 2000 });
+      return;
+    }
     const { data, success } = await API.post({
       url: `${POST_PROJECT_STATUS}/${projectId}`,
       body: { isLike: !isLiked },
@@ -169,7 +188,7 @@ const Project: FC<ProjectProps> = (props) => {
     resourceLinks,
     projectFigmaLink,
     slug,
-  } = props.data;
+  } = projectDetails;
 
   const tabContents = useMemo(()=>getTabContents({
     tab: activeTab,
@@ -302,7 +321,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (context) => {
 
   return {
     props: {
-      data: formatProjectDetails(data),
+      data: data,
       success: success,
       message: message
     }

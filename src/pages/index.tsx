@@ -127,7 +127,8 @@ export default function Home() {
             <div className={styles.step}>
               <p className={styles.stepNo}>02</p>
               <p className={styles.stepTitle}>Work on the project</p>
-              <p className={styles.stepDesc}> Read through the user stories, download the project files, refer the attached figma design and get started with the challenge! In order to make your job easier we have provided links to all useful resources for every project, do refer them when stuck.</p>
+              <p className={styles.stepDesc}> Read through the user stories, download the project files, refer the attached figma design and GET STARTED! You're Welcome for the important resource links! 😁</p>
+              {/* In order to make your job easier we have provided links to all useful resources for every project, do refer them when stuck. */}
             </div>
             <Image src={downArrow} alt="A light orange down arrow" className={styles.arrow}/>
             <div className={styles.step}>

@@ -3,12 +3,13 @@ import styles from './Solutions.module.css';
 import { SOLUTION_FORM_LINKS, SOLUTION_PAGE_SIZE } from '@/common/Constants';
 import { useForm } from '@/common/CustomHooks';
 import Image from 'next/image';
-import { checkIfLoggedIn, getLoggedInUserDetails } from '@/common/Helper';
+import { checkIfLoggedIn } from '@/common/Helper';
 import * as api from '@/common/HttpService';
 import { GET_SOLUTIONS, POST_SOLUTION } from '@/common/APIPaths';
 import Loader from '../Loader/Loader';
 import { ISolution } from '@/common/Types';
 import { toast } from 'react-hot-toast';
+import Link from 'next/link';
 
 interface ISolutionsProps {
     projectId: string
@@ -20,11 +21,13 @@ const Solutions:FC<ISolutionsProps> = (props) => {
     const [page, setPage] = useState<number>(0)
     const [loadingSolutions, setloadingSolutions] = useState<boolean>(false);
     const [postingSolution, setPostingSolution] = useState<boolean>(false);
-    const [solutionExists, setSolutionExists] = useState<boolean>(false);
     const [showLoadMore, setShowLoadMore] = useState<boolean>(true);
     const [solutions, setSolutions] = useState<ISolution[]>([]);
 
     const submitForm = (event: FormEvent<HTMLFormElement>) => {
+        if(!checkIfLoggedIn()){
+            toast.error("Please login to submit solutions", {duration: 2000});
+        }
         event.preventDefault();
         const isFormValid: boolean = validateForm();
 
@@ -52,16 +55,12 @@ const Solutions:FC<ISolutionsProps> = (props) => {
 
     const loadSolutions = () => {
         const offset = page * SOLUTION_PAGE_SIZE;
-        const loggedInUserDetails = getLoggedInUserDetails();
         api.get({
             url:`${GET_SOLUTIONS}/${projectId}?offset=${offset}` ,
             loadingHandler: setloadingSolutions
         }).then((res) => {
             if(res.success) {
                 setSolutions((prevSolutions:ISolution[]) => [...prevSolutions, ...res.data]);
-                if(res.data.find((solution:ISolution) => solution.user_id === loggedInUserDetails?.userId)) {
-                    setSolutionExists(true);
-                }
                 if(res.data && res.data.length < SOLUTION_PAGE_SIZE) {
                     setShowLoadMore(false);
                 }
@@ -78,7 +77,6 @@ const Solutions:FC<ISolutionsProps> = (props) => {
     return (
         <>
             <p className={styles.infoForUser}>  Solutions can only be submitted in desktop mode of the website.</p>
-            {(checkIfLoggedIn() && !solutionExists) ? (
                 <div className={styles.solutionsFormAndTips}>
                     <form className={styles.solutionsForm} onSubmit={(event) => { submitForm(event); }}>
                         <div className="input-group">
@@ -134,7 +132,6 @@ const Solutions:FC<ISolutionsProps> = (props) => {
                         </div>
                     </div>
                 </div>
-            ) : null}
             {loadingSolutions ? <Loader loadingText='Loading solutions'/> : (
                 solutions.length === 0 ? (
                     <div className={styles.noSolutions}>
@@ -161,6 +158,9 @@ const Solutions:FC<ISolutionsProps> = (props) => {
                                     </div>
                                     <div className={styles.authorComment}>
                                         {solution.description}
+                                    </div>
+                                    <div className={styles.solutionLink}>
+                                        <Link href={solution.github_link} target="_blank">{solution.github_link}</Link>
                                     </div>
                                 </div>
                             ))}
