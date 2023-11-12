@@ -148,6 +148,7 @@ const Header: FC<{}> = () => {
             <SideMenu
               closeHandler={() => { setShowSideMenu(false); }}
               logoutUser={logoutUser}
+              openConfirmationPopup={() => { setShowConfirmationPopup(true)}}
             />
           ) : null}
           

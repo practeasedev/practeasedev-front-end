@@ -46,9 +46,16 @@
 
 .userLinks{
     list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
 }
 
-.logout{
+.dangerLinkName{
+    color: #DC4C64;
+}
+
+.userLink{
     font-size: 1.25rem; 
     font-weight: 500;
     cursor: pointer;
@@ -56,12 +63,6 @@
     align-items: center;
     column-gap: 0.5rem;
 }
-
-.logoutIcon{
-    width:1.5rem;
-    height:auto;
-}
-
 .sideNavContainer{
     margin-top:2rem;
     padding: 2rem 4rem;

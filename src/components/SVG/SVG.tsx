@@ -276,6 +276,19 @@ const SVG: FC<ISVGProps> = (props) => {
           <path d="M21.8,19.1c-0.9-1.8-2.6-3.3-4.8-4.2c-0.6-0.2-1.3-0.2-1.8,0.1c-1,0.6-2,0.9-3.2,0.9s-2.2-0.3-3.2-0.9    C8.3,14.8,7.6,14.7,7,15c-2.2,0.9-3.9,2.4-4.8,4.2C1.5,20.5,2.6,22,4.1,22h15.8C21.4,22,22.5,20.5,21.8,19.1z" />
         </svg>
       );
+    case 'delete':
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height={height || DEFAULT_DIMENSION}
+          viewBox="0 -960 960 960"
+          width={width || DEFAULT_DIMENSION}
+          fill={fill || DEFAULT_COLOR}
+          className={className || ""} 
+        >
+          <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+        </svg>
+      )
     default:
       return null;
   }

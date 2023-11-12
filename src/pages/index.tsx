@@ -54,6 +54,8 @@ export default function Home() {
         setPromptRestore(true);
       }
     }
+
+    router.push('/');
   }
 
   const restoreUserAccount = async() => {
