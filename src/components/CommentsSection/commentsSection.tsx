@@ -15,7 +15,7 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
   const [offset, setOffset] = useState<number>(0);
   const [commentText, setCommentText] = useState<string>("");
   const [comments, setComments] = useState<ICommentDetails[]>([]);
-  const [showLoadMore, setShowLoadMore] = useState<boolean>(true);
+  const [showLoadMore, setShowLoadMore] = useState<boolean>(false);
 
   // animations Ref
   const [commentInputRef, commentInputInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
