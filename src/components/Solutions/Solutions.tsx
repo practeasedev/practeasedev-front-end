@@ -17,7 +17,7 @@ interface ISolutionsProps {
 
 const Solutions:FC<ISolutionsProps> = (props) => {
     const { projectId } = props;
-    const { values, errors, setFormField, validateForm } = useForm(SOLUTION_FORM_LINKS);
+    const { values, errors, setFormField, validateForm, resetForm } = useForm(SOLUTION_FORM_LINKS);
     const [page, setPage] = useState<number>(0)
     const [loadingSolutions, setloadingSolutions] = useState<boolean>(false);
     const [postingSolution, setPostingSolution] = useState<boolean>(false);
@@ -25,12 +25,12 @@ const Solutions:FC<ISolutionsProps> = (props) => {
     const [solutions, setSolutions] = useState<ISolution[]>([]);
 
     const submitForm = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         if(!checkIfLoggedIn()){
             toast.error("Please login to submit solutions", {duration: 2000});
+            return;
         }
-        event.preventDefault();
         const isFormValid: boolean = validateForm();
-
         
         if (isFormValid) {
             const payload = {
@@ -44,17 +44,18 @@ const Solutions:FC<ISolutionsProps> = (props) => {
                 url,
                 body: payload,
                 loadingHandler: setPostingSolution,
-            }).then((res) => {
-                if (res.success) {
+            }).then(({success, data}) => {
+                if (success) {
                     toast.success("Successfully submitted solution");
-                    loadSolutions();
+                    setSolutions(prevState => [data, ...prevState])
+                    resetForm();
                 }
             }); 
         }
     };
 
     const loadSolutions = () => {
-        const offset = page * SOLUTION_PAGE_SIZE;
+        const offset = page;
         api.get({
             url:`${GET_SOLUTIONS}/${projectId}?offset=${offset}` ,
             loadingHandler: setloadingSolutions
@@ -89,7 +90,7 @@ const Solutions:FC<ISolutionsProps> = (props) => {
                                 name="githubLink"
                                 value={values.githubLink}
                                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                                    setFormField(event, "githubLink", "text")
+                                    setFormField(event, "githubLink", "githubLink")
                                 }
                             />
                             {errors.githubLink? (
@@ -141,8 +142,8 @@ const Solutions:FC<ISolutionsProps> = (props) => {
                 ) : (
                     <div className={styles.solutionsContainer}>
                         <div className={styles.solutions}>
-                            { solutions.map((solution:ISolution) => (
-                                <div className={styles.solution}>
+                            { solutions.map((solution:ISolution, id:number) => (
+                                <div className={styles.solution} key={id}>
                                     <div className={styles.solutionAuthor}>
                                         <Image
                                             width="500"

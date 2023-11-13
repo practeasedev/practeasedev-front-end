@@ -37,11 +37,10 @@ export const CONTACT_FORM_FIELDS:Array<FormField> = [
 export const SOLUTION_FORM_LINKS:Array<FormField> = [
     {
         name: 'githubLink',
-        type: 'text',
+        type: 'githubLink',
         intialValue: '',
         validations: {
             mandatory: true,
-            minLength: 15,
         }
     },
     {

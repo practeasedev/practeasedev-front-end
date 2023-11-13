@@ -1,6 +1,6 @@
 import { ChangeEvent, useState, useEffect } from "react"
 import { FormField } from "./Types";
-import { generalEmailValidations, generalTextValidations } from "./FormValidations";
+import { generalEmailValidations, generalGithubLinkValidations, generalTextValidations } from "./FormValidations";
 import { Router } from "next/router";
 
 export const useForm = (formFields:Array<FormField>, customValidations?:(values: any, setErrors:React.Dispatch<React.SetStateAction<any>>) => boolean) => {
@@ -33,7 +33,9 @@ export const useForm = (formFields:Array<FormField>, customValidations?:(values:
             case 'text':
                 return generalTextValidations(value, validations || {});
             case 'email':
-                return generalEmailValidations(value, validations || {}); 
+                return generalEmailValidations(value, validations || {});
+            case 'githubLink':
+                return generalGithubLinkValidations(value, validations || {});
             default:
                 return [true, ''];
         }
@@ -57,8 +59,12 @@ export const useForm = (formFields:Array<FormField>, customValidations?:(values:
 
         return (isGeneralValid && isCustomValid);
     }    
+
+    const resetForm = () => {
+        formFields.forEach(({name}) => setValues((prevValues:any) => ({...prevValues, [name]: ""})))
+    }
     
-    return {values, errors, setFormField, validateForm}
+    return {values, errors, setFormField, validateForm, resetForm}
 }
 
 export const  usePageLoading = () => {
