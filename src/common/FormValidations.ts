@@ -49,3 +49,24 @@ export const generalEmailValidations = (email:string, validations: any) => {
     return [isValid, errorMsg]
 
 }
+
+export const generalGithubLinkValidations = (link:string, validations: any) => {
+    const githublinkRegex = /^https:\/\/github.com\/.*$/;
+    let isValid = true;
+    let errorMsg = ''
+
+    if(validations.mandatory && !link || !link.trim()) {
+        isValid = false;
+        errorMsg = "This field is mandatory";
+        return [isValid, errorMsg];
+    }
+
+    if (!githublinkRegex.test(link)) {
+        isValid = false;
+        errorMsg = 'Please enter a valid Github link';
+        return [isValid, errorMsg]
+    }
+
+    return [isValid, errorMsg]
+
+}

@@ -16,6 +16,7 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
   const [commentText, setCommentText] = useState<string>("");
   const [comments, setComments] = useState<ICommentDetails[]>([]);
   const [showLoadMore, setShowLoadMore] = useState<boolean>(false);
+  const [postingComment, setPostingComment] = useState<boolean>(false)
 
   // animations Ref
   const [commentInputRef, commentInputInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
@@ -56,6 +57,7 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
     const { message, success, data } = await API.post({
       url: `${POST_COMMENT}/${projectId}`,
       body: { commentText },
+      loadingHandler: setPostingComment
     });
     if (success) {
       toast.success(message, { duration: 2000 });
@@ -84,7 +86,7 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
           onClick={postComment}
           title={isUserLoggedIn ? "" : "Please login to comment"}
         >
-          Post
+          {postingComment ?  'Posting comment...' : 'Post'}
         </button>
       </div>
       <div className={styles.comments}>

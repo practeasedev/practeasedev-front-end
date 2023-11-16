@@ -132,7 +132,7 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                     alt="A horizantal ellispis icon"
                     className={styles.horizantalEllipsis}
                 />
-                <span>Menu</span>
+                <span>Filters & Sort</span>
             </button>
             {displayMenu ? (
                 <div className={styles.menuWrapper}>
