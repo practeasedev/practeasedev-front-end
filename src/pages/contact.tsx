@@ -13,7 +13,7 @@ import { toast } from "react-hot-toast";
 import Head from "next/head";
 
 const Contact: FC<{}> = () => {
-    const { values, errors, setFormField, validateForm } = useForm(CONTACT_FORM_FIELDS);
+    const { values, errors, setFormField, validateForm, resetForm } = useForm(CONTACT_FORM_FIELDS);
     const [contactFormRef, contactFormInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
     const [contactInfoRef, contactInfoInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
     const [sendingMail, setSendingMail] = useState<boolean>(false);
@@ -29,8 +29,9 @@ const Contact: FC<{}> = () => {
                 body: values,
                 loadingHandler: setSendingMail
             }).then((res) => {
-                if(res.status) {
+                if(res.success) {
                     toast.success('Successfully sent mail');
+                    resetForm();
                 }
             });
         }

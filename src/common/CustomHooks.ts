@@ -28,6 +28,17 @@ export const useForm = (formFields:Array<FormField>, customValidations?:(values:
         }
     }
 
+    const resetForm = () => {
+        setValues(fieldsIntialState);
+        setErrors(fieldsErrorIntialState);
+
+        formFields.forEach((field) => {
+            fieldsIntialState[field.name] = field.intialValue;
+            fieldsErrorIntialState[field.name] = '';
+            fieldValidations[field.name] = field.validations;
+        });
+    }
+
     const generalValidations = (value:string, fieldType: string, validations: any) => {
         switch(fieldType) {
             case 'text':
@@ -60,9 +71,6 @@ export const useForm = (formFields:Array<FormField>, customValidations?:(values:
         return (isGeneralValid && isCustomValid);
     }    
 
-    const resetForm = () => {
-        formFields.forEach(({name}) => setValues((prevValues:any) => ({...prevValues, [name]: ""})))
-    }
     
     return {values, errors, setFormField, validateForm, resetForm}
 }

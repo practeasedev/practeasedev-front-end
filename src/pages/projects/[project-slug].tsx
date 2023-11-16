@@ -163,7 +163,7 @@ const Project: FC<ProjectProps> = (props) => {
       url: `${DOWNLOAD_PROJECT}/${slug}`,
       isDownload: true,
     }).then((res) => {
-      if (res) {
+      if (res instanceof Blob) {
         const url = URL.createObjectURL(res);
         const link = document.createElement("a");
         link.href = url;
@@ -262,7 +262,7 @@ const Project: FC<ProjectProps> = (props) => {
                 onClick={() => downloadAssets()}
               >
                 <SVG iconName="download" fill="#0071DA" />
-                <span>Download Assets</span>
+                <span>Assets</span>
               </button>
               <Link href={projectFigmaLink} target="_blank" className={styles.figmaLink}>
                 <button className="button button-with-icon button-transparent button-border-dark button-border-medium">

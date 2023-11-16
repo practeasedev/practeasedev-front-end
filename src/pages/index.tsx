@@ -119,7 +119,7 @@ export default function Home() {
             <div className={styles.step}>
               <p className={styles.stepNo}>01</p>
               <p className={styles.stepTitle}>Pick a challenge</p>
-              <p className={styles.stepDesc}>Choose a challenge that best matches your level from the available <a href="/projects">projects</a>. For your convenience we have attached a "Project difficulty level" tag which will help you choose the right project.</p>
+              <p className={styles.stepDesc}>Choose a challenge that best matches your level from the available <a href="/projects" className="orange-link">projects</a>. For your convenience we have attached a "Project difficulty level" tag which will help you choose the right project.</p>
             </div>
             <Image src={downArrow} alt="A light orange down arrow" className={styles.arrow}/>
             <div className={styles.step}>
