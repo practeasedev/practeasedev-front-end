@@ -64,3 +64,12 @@ export const formatProjectDetails = (response: any): IProjectDetails => {
     likes: likes || 0,
   };
 };
+
+// to handle closing of menus or do other things on outside click of menu containers
+export const menusOutsideClickHandler: (window: Window, x: () =>  void) => () => void = (window, outsideClickHandler:() => void) => {
+  window.addEventListener('click', outsideClickHandler);
+
+  return () => {
+    window.removeEventListener('click', outsideClickHandler);
+  }
+}   

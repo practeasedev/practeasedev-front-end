@@ -21,11 +21,11 @@ const SideMenu:FC<SideMenuProps> = (props) => {
 
     useEffect(() => {
         const loggedInUserDetails = getLoggedInUserDetails();;
-        setLoggedInUser(loggedInUserDetails);
+        setLoggedInUser(loggedInUserDetails);    
     },[])
     return (
         <div className={`${styles.sideMenuContainer} fadeIn`}>
-            <div className={`${styles.sideMenu} fadeInFromRight`}>
+            <div className={`${styles.sideMenu} fadeInFromRight`} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.userInfo}>
                     {!!loggedInUser ? (
                         <div className={styles.userDetails}>

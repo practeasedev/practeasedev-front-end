@@ -48,12 +48,12 @@
 
 .projectName{
     text-transform: capitalize;
-    font-size: var(--body-large);
+    font-size: 1.3rem;
     font-weight: 600;
 }
 
 .projectCardDesc {
-    font-size: var(--body-normal);
+    font-size: 1rem;
     overflow: hidden; 
     display: -webkit-box;
     -webkit-line-clamp: 4;
@@ -87,4 +87,14 @@
     right:0;
     transform: rotate(-90deg);
     z-index:1
+}
+
+@media(max-width: 900px) {
+    .projectName {
+        font-size: 1.2rem;
+    }
+
+    .projectCardDesc {
+        font-size:0.8rem;
+    }
 }

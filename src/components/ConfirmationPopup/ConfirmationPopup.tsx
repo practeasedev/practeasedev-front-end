@@ -55,8 +55,8 @@ const ConfirmationPopup: FC<IConfirmationPopupProps> = (props) => {
                                     name="reason-for-delete"
                                     changeHandler={reasonForDeleteChangeHandler}
                                     checked = {reasonForDelete === reason.value}
-                                    labelSize='normal'
-                                    radioButtonSize='normal'
+                                    labelClass={styles.reasonOptionLabel}
+                                    inputClass={styles.reasonOptionRadio}
                                 />
                             ))}
                             {reasonForDelete === "other" ? (

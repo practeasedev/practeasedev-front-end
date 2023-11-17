@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     column-gap:0.5rem;
-    font-size: var(--body-medium);
+    font-size: 1.35rem;
     font-weight: 600;
 }
 
@@ -31,7 +31,8 @@
 .resourceLink{
     text-decoration: none;
     color: var(--dark-color);
+    /* display: grid;
+    grid-template-columns: max-content auto;     */
     display: flex;
-    align-items: center;
     column-gap:0.5rem;
 }

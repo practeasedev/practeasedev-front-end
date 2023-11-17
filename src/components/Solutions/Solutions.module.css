@@ -141,14 +141,19 @@
     }
 }
 
-@media (max-width: 900px) {
-    .solutionsFormAndTips{
-        display: none;
+@media (max-width: 725px) {
+    .solutionsFormAndTips {
+        display: flex;
+        flex-direction: column-reverse;
+        row-gap: 1rem;
     }
 
-    .infoForUser{
-        display: block;
+    .tipsContainer{
+        align-self: left;
+        width:100%;
+        justify-self: left;
     }
+    
 }
 
 @media (max-width: 700px) {

@@ -77,62 +77,61 @@ const Solutions:FC<ISolutionsProps> = (props) => {
     }, [])
     return (
         <>
-            <p className={styles.infoForUser}>  Solutions can only be submitted in desktop mode of the website.</p>
-                <div className={styles.solutionsFormAndTips}>
-                    <form className={styles.solutionsForm} onSubmit={(event) => { submitForm(event); }}>
-                        <div className="input-group">
-                            <label htmlFor="solution-link" className="input-label">
-                                Solution Link
-                            </label>
-                            <input
-                                className="input"
-                                id="githubLink"
-                                name="githubLink"
-                                value={values.githubLink}
-                                onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                                    setFormField(event, "githubLink", "githubLink")
-                                }
-                            />
-                            {errors.githubLink? (
-                                <p className="form-field-error">{errors.githubLink}</p>
-                            ) : null}
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="comments" className="input-label">
-                                Comments
-                            </label>
-                            <textarea
-                                className="textarea"
-                                id="comments"
-                                name="comments"
-                                value={values.comments}
-                                onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
-                                    setFormField(event, "comments", "text")
-                                }
-                            ></textarea>
-                            {errors.comments ? (
-                                <p className="form-field-error">{errors.comments}</p>
-                            ) : null}
-                        </div>
-                        <button
-                            className="button button-primary button-medium"
-                            type="submit"
-                            disabled={postingSolution}
-                        >
-                            {postingSolution ?  'Submitting solution...' : 'Submit your solution'}
-                        </button>
-                    </form>
-                    <div className={styles.tipsContainer}>
-                        <div className={styles.tips}>
-                            <h4>Tips</h4>
-                            <ol className={styles.tipsList}>
-                                <li>Create a repo of your solution in github</li>
-                                <li>Try and describe your solution or any challenges you faced while creating the projects as it helps other people better understand you solution and learn new things about web development.</li>
-                                <li>If possible try and help other people by giving feed backs to their solutions.</li>
-                            </ol>
-                        </div>
+            <div className={styles.solutionsFormAndTips}>
+                <form className={styles.solutionsForm} onSubmit={(event) => { submitForm(event); }}>
+                    <div className="input-group">
+                        <label htmlFor="solution-link" className="input-label">
+                            Solution Link
+                        </label>
+                        <input
+                            className="input"
+                            id="githubLink"
+                            name="githubLink"
+                            value={values.githubLink}
+                            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                                setFormField(event, "githubLink", "text")
+                            }
+                        />
+                        {errors.githubLink? (
+                            <p className="form-field-error">{errors.githubLink}</p>
+                        ) : null}
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="comments" className="input-label">
+                            Comments
+                        </label>
+                        <textarea
+                            className="textarea"
+                            id="comments"
+                            name="comments"
+                            value={values.comments}
+                            onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
+                                setFormField(event, "comments", "text")
+                            }
+                        ></textarea>
+                        {errors.comments ? (
+                            <p className="form-field-error">{errors.comments}</p>
+                        ) : null}
+                    </div>
+                    <button
+                        className="button button-primary button-medium"
+                        type="submit"
+                        disabled={postingSolution}
+                    >
+                        {postingSolution ?  'Submitting solution...' : 'Submit your solution'}
+                    </button>
+                </form>
+                <div className={styles.tipsContainer}>
+                    <div className={styles.tips}>
+                        <h4>Tips</h4>
+                        <ol className={styles.tipsList}>
+                            <li>Create a repo of your solution in github</li>
+                            <li>Try and describe your solution or any challenges you faced while creating the projects as it helps other people better understand you solution and learn new things about web development.</li>
+                            <li>If possible try and help other people by giving feed backs to their solutions.</li>
+                        </ol>
                     </div>
                 </div>
+            </div>
             {loadingSolutions ? <Loader loadingText='Loading solutions'/> : (
                 solutions.length === 0 ? (
                     <div className={styles.noSolutions}>

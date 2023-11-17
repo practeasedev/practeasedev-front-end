@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react";
 import styles from "@/components/Header/Header.module.css";
 import githubWhite from "@/assets/github-white.svg";
 import { DELETE_USER, GITHUB_AUTHORIZE, LOGOUT_USER } from "@/common/APIPaths";
-import { checkIfLoggedIn, getLoggedInUserDetails, removeCookie } from "@/common/Helper";
+import { checkIfLoggedIn, getLoggedInUserDetails, menusOutsideClickHandler, removeCookie } from "@/common/Helper";
 import SVG from "../SVG/SVG";
 import AuthLoader from "../AuthLoader/AuthLoader";
 import { NextRouter, useRouter } from "next/router";
@@ -54,6 +54,16 @@ const Header: FC<{}> = () => {
     });
   }
 
+  const outsideClickHandler = () => {
+    setShowSideMenu(false);
+    setShowUserMenu(false);
+  }
+
+
+  useEffect(() => {
+    return menusOutsideClickHandler(window, outsideClickHandler)
+  },[]);
+
   return (
     <>
       <header className={`${styles.header} fadeIn`}>
@@ -82,7 +92,7 @@ const Header: FC<{}> = () => {
           </Link>
         </nav>
         {isLoggedIn ? (
-          <div className={styles.userMenuContainer}>
+          <div className={styles.userMenuContainer} onClick={(e) => e.stopPropagation()}>
             <p
               className={styles.userName}
               onClick={() => {
@@ -141,7 +151,7 @@ const Header: FC<{}> = () => {
               className={styles.mobileLogo}
             />
           </Link>
-          <p onClick={() => { setShowSideMenu(true); }}>
+          <p onClick={(e) => { e.stopPropagation(); setShowSideMenu(true); }}>
             <SVG iconName="menu-open" width="36" height="36" className={styles.menuOpenIcon}/>
           </p>
           {showSideMenu ? (

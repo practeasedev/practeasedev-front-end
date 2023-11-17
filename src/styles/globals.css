@@ -81,7 +81,7 @@ h4 {
 }
 
 .body-large{
-    font-size: calc(var(--base-font-size) * 1.5);
+    font-size: calc(var(--base-font-size) * 1.35);
 }
 
 .body-medium {
@@ -102,6 +102,10 @@ button, input, textarea,select {
 
 .page{
     min-height:90vh;
+}
+
+.orange-link {
+    color: var(--secondary-color-dark);
 }
 
 /* buttons */
@@ -148,12 +152,12 @@ button:disabled {
 }
 
 .button-large{
-    font-size: calc(var(--base-font-size) * 1.25);
+    font-size: calc(var(--body-large));
     padding:0.5rem 2rem;
 }
 
 .button-medium {
-    font-size: var(--base-font-size);
+    font-size: var(--body-medium);
 }
 
 .button-icon{
@@ -244,9 +248,19 @@ button:disabled {
     cursor: pointer;
 }
 
+.checkbox:disabled {
+    opacity:0.7;
+    cursor: not-allowed;
+}
+
 .checkbox-label {
     cursor: pointer;
     font-size: var(--body-medium);
+}
+
+.checkbox-label-disabled {
+    opacity:0.7;
+    cursor: not-allowed;
 }
 
 .radio-group {
@@ -283,23 +297,23 @@ button:disabled {
 
 .radio-label-small {
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: var(--body-small);
 }
 
 
 .radio-label-normal {
     cursor: pointer;
-    font-size: 1rem;
+    font-size: var(--body-normal);
 }
 
 .radio-label-medium {
     cursor: pointer;
-    font-size: 1.25rem;
+    font-size: var(--body-medium);
 }
 
 .radio-label-large {
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: var(--body-large);
 }
 
 
@@ -363,56 +377,58 @@ button:disabled {
     }
 }
 
-
-@media (max-width: 1300px) {
+@media (max-width: 1200px) {
     :root {
         --base-font-size: 0.9rem;
     }
 }
 
-@media (max-width:1100px) {  
+@media (max-width: 1100px) {
     :root {
-        --base-font-size: 0.8rem;
+        --base-font-size: 0.85rem;
     }
 }
 
-@media (max-width: 975px) {
+@media (max-width: 1000px) {
+    :root {
+        --base-font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 900px) {
     :root {
         --base-font-size: 0.7rem;
-    }
-
-    button {
-        font-size: var(--body-medium);
-    }
-
-    .button-large{
-        font-size:var(--body-large);
-    }
-
-    .button-medium{
-        font-size:var(--body-medium);
-    }
-
-    .button-icon{
-        height:1.25rem;
-        width:auto;
     }
 }
 
 @media (max-width: 800px) {
     :root {
+        --base-font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .button {
+        font-size: var(--body-medium);
+    }
+
+    .button-medium {
+        font-size: var(--body-large);
+    }
+
+    .button-large {
+        font-size: calc(var(--base-font-size) * 1.45)
+    }
+}
+
+@media (max-width: 425px) {
+    :root {
         --base-font-size: 0.6rem;
     }
 }
 
-@media (max-width:650px) {
+@media (max-width: 375px) {
     :root {
-        --base-font-size: 0.7rem;
-    }
-}
-
-@media (max-width:400px) {
-    :root {
-        --base-font-size: 0.55rem;
+        --base-font-size: 0.5rem;
     }
 }
