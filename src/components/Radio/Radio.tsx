@@ -8,8 +8,8 @@ interface IRadioProps {
     name: string
     labelSize?: 'small' | 'normal' | 'medium' | 'large'
     radioButtonSize?: 'small' | 'normal' | 'medium' | 'large'
-    labelClass: any
-    inputClass: any
+    labelClass?: any
+    inputClass?: any
 }
 
 const Radio:FC<IRadioProps> = (props) => {
