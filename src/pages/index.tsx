@@ -83,7 +83,7 @@ export default function Home() {
     <> 
       <Head>
         <title>Practease Dev - A place to hone your web development skills</title>
-        <meta name="description" content="Practice doesn't make perfect; perfect practice makes perfect.The soul purpose of PracteaseDev is to make Perfect Practice easy for Developers. Skip the hassle of hunting resources and looking for standard designs and completely focus on development skills. This is an easy to use platform which has variety of handpicked projects for all levels of developer, so you can start with the very basic components and progressively develop to a stage of developing real-world web apps." />
+        <meta name="description" content="Practice doesn't make perfect; perfect practice makes perfect.The sole purpose of PracteaseDev is to make Perfect Practice easy for Developers. Skip the hassle of hunting resources and looking for standard designs and completely focus on development skills. This is an easy to use platform which has variety of handpicked projects for all levels of developer, so you can start with the very basic components and progressively develop to a stage of developing real-world web apps." />
         <meta name="keywords" content="practeasedev,practeasedev home,practeasedev projects,improve developer skills,practice web development,practice projects for web development" />
       </Head>
       <section className={styles.heroSection}>
@@ -108,7 +108,7 @@ export default function Home() {
           <Image src={whyIllustration} alt="A illustration of a girl and a boy with a big question mark" className={styles.whyIllustration}/>
           <div className={styles.whyText}>
             <p>"Practice doesn't make perfect; perfect practice makes perfect."</p>
-            <p>The soul purpose of PracteaseDev is to make Perfect Practice easy for Developers. Skip the hassle of hunting resources and looking for standard designs and completely focus on development skills. This is an easy to use platform which has variety of handpicked projects for all levels of developer, so you can start with the very basic components and progressively develop to a stage of developing real-world web apps.</p>
+            <p>The sole purpose of PracteaseDev is to make Perfect Practice easy for Developers. Skip the hassle of hunting resources and looking for standard designs and completely focus on development skills. This is an easy to use platform which has variety of handpicked projects for all levels of developer, so you can start with the very basic components and progressively develop to a stage of developing real-world web apps.</p>
           </div>
         </div>
       </section>
