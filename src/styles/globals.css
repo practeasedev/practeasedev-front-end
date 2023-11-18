@@ -440,7 +440,7 @@ button:disabled {
     }
 
     .button-medium {
-        font-size: calc(var(--body-large) * 1.1rem);
+        font-size: calc(var(--body-large) * 1.1);
     }
 
     .button-large {
