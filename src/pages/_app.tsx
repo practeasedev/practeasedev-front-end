@@ -28,8 +28,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" type="image/ico" href="logo(32x32).ico" />
         <meta name="application-name" content="Practeasedev" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <script defer src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}`}></script>
-        <script defer>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TAG_ID}`}></script>
+        <script>
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
