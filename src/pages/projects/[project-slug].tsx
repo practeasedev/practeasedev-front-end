@@ -56,16 +56,13 @@ interface ProjectProps {
 }
 
 const Project: FC<ProjectProps> = (props) => {
-  const router = useRouter();
   const isUserLoggedIn = useMemo(() => checkIfLoggedIn(), []);
-  const [loading, setLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<TAB_IDS>(TAB_IDS.USER_STORIES);
   const [isLiked, setLike] = useState<boolean>(false);
   const [projectDetails, setProjectDetails] = useState<IProjectDetails>(() =>
     formatProjectDetails({})
   );
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-
+  const [isDownloading, setIsDownloading] = useState<boolean>(false);
   // animation refs
   const [projectHeaderRef, projectHeaderInView] = useInView(
     INTERSECTION_OBSERVER_OPTIONS
@@ -83,8 +80,27 @@ const Project: FC<ProjectProps> = (props) => {
     INTERSECTION_OBSERVER_OPTIONS
   );
 
+  useEffect(()=>{
+    if(props?.data) {
+      const formattedProjectDetails = formatProjectDetails(props.data)
+      setProjectDetails(formattedProjectDetails)
+      if(isUserLoggedIn) getProjectUserTraking(formattedProjectDetails.projectId)
+    }
+  },[props?.data])
+
+  const getProjectUserTraking = async(projectId: string) => {
+    const { data: projectStatus, success, message } = await API.get({
+      url: `${GET_PROJECT_STATUS}/${projectId}`,
+    });
+    if (success) setLike(projectStatus.is_liked);
+    else toast.error(message, { duration: 2000 });
+  }
+
   const handleLikeClick = async () => {
-    if (!isUserLoggedIn) return;
+    if (!isUserLoggedIn) {
+      toast.error("Please login to like", { duration: 2000 });
+      return;
+    }
     const { data, success } = await API.post({
       url: `${POST_PROJECT_STATUS}/${projectId}`,
       body: { isLike: !isLiked },
@@ -144,8 +160,9 @@ const Project: FC<ProjectProps> = (props) => {
     API.get({
       url: `${DOWNLOAD_PROJECT}/${slug}`,
       isDownload: true,
+      loadingHandler: setIsDownloading
     }).then((res) => {
-      if (res) {
+      if (res instanceof Blob) {
         const url = URL.createObjectURL(res);
         const link = document.createElement("a");
         link.href = url;
@@ -170,7 +187,7 @@ const Project: FC<ProjectProps> = (props) => {
     resourceLinks,
     projectFigmaLink,
     slug,
-  } = props.data;
+  } = projectDetails;
 
   const tabContents = useMemo(()=>getTabContents({
     tab: activeTab,
@@ -206,13 +223,13 @@ const Project: FC<ProjectProps> = (props) => {
             <p className={styles.likeCount}>{likes}</p>
             <div
               onClick={handleLikeClick}
-              title={(isUserLoggedIn && isMounted) ? "" : "Please login to like"}
+              title={isUserLoggedIn ? "" : "Please login to like"}
               className={styles.heartContainer}
             >
               <SVG
-                iconName={(isLiked && isMounted) ? "heart" : "no-fill-heart"}
+                iconName={isLiked ? "heart" : "no-fill-heart"}
                 fill="#FF4033"
-                className={`${(isUserLoggedIn && isMounted) ? styles.heartIcon : ""}`}
+                className={`${isUserLoggedIn ? styles.heartIcon : ""}`}
               />
             </div>
           </div>
@@ -242,9 +259,17 @@ const Project: FC<ProjectProps> = (props) => {
                 }
                 className="button button-with-icon button-transparent button-border-primary button-border-medium"
                 onClick={() => downloadAssets()}
+                disabled={isDownloading}
               >
-                <SVG iconName="download" fill="#0071DA" />
-                <span>Download Assets</span>
+                {isDownloading ? (
+                  <span>Downloading...</span>
+                ) : (
+                  <>
+                    <SVG iconName="download" fill="#0071DA" />
+                    <span>Assets</span>
+                  </>
+                )}
+                
               </button>
               <Link href={projectFigmaLink} target="_blank" className={styles.figmaLink}>
                 <button className="button button-with-icon button-transparent button-border-dark button-border-medium">
@@ -303,7 +328,7 @@ export const getServerSideProps:GetServerSideProps<Props> = async (context) => {
 
   return {
     props: {
-      data: formatProjectDetails(data),
+      data: data,
       success: success,
       message: message
     }

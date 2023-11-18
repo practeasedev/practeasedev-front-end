@@ -64,10 +64,11 @@ export const get = async ({url, loadingHandler, authRequired = true, constructUr
         let apiResponse:any
 
         if (isDownload) {
-            apiResponse = apiGetResult.ok  ? await apiGetResult.blob() : apiGetResult.json();   
+            apiResponse = apiGetResult.ok  ? await apiGetResult.blob() : await apiGetResult.json();   
         } else {
             apiResponse = await apiGetResult.json();
         }
+        console.log(apiResponse);
         handleAPIStatuses(apiGetResult, apiResponse);
         
         loadingHandler?.(false);

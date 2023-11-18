@@ -5,6 +5,7 @@ import { ICommentDetails } from "@/common/Types";
 import { getFormattedDate } from "@/common/Helper";
 import { INTERSECTION_OBSERVER_OPTIONS } from "@/common/Constants";
 import { useInView } from "react-intersection-observer";
+import userAvatarPlaceholder from '@/assets/user-avatar-placeholder.svg';
 
 interface IComment {
   commentDetails: ICommentDetails;
@@ -20,7 +21,7 @@ const Comment: FC<IComment> = ({ commentDetails }: IComment) => {
         <Image
           width="50"
           height="50"
-          src={user_avatar_url}
+          src={user_avatar_url || userAvatarPlaceholder}
           alt="A user profile picture"
           className={styles.userPic}
         />

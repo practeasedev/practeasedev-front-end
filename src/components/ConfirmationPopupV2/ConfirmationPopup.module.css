@@ -1,0 +1,53 @@
+.confirmationPopupHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: right;
+    padding: 0.5rem 1rem;
+    background-color: var( --secondary-color-light-extreme);
+}
+
+.confirmationHeading {
+    font-weight: 700;
+    font-size:1.2rem;
+}
+
+.closeIcon{
+    stroke: var(--dark-color);
+    stroke-width: 2rem;
+    cursor: pointer;
+}
+
+.confirmationPopupBody {
+    padding: 1rem;
+}
+
+.confirmationMessage {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.75rem;
+}
+
+.confirmationPopupFooter {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    column-gap: 1rem;
+    padding: 0.5rem 1rem;
+    background-color:var(--secondary-color-light-extreme);
+}
+
+.reasonsForDeleteContainer {
+    margin-top:1rem;
+}
+
+.reasonsTitle {
+    margin-bottom:0.5rem;
+    font-weight: 600; 
+}
+
+.reasonOptions {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}

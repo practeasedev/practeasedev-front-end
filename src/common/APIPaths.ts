@@ -7,8 +7,10 @@ export const BASE_URL = BASE_URL_PROD;
 export const GITHUB_AUTHORIZE = "https://github.com/login/oauth/authorize";
 
 // Auth routes
-export const LOGIN_OR_REGISTER = `${API_VERSION_1}/auth/register`;
+export const LOGIN_OR_REGISTER = `${API_VERSION_1}/auth/login`;
 export const LOGOUT_USER = `${API_VERSION_1}/auth/logout`;
+export const DELETE_USER = `${API_VERSION_1}/auth/deleteAccount`;
+export const RESTORE_USER_ACCOUNT = `${API_VERSION_1}/auth/restoreUserAccount`
 
 // Project routes
 export const GET_ALL_PROJECTS = `${API_VERSION_1}/projects`;

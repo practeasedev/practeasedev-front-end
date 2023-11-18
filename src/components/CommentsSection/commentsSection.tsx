@@ -15,7 +15,8 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
   const [offset, setOffset] = useState<number>(0);
   const [commentText, setCommentText] = useState<string>("");
   const [comments, setComments] = useState<ICommentDetails[]>([]);
-  const [showLoadMore, setShowLoadMore] = useState<boolean>(true);
+  const [showLoadMore, setShowLoadMore] = useState<boolean>(false);
+  const [postingComment, setPostingComment] = useState<boolean>(false)
 
   // animations Ref
   const [commentInputRef, commentInputInView] = useInView(INTERSECTION_OBSERVER_OPTIONS);
@@ -45,6 +46,10 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
   };
 
   const postComment = async () => {
+    if(!isUserLoggedIn){
+      toast.error("Please login to comment", { duration: 2000 });
+      return;
+    }
     if (!commentText) {
       toast.error("Please enter comment to post", { duration: 2000 });
       return;
@@ -52,6 +57,7 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
     const { message, success, data } = await API.post({
       url: `${POST_COMMENT}/${projectId}`,
       body: { commentText },
+      loadingHandler: setPostingComment
     });
     if (success) {
       toast.success(message, { duration: 2000 });
@@ -76,12 +82,12 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
           onChange={(e) => setCommentText(e.target.value)}
         ></textarea>
         <button
-          className={`button-primary ${styles.commentBtn} button-medium`}
+          className={`button-primary ${styles.commentBtn} button-normal`}
           onClick={postComment}
           title={isUserLoggedIn ? "" : "Please login to comment"}
-          disabled={!isUserLoggedIn}
+          disabled={postingComment}
         >
-          Post
+          {postingComment ?  'Posting comment...' : 'Post'}
         </button>
       </div>
       <div className={styles.comments}>

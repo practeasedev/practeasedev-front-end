@@ -10,7 +10,7 @@
 }
 
 .projectsCategory{
-    font-size: calc(var(--body-large) * 1.25);
+    font-size: 1.75rem;
 }
 
 .loadingText{

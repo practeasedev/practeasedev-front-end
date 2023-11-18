@@ -5,10 +5,11 @@ interface ICheckboxProps {
     changeHandler: (event: ChangeEvent<HTMLInputElement>) => void,
     value: string,
     checked?: boolean
+    disabled?:boolean
 }
 
 const Checkbox:FC<ICheckboxProps> = (props) => {
-    const {label, changeHandler, value, checked} = props;
+    const {label, changeHandler, value, checked, disabled} = props;
     return (
         <div className="checkbox-group">
             <input
@@ -18,10 +19,11 @@ const Checkbox:FC<ICheckboxProps> = (props) => {
                 value={value}
                 onChange={changeHandler}
                 checked={checked || false}
+                disabled={disabled || false}
             />
             <label
                 htmlFor={value}
-                className="checkbox-label"
+                className={`checkbox-label ${disabled ? 'checkbox-label-disabled' : ''}`}
             >
                 {label}
             </label>

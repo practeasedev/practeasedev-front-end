@@ -4,34 +4,43 @@ import Link from 'next/link';
 import githubWhite from '@/assets/github-white.svg';
 import Image from 'next/image';
 import SVG from '../SVG/SVG';
-import { checkIfLoggedIn } from '@/common/Helper';
-import { GITHUB_AUTHORIZE, LOGOUT_USER } from '@/common/APIPaths';
-import * as api from '@/common/HttpService'
+import {  getLoggedInUserDetails } from '@/common/Helper';
+import { IUserDetails } from '@/common/Types';
+import { GITHUB_AUTHORIZE } from '@/common/APIPaths';
 
 interface SideMenuProps {
     closeHandler: () => void;
     logoutUser: () => void;
+    openConfirmationPopup: () => void;
 }
 
 const SideMenu:FC<SideMenuProps> = (props) => {
-    const { closeHandler, logoutUser } = props;
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const { closeHandler, logoutUser, openConfirmationPopup } = props;
+    const [loggedInUser, setLoggedInUser] = useState<IUserDetails | null>();
+
 
     useEffect(() => {
-        setIsLoggedIn(checkIfLoggedIn());
+        const loggedInUserDetails = getLoggedInUserDetails();;
+        setLoggedInUser(loggedInUserDetails);    
     },[])
     return (
         <div className={`${styles.sideMenuContainer} fadeIn`}>
-            <div className={`${styles.sideMenu} fadeInFromRight`}>
+            <div className={`${styles.sideMenu} fadeInFromRight`} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.userInfo}>
-                    {isLoggedIn ? (
+                    {!!loggedInUser ? (
                         <div className={styles.userDetails}>
-                            <p className={styles.userName}>Bhanu Teja</p>
+                            <p className={styles.userName}>{loggedInUser.userName}</p>
                             <ul className={styles.userLinks}>
                                 <li>
-                                    <p className={styles.logout} onClick={logoutUser}>
-                                        <SVG iconName='logout' className={styles.logoutIcon}/>
+                                    <p className={styles.userLink} onClick={logoutUser}>
+                                        <SVG iconName='logout' height='24' width="24"/>
                                         <span>Logout</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p className={styles.userLink} onClick={() => {openConfirmationPopup()}}>
+                                        <SVG iconName='delete' height='24' width="24" fill='#DC4C64'/>
+                                        <span className={styles.dangerLinkName}>Delete Account</span>
                                     </p>
                                 </li>
                             </ul>

@@ -1,7 +1,7 @@
 .heroSection{
     padding: 3rem var(--page-sides-padding);
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: max-content auto;
     align-items: center;
 }
 
@@ -111,7 +111,7 @@
 }
 
 .step:nth-of-type(2) {
-    margin-left: 6rem;
+    margin-left: 4rem;
 }
 
 .stepNo{
@@ -135,7 +135,7 @@
 
 .arrow {
     padding:2rem 0;
-    margin-left:3rem;
+    margin-left:1rem;
     height:4rem;
     width:auto;
 }

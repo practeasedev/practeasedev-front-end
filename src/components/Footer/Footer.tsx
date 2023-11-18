@@ -12,7 +12,7 @@ const Footer:FC<{}> = () => {
         <footer className={`${styles.footer} ${footerInView ? 'fadeIn' : ''}`} ref={footerRef}>
             <div className={styles.brandCopyright}>
                 <Image src="/logo.svg" alt="practease dev logo" className={styles.logo} width="219" height="31"/>
-                <p className={styles.tagline}> A place to hone your developer skills</p>
+                <p className={styles.tagline}>A place to hone your web dev skills</p>
                 <p className={styles.copyright}>Copyright &copy; 2023. All rights reserved</p>
             </div>
             <div className={styles.quickLinks}>

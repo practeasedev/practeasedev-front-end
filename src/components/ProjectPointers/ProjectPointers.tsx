@@ -29,7 +29,9 @@ const ProjectPointers: FC<IProjectPointers> = (props) => {
   const getLinkItem = ({title, link}: ILinkItem): ReactNode => (
     <a target="_blank" href={link} className={styles.resourceLink}>
       <span>{title}</span>
-      <SVG iconName="open-in-new"/>
+      <span>
+        <SVG iconName="open-in-new"/>
+      </span>
     </a>
   )
 

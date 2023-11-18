@@ -4,6 +4,7 @@ import Image from "next/image";
 import horizantalEllipsis from "@/assets/horizantal-ellipsis.svg";
 import Checkbox from "../Checkbox/Checkbox";
 import Radio from "../Radio/Radio";
+import { menusOutsideClickHandler } from "@/common/Helper";
 
 interface ProjectsMenuProps {
     getProjects: (body:any) => void
@@ -16,15 +17,11 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
     const [categories, setCategories] = useState<Array<string>>(["components","single-page","multi-page"]);
     const [filters, setFilters] = useState<Array<string>>([]);
     const [sort, setSort] = useState<string>("most-recent");
-    const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
-    const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
 
-    //refs for the above states
-    const categoriesRef = useRef(categories);
-    const filtersRef = useRef(filters);
-    const sortRef = useRef(sort);
-    const selectedCategoriesRef = useRef(selectedCategories);
-    const selectedFiltersRef = useRef(selectedFilters);
+    //storing current state for resets
+    const [storedCategories, setStoredCategories] = useState<Array<string>>(["components","single-page","multi-page"]);
+    const [storedSort, setStoredSort] = useState<string>("most-recent");
+    const [storedFilters, setStoredFilters] = useState<Array<string>>([]);
 
 
     const {getProjects} = props;
@@ -39,49 +36,37 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
     };
 
     const categoryChangeHandler = (event:ChangeEvent<HTMLInputElement>) => {
+        event.stopPropagation();
         const {value, checked} = event.target;
         if(checked) {
             setCategories((prevcategories) =>{
                 const newCategories =  [...prevcategories, value];
-                categoriesRef.current = newCategories;
                 return newCategories;
-            });
-            setSelectedCategories((prevCategories) => {
-               const newSelectedCategories =  [...prevCategories, value];
-               selectedCategoriesRef.current = newSelectedCategories;
-               return newSelectedCategories;
             });
         } else {
             setCategories((prevCategories) =>  {
                 const newCategories = prevCategories.filter((category) => (category !== value));
-                categoriesRef.current = newCategories;
                 return newCategories;
-            });
-            setSelectedCategories((prevCategories) => {
-                const newSelectedCategories = prevCategories.filter((category) => (category !== value));
-                selectedCategoriesRef.current = newSelectedCategories;
-                return newSelectedCategories;
             });
         }
     }
 
     const filterChangeHandler = (event:ChangeEvent<HTMLInputElement>) => {
+        event.stopPropagation();
         const {value, checked} = event.target;
 
         if(checked) {
-            setSelectedFilters((prevFilters) => ([...prevFilters, value]));
             setFilters((prevFilters) => ([...prevFilters, value]));
         } else {
-            setSelectedFilters((prevFilters) => (prevFilters.filter((filter) => (filter !== value))));
             setFilters((prevFilters) => (prevFilters.filter((filter) => (filter !== value))));
         }
     }
 
     const sortChangeHandler = (event:ChangeEvent<HTMLInputElement>) => {
+        event.stopPropagation();
         const {value, checked} = event.target
         if (checked) {
             setSort(value);
-            sortRef.current = value;  
         }
     }
      
@@ -93,20 +78,13 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
             sort: sort
         };
         getProjects(body);
-        setSelectedCategories([]);
-        setSelectedFilters([]);
         setDisplayMenu(false); 
     }
 
     const resetCategoriesAndFilters = () => {
-        categoriesRef.current = categoriesRef.current.filter((category) => !selectedCategoriesRef.current.includes(category));
-        filtersRef.current = filtersRef.current.filter((filter) => !selectedFiltersRef.current.includes(filter));
-        setCategories(categoriesRef.current);
-        setFilters(filtersRef.current);
-        selectedCategoriesRef.current = [];
-        selectedFiltersRef.current = [];
-        setSelectedCategories(selectedCategoriesRef.current);
-        setSelectedFilters(selectedFiltersRef.current);
+        setCategories(storedCategories);
+        setFilters(storedFilters);
+        setSort(storedSort);
     }
 
     const outsideClickHandler = () => {
@@ -114,17 +92,26 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
         setDisplayMenu(false);
     }
 
-    useEffect(() => {
-        window.addEventListener("click", outsideClickHandler);
-        return () => {
-            window.removeEventListener('click', outsideClickHandler);
-        }
+    const storeCurrentStateForReset = () => {
+        setStoredCategories(categories);
+        setStoredSort(sort);
+        setStoredFilters(filters);
+    }
+
+    useEffect(() => { 
+        return menusOutsideClickHandler(window, outsideClickHandler)
     },[]);
+
+    useEffect(() => {
+        if(displayMenu) {
+           storeCurrentStateForReset();
+        }
+    },[displayMenu]);
 
     return (
         <div className={styles.menuContainer}>
             <button
-                className={`${styles.menuTrigger} button button-with-icon button-secondary-light button-medium`}
+                className={`${styles.menuTrigger} button button-with-icon button-secondary-light button-normal`}
                 onClick={toggleMenuDisplay}
             >
                 <Image
@@ -132,7 +119,7 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                     alt="A horizantal ellispis icon"
                     className={styles.horizantalEllipsis}
                 />
-                <span>Menu</span>
+                <span>Filters & Sort</span>
             </button>
             {displayMenu ? (
                 <div className={styles.menuWrapper}>
@@ -174,7 +161,8 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                                         label="Backend"
                                         value="backend"
                                         changeHandler={categoryChangeHandler}
-                                        checked={categories.includes('backend')} 
+                                        checked={categories.includes('backend')}
+                                        disabled={true} 
                                     />
                                 </li>
                                 <li className={styles.subMenuItem}>
@@ -182,7 +170,8 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                                         label="Full Stack"
                                         value="full-stack"
                                         changeHandler={categoryChangeHandler}
-                                        checked={categories.includes('full-stack')}  
+                                        checked={categories.includes('full-stack')}
+                                        disabled={true} 
                                     />
                                 </li>
                             </ul>
@@ -227,6 +216,8 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                                             changeHandler={sortChangeHandler} 
                                             name="sort-group"
                                             checked={sort === 'most-recent'}
+                                            labelSize="medium"
+                                            radioButtonSize="normal"
                                         />
                                     </li>
                                     <li className={styles.subMenuItem}>
@@ -236,6 +227,8 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                                             changeHandler={sortChangeHandler} 
                                             name="sort-group"
                                             checked={sort === 'most-liked'}
+                                            labelSize="medium"
+                                            radioButtonSize="normal"
                                         />
                                     </li>
                                 </ul>
@@ -243,7 +236,7 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
                         </div>
                     </div>
                     <div className={styles.projectMenuActions}>
-                        <button className="button button-transparent button-border-dark button-border-thin" onClick={() => { outsideClickHandler(); }}>Cancel</button>
+                        <button className="button button-transparent button-border-dark button-border-thin" onClick={(e) => {e.stopPropagation(); outsideClickHandler(); }}>Cancel</button>
                         <button className="button button-primary" onClick={(event) => { applyCategoriesAndFilters(event); }}>Apply</button>
                     </div>
                 </div>
