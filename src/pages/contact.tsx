@@ -130,7 +130,7 @@ const Contact: FC<{}> = () => {
                         ) : null}
                     </div>
                     <button
-                        className="button-with-icon button-secondary button-medium"
+                        className="button-with-icon button-secondary button-normal"
                         type="submit"
                         disabled={sendingMail}
                     >

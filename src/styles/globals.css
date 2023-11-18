@@ -129,7 +129,8 @@ button:disabled {
     display: flex;
     align-items: center;
     column-gap: 0.5rem;
-    width:max-content
+    width:max-content;
+    font-size:var(--body-normal);
 }
 
 .button-primary{
@@ -412,6 +413,10 @@ button:disabled {
         font-size: var(--body-medium);
     }
 
+    .button-with-icon{
+        font-size:var(--body-medium);
+    }
+
     .button-medium {
         font-size: var(--body-large);
     }
@@ -424,6 +429,22 @@ button:disabled {
 @media (max-width: 425px) {
     :root {
         --base-font-size: 0.6rem;
+    }
+
+    .button {
+        font-size: var(--body-large);
+    }
+
+    .button-with-icon{
+        font-size:var(--body-large);
+    }
+
+    .button-medium {
+        font-size: calc(var(--body-large) * 1.1rem);
+    }
+
+    .button-large {
+        font-size: calc(var(--body-large) * 1.25)
     }
 }
 

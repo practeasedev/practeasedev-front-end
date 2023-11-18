@@ -111,7 +111,7 @@ const ProjectsMenu: FC<ProjectsMenuProps> = (props) => {
     return (
         <div className={styles.menuContainer}>
             <button
-                className={`${styles.menuTrigger} button button-with-icon button-secondary-light button-medium`}
+                className={`${styles.menuTrigger} button button-with-icon button-secondary-light button-normal`}
                 onClick={toggleMenuDisplay}
             >
                 <Image

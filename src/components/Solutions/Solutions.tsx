@@ -114,7 +114,7 @@ const Solutions:FC<ISolutionsProps> = (props) => {
                         ) : null}
                     </div>
                     <button
-                        className="button button-primary button-medium"
+                        className="button button-primary button-normal"
                         type="submit"
                         disabled={postingSolution}
                     >
