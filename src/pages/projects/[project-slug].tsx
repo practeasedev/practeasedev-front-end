@@ -56,15 +56,13 @@ interface ProjectProps {
 }
 
 const Project: FC<ProjectProps> = (props) => {
-  const router = useRouter();
   const isUserLoggedIn = useMemo(() => checkIfLoggedIn(), []);
-  const [loading, setLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<TAB_IDS>(TAB_IDS.USER_STORIES);
   const [isLiked, setLike] = useState<boolean>(false);
   const [projectDetails, setProjectDetails] = useState<IProjectDetails>(() =>
     formatProjectDetails({})
   );
-
+  const [isDownloading, setIsDownloading] = useState<boolean>(false);
   // animation refs
   const [projectHeaderRef, projectHeaderInView] = useInView(
     INTERSECTION_OBSERVER_OPTIONS
@@ -162,6 +160,7 @@ const Project: FC<ProjectProps> = (props) => {
     API.get({
       url: `${DOWNLOAD_PROJECT}/${slug}`,
       isDownload: true,
+      loadingHandler: setIsDownloading
     }).then((res) => {
       if (res instanceof Blob) {
         const url = URL.createObjectURL(res);
@@ -260,9 +259,17 @@ const Project: FC<ProjectProps> = (props) => {
                 }
                 className="button button-with-icon button-transparent button-border-primary button-border-medium"
                 onClick={() => downloadAssets()}
+                disabled={isDownloading}
               >
-                <SVG iconName="download" fill="#0071DA" />
-                <span>Assets</span>
+                {isDownloading ? (
+                  <span>Downloading...</span>
+                ) : (
+                  <>
+                    <SVG iconName="download" fill="#0071DA" />
+                    <span>Assets</span>
+                  </>
+                )}
+                
               </button>
               <Link href={projectFigmaLink} target="_blank" className={styles.figmaLink}>
                 <button className="button button-with-icon button-transparent button-border-dark button-border-medium">

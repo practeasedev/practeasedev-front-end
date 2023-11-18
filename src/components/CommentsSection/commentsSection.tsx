@@ -85,6 +85,7 @@ const CommentsSection = ({ projectId }: { projectId: string }) => {
           className={`button-primary ${styles.commentBtn} button-medium`}
           onClick={postComment}
           title={isUserLoggedIn ? "" : "Please login to comment"}
+          disabled={postingComment}
         >
           {postingComment ?  'Posting comment...' : 'Post'}
         </button>
