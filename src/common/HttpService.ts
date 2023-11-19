@@ -68,7 +68,6 @@ export const get = async ({url, loadingHandler, authRequired = true, constructUr
         } else {
             apiResponse = await apiGetResult.json();
         }
-        console.log(apiResponse);
         handleAPIStatuses(apiGetResult, apiResponse);
         
         loadingHandler?.(false);

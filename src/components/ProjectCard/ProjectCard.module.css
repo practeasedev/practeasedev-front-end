@@ -7,6 +7,9 @@
     z-index:0;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
+    text-decoration: none;
+    color: var(--dark-color);
+    display: block;
 }
 
 .projectCardOuterContainer:nth-of-type(odd) {
