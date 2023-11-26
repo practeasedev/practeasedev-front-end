@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link rel="icon" type="image/ico" href="favicon.ico" />
+        <link rel="icon" type="image/ico" href="https://practeasedev.com/favicon.ico" />
         <meta name="application-name" content="Practeasedev" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <script
