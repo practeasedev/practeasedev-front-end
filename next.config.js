@@ -22,7 +22,14 @@ const nextConfig = {
         pathname: '/**'
       }
     ]
-  }
+  },
+  redirects: [
+    {
+      "source": "/(.*)/?",
+      "destination": "https://practeasedev.com/$1",
+      "type": 301
+    }
+  ],
 }
 
 module.exports = nextConfig
